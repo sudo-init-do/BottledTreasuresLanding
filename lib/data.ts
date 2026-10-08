@@ -173,7 +173,7 @@ export const faqs = [
   },
   {
     q: "How do I place an order?",
-    a: "Browse the shop at shop.bottledtreasures.ng, add items to your cart and check out. Pay via bank transfer to the account shown, then upload your proof of payment. You'll receive a confirmation on WhatsApp or email once verified.",
+    a: "Tap Shop, add your favourites to the cart and check out. Pay via bank transfer to the account shown, then upload your proof of payment. You'll receive a confirmation on WhatsApp or email once verified.",
   },
   {
     q: "How long does delivery take?",
