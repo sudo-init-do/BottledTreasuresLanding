@@ -1,3 +1,4 @@
+import Image from "next/image";
 import CountUp from "./CountUp";
 import Placeholder from "./Placeholder";
 import Reveal from "./Reveal";
@@ -23,7 +24,7 @@ export default function BrandStory() {
               Our Story
             </p>
             <h2 className="section-title mt-5">
-              Born in Lagos.
+              Born on Bonny Island.
               <br />
               <em className="text-gold">Bottled</em> for the World.
             </h2>
@@ -31,7 +32,7 @@ export default function BrandStory() {
           <Reveal variant="left" delay={150} className="mt-8 space-y-5 text-base leading-relaxed text-cream/70 sm:text-[17px]">
             <p>
               Bottled Treasures began with a simple belief: a great fragrance is the most personal luxury you
-              can own. What started as a small collection shared among friends in Lagos has grown into a house
+              can own. What started as a small collection shared among friends on Bonny Island has grown into a house
               trusted by thousands of fragrance lovers across Nigeria.
             </p>
             <p>
@@ -39,7 +40,13 @@ export default function BrandStory() {
               florals and spiced signatures that last from morning meetings to midnight. Every bottle is
               authentic, every scent is tested, and every order is packed by hand.
             </p>
-            <p className="font-serif text-2xl italic text-gold">&ldquo;As long as it smells great.&rdquo;</p>
+            <Image
+              src="/brand/tagline.png"
+              alt="As long as it smells great"
+              width={1365}
+              height={177}
+              className="!mt-8 h-auto w-full max-w-sm"
+            />
           </Reveal>
           <Reveal variant="left" delay={300} className="mt-10">
             <a href={shopLink("/pages/about")} className="btn-outline">
@@ -51,7 +58,13 @@ export default function BrandStory() {
         <Reveal variant="right" className="relative">
           <div className="relative mx-auto max-w-lg lg:ml-auto">
             <div aria-hidden className="absolute -right-4 -top-4 h-full w-full border border-gold/30 sm:-right-6 sm:-top-6" />
-            <Placeholder shape="classic" tone="burgundy" className="relative aspect-[4/5]" artClassName="h-[56%]" />
+            <Placeholder
+              tone="burgundy"
+              className="relative aspect-[4/5]"
+              image="/photos/story/story.jpg"
+              alt="A selection of Bottled Treasures fragrances in our Bonny Island studio"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
             <div className="absolute -bottom-8 -left-4 border border-gold/40 bg-ink px-6 py-5 sm:-left-10 sm:px-8 sm:py-6">
               <p className="font-serif text-4xl text-gold sm:text-5xl">100%</p>
               <p className="mt-1 text-[10px] uppercase tracking-luxe text-cream/60">Authentic Guaranteed</p>

@@ -29,7 +29,10 @@ export default function FragranceFamilies() {
                   shape={f.shape}
                   tone={f.tone}
                   className="aspect-[4/5] md:aspect-[3/4]"
-                  artClassName="h-[48%]"
+                  image={f.image}
+                  alt={`${f.name} fragrance notes`}
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  shade={30}
                 >
                   <span
                     aria-hidden

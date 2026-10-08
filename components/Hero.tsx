@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import BottleArt from "./BottleArt";
 import { ArrowIcon, ChevronIcon } from "./Icons";
 import { heroSlides } from "@/lib/data";
 
@@ -46,43 +45,12 @@ export default function Hero() {
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${total}`}
             aria-hidden={!isActive}
-            className={`grain absolute inset-0 transition-opacity duration-[1400ms] ease-luxe ${
+            className={`grain absolute inset-0 ${i % 2 === 1 ? "bg-burgundy-900" : "bg-ink"} transition-opacity duration-[1400ms] ease-luxe ${
               isActive ? "z-10 opacity-100" : "z-0 opacity-0"
-            } ${slide.tone === "burgundy" ? "bg-burgundy-900" : "bg-ink-800"}`}
+            }`}
           >
-            {/* Placeholder "photograph": slow-zooming stage with bottle art */}
-            <div
-              key={isActive ? `on-${active}` : "off"}
-              className={`absolute inset-0 ${isActive ? "animate-slow-zoom" : ""}`}
-            >
-              <div
-                aria-hidden
-                className={`absolute right-[-10%] top-1/2 aspect-square w-[90vw] -translate-y-1/2 rounded-full blur-[120px] sm:w-[60vw] lg:right-[2%] lg:w-[46vw] ${
-                  slide.tone === "burgundy" ? "bg-burgundy" : "bg-burgundy/60"
-                }`}
-              />
-              {/* Concentric gold rings overlay */}
-              <div aria-hidden className="absolute right-[-30%] top-1/2 aspect-square w-[110vw] -translate-y-1/2 sm:right-[-8%] sm:w-[70vw] lg:right-[4%] lg:w-[44vw]">
-                <div className="absolute inset-0 rounded-full border border-gold/10" />
-                <div className="absolute inset-[9%] rounded-full border border-gold/15" />
-                <div className="absolute inset-[18%] animate-shimmer rounded-full border border-gold/25" />
-              </div>
-              <div className="absolute right-[-12%] top-1/2 h-[58%] -translate-y-[46%] opacity-30 sm:right-[4%] sm:opacity-50 lg:right-[13%] lg:h-[66%] lg:opacity-100">
-                <BottleArt shape={slide.shape} className="h-full w-auto animate-float text-gold" />
-              </div>
-            </div>
-
             {/* Gold frame overlay */}
             <div aria-hidden className="pointer-events-none absolute inset-4 border border-gold/15 sm:inset-8" />
-
-            {/* Oversized slide numeral */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute bottom-[-4vw] right-6 select-none font-serif text-[30vw] leading-none text-transparent sm:right-12 lg:text-[18vw]"
-              style={{ WebkitTextStroke: "1px rgba(201,168,76,0.12)" }}
-            >
-              0{i + 1}
-            </span>
 
             {/* Copy */}
             <div className="container-site relative flex h-full items-center pt-24">

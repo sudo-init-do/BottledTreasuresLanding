@@ -37,7 +37,9 @@ export default function Blog() {
                     shape={post.shape}
                     tone={post.tone}
                     className="aspect-[16/11] transition-transform duration-[1200ms] ease-luxe group-hover:scale-[1.04]"
-                    artClassName="h-[62%]"
+                    image={post.image}
+                    alt=""
+                    sizes="(min-width: 768px) 33vw, 100vw"
                   />
                   <span className="absolute left-5 top-5 bg-ink/80 px-3 py-1.5 text-[9px] font-medium uppercase tracking-wider2 text-gold backdrop-blur-sm">
                     {post.category}

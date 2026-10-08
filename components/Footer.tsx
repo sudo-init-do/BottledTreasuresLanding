@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Logo from "./Logo";
 import { InstagramIcon, MailIcon, PhoneIcon, PinIcon, TikTokIcon, WhatsAppIcon } from "./Icons";
 import { contact, SHOP_URL, shopLink } from "@/lib/data";
@@ -46,9 +47,15 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">
-              A Lagos perfume house curating rare, authentic fragrances for those who leave a lasting impression.
+              A Bonny Island perfume house curating rare, authentic fragrances for those who leave a lasting impression.
             </p>
-            <p className="mt-5 font-serif text-xl italic text-gold">As long as it smells great.</p>
+            <Image
+              src="/brand/tagline.png"
+              alt="As long as it smells great"
+              width={1365}
+              height={177}
+              className="mt-6 h-auto w-64"
+            />
             <ul className="mt-8 flex gap-3">
               {socials.map(({ label, href, Icon }) => (
                 <li key={label}>
@@ -114,7 +121,7 @@ export default function Footer() {
         </p>
 
         <div className="flex flex-col items-center justify-between gap-6 border-t border-gold/15 py-8 text-xs text-cream/50 lg:flex-row">
-          <p>© {new Date().getFullYear()} Bottled Treasures. All rights reserved. Lagos, Nigeria.</p>
+          <p>© {new Date().getFullYear()} Bottled Treasures. All rights reserved. Bonny Island, Rivers State, Nigeria.</p>
           <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {legal.map((l) => (
               <li key={l.label}>

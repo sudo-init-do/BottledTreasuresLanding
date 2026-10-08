@@ -4,9 +4,11 @@ import { useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import Reveal from "./Reveal";
 import { ArrowIcon } from "./Icons";
-import { collections, shopLink } from "@/lib/data";
+import type { Product } from "@/lib/types";
 
-export default function FeaturedCollections() {
+type Tab = { id: string; label: string; products: Product[] };
+
+export default function FeaturedCollections({ collections }: { collections: Tab[] }) {
   const [active, setActive] = useState(collections[0].id);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const current = collections.find((c) => c.id === active) ?? collections[0];
@@ -84,7 +86,7 @@ export default function FeaturedCollections() {
         </div>
 
         <Reveal className="mt-14 text-center">
-          <a href={shopLink("/collections/all")} className="btn-outline">
+          <a href="/shop" className="btn-outline">
             View All Fragrances <ArrowIcon width={16} height={16} />
           </a>
         </Reveal>

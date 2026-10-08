@@ -26,6 +26,12 @@ const config: Config = {
           light: "#DCC27A",
           dark: "#9E8236",
         },
+        // stock badges in the dashboard
+        stock: {
+          low: "#E5675C",
+          medium: "#C9A84C",
+          healthy: "#5FBF7A",
+        },
         cream: {
           DEFAULT: "#F5ECD7",
           muted: "#CDBFA3",

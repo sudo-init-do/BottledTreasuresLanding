@@ -19,11 +19,11 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Bottled Treasures — Luxury Fragrances, Lagos",
+  title: "Bottled Treasures — Luxury Fragrances, Bonny Island",
   description:
-    "Bottled Treasures is a Lagos-based luxury perfume house. Rare ouds, velvet florals and spiced signatures — as long as it smells great.",
+    "Bottled Treasures is a luxury perfume house based in Bonny Island, Rivers State. Rare ouds, velvet florals and spiced signatures — as long as it smells great.",
   openGraph: {
-    title: "Bottled Treasures — Luxury Fragrances, Lagos",
+    title: "Bottled Treasures — Luxury Fragrances, Bonny Island",
     description: "As long as it smells great. Shop luxury fragrances delivered across Nigeria.",
     url: "https://bottledtreasures.ng",
     siteName: "Bottled Treasures",

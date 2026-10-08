@@ -4,15 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
 import { useCart } from "./CartContext";
 import { BagIcon, CloseIcon, MenuIcon, SearchIcon, UserIcon } from "./Icons";
-import { SHOP_URL, shopLink } from "@/lib/data";
+import Link from "next/link";
 
 const links = [
-  { label: "Shop", href: "#collections" },
-  { label: "Our Story", href: "#story" },
-  { label: "How to Order", href: "#how-to-order" },
+  { label: "Shop", href: "/shop" },
+  { label: "Our Story", href: "/#story" },
+  { label: "How to Order", href: "/#how-to-order" },
 ];
 
-export default function Navbar() {
+/** `solid` gives the bar a background from the start, for pages without a dark hero behind it. */
+export default function Navbar({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function Navbar() {
     <>
       <header
         className={`fixed inset-x-0 z-50 transition-all duration-500 ease-luxe ${
-          scrolled
+          scrolled || solid
             ? "top-0 border-b border-gold/20 bg-ink/95 backdrop-blur-md"
             : "top-9 border-b border-transparent bg-transparent"
         }`}
@@ -96,14 +97,14 @@ export default function Navbar() {
               <SearchIcon />
             </button>
             <a
-              href={shopLink("/account")}
-              aria-label="Account"
+              href="/track"
+              aria-label="Track your order"
               className="hidden p-2 text-cream/85 transition-colors hover:text-gold sm:block"
             >
               <UserIcon />
             </a>
             <a
-              href={shopLink("/cart")}
+              href="/cart"
               aria-label={`Cart, ${count} item${count === 1 ? "" : "s"}`}
               className="relative p-2 text-cream/85 transition-colors hover:text-gold"
             >
@@ -116,9 +117,9 @@ export default function Navbar() {
                 {count}
               </span>
             </a>
-            <a href={SHOP_URL} className="btn-gold ml-2 hidden !px-6 !py-3 md:inline-flex">
+            <Link href="/shop" className="btn-gold ml-2 hidden !px-6 !py-3 md:inline-flex">
               Shop Now
-            </a>
+            </Link>
           </div>
         </nav>
       </header>
@@ -189,13 +190,13 @@ export default function Navbar() {
           </ul>
           <div className="mt-auto space-y-4">
             <a
-              href={shopLink("/account")}
+              href="/track"
               tabIndex={menuOpen ? 0 : -1}
               className="flex items-center gap-3 text-xs uppercase tracking-wider2 text-cream/80"
             >
-              <UserIcon /> My Account
+              <UserIcon /> Track My Order
             </a>
-            <a href={SHOP_URL} tabIndex={menuOpen ? 0 : -1} className="btn-gold w-full">
+            <a href="/shop" tabIndex={menuOpen ? 0 : -1} className="btn-gold w-full">
               Shop Now
             </a>
           </div>
@@ -219,7 +220,7 @@ export default function Navbar() {
         >
           <CloseIcon width={26} height={26} />
         </button>
-        <form action={shopLink("/search")} method="get" className="w-full max-w-3xl">
+        <form action="/shop" method="get" className="w-full max-w-3xl">
           <label htmlFor="site-search" className="eyebrow">
             Search the collection
           </label>
@@ -238,7 +239,7 @@ export default function Navbar() {
             </button>
           </div>
           <p className="mt-6 text-xs uppercase tracking-wider2 text-cream/50">
-            Popular: Oud Noir · Lagos Nights · Velvet Rose
+            Popular: Oud Noir · Bonny Nights · Velvet Rose
           </p>
         </form>
       </div>

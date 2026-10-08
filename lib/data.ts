@@ -1,186 +1,62 @@
-export const SHOP_URL = "https://shop.bottledtreasures.ng";
+export const SHOP_URL = "/shop";
 
-export const shopLink = (path = "") => `${SHOP_URL}${path}`;
+/** Turns the old storefront-style paths used around the site into this site's own pages. */
+export const shopLink = (path = "") => {
+  if (!path) return SHOP_URL;
+  if (path.startsWith("/products/")) return `/shop/${path.slice("/products/".length)}`;
+  if (path.startsWith("/collections/")) {
+    const c = path.slice("/collections/".length);
+    const map: Record<string, string> = { all: "", "new-arrivals": "new", "best-sellers": "best", "gift-sets": "", "home-fragrance": "home" };
+    const f = c in map ? map[c] : c;
+    return f ? `/shop?f=${f}` : SHOP_URL;
+  }
+  if (path === "/cart") return "/cart";
+  if (path === "/account" || path === "/pages/track-order") return "/track";
+  if (path === "/search") return "/shop";
+  if (path.startsWith("/blogs")) return "/#journal";
+  if (path === "/pages/about") return "/#story";
+  return "/#faq";
+};
 
-export const formatNaira = (amount: number) =>
-  `₦${amount.toLocaleString("en-NG")}`;
+export { formatNaira } from "./types";
 
 export type BottleShape = "classic" | "tall" | "round" | "square";
 
-export type Product = {
-  id: string;
-  name: string;
-  notes: string[];
-  price: number;
-  compareAt?: number;
-  size: string;
-  badge?: string;
-  shape: BottleShape;
-  tone: "ink" | "burgundy";
-  slug: string;
-};
-
-const products: Record<string, Product> = {
-  oudNoir: {
-    id: "oud-noir",
-    name: "Oud Noir Royale",
-    notes: ["Oud", "Saffron", "Leather"],
-    price: 85000,
-    size: "100ml Eau de Parfum",
-    badge: "New",
-    shape: "square",
-    tone: "ink",
-    slug: "oud-noir-royale",
-  },
-  velvetRose: {
-    id: "velvet-rose",
-    name: "Velvet Rose Ember",
-    notes: ["Damask Rose", "Amber", "Musk"],
-    price: 62000,
-    size: "75ml Eau de Parfum",
-    badge: "New",
-    shape: "round",
-    tone: "burgundy",
-    slug: "velvet-rose-ember",
-  },
-  lagosNights: {
-    id: "lagos-nights",
-    name: "Lagos Nights",
-    notes: ["Tobacco", "Vanilla", "Cardamom"],
-    price: 48500,
-    compareAt: 55000,
-    size: "100ml Eau de Parfum",
-    badge: "Bestseller",
-    shape: "tall",
-    tone: "ink",
-    slug: "lagos-nights",
-  },
-  goldenSandal: {
-    id: "golden-sandal",
-    name: "Golden Sandalwood",
-    notes: ["Sandalwood", "Cedar", "Vetiver"],
-    price: 72000,
-    size: "100ml Eau de Parfum",
-    shape: "classic",
-    tone: "burgundy",
-    slug: "golden-sandalwood",
-  },
-  amberSultan: {
-    id: "amber-sultan",
-    name: "Amber Sultan",
-    notes: ["Amber", "Benzoin", "Patchouli"],
-    price: 95000,
-    size: "100ml Extrait de Parfum",
-    badge: "Bestseller",
-    shape: "square",
-    tone: "burgundy",
-    slug: "amber-sultan",
-  },
-  midnightJasmine: {
-    id: "midnight-jasmine",
-    name: "Midnight Jasmine",
-    notes: ["Jasmine", "Tuberose", "Neroli"],
-    price: 44000,
-    size: "50ml Eau de Parfum",
-    shape: "round",
-    tone: "ink",
-    slug: "midnight-jasmine",
-  },
-  spicedTreasure: {
-    id: "spiced-treasure",
-    name: "Spiced Treasure",
-    notes: ["Pink Pepper", "Clove", "Oud"],
-    price: 58000,
-    size: "100ml Eau de Parfum",
-    badge: "Bestseller",
-    shape: "tall",
-    tone: "ink",
-    slug: "spiced-treasure",
-  },
-  saharaMusk: {
-    id: "sahara-musk",
-    name: "Sahara White Musk",
-    notes: ["White Musk", "Iris", "Cashmere"],
-    price: 38000,
-    compareAt: 42000,
-    size: "50ml Eau de Parfum",
-    shape: "classic",
-    tone: "burgundy",
-    slug: "sahara-white-musk",
-  },
-  citrusCrown: {
-    id: "citrus-crown",
-    name: "Citrus Crown",
-    notes: ["Bergamot", "Neroli", "Vetiver"],
-    price: 32500,
-    size: "50ml Eau de Toilette",
-    badge: "Value",
-    shape: "tall",
-    tone: "ink",
-    slug: "citrus-crown",
-  },
-  cocoaOud: {
-    id: "cocoa-oud",
-    name: "Cocoa & Oud",
-    notes: ["Cacao", "Oud", "Tonka"],
-    price: 49000,
-    size: "75ml Eau de Parfum",
-    shape: "square",
-    tone: "burgundy",
-    slug: "cocoa-and-oud",
-  },
-};
-
-export type CollectionTab = {
-  id: string;
-  label: string;
-  products: Product[];
-};
-
-export const collections: CollectionTab[] = [
+export const signatureCollections = [
   {
-    id: "new",
-    label: "New Arrivals",
-    products: [
-      products.oudNoir,
-      products.velvetRose,
-      products.goldenSandal,
-      products.midnightJasmine,
-    ],
+    eyebrow: "Signature Collection",
+    name: "The Noir Collection",
+    copy: "Our darkest, most decadent fragrances. Smoked oud, leather and cacao, built for evenings that run late. Each one opens bold and settles into something you can't stop leaning in for.",
+    image: "/photos/collections/noir.jpg",
+    href: shopLink("/collections/noir"),
   },
   {
-    id: "best",
-    label: "Best Sellers",
-    products: [
-      products.lagosNights,
-      products.amberSultan,
-      products.spicedTreasure,
-      products.velvetRose,
-    ],
+    eyebrow: "Signature Collection",
+    name: "The Velvet Collection",
+    copy: "Rose, jasmine and tuberose with a dark heart. Romantic florals given weight with amber and musk, so they last from the first meeting to the last dance.",
+    image: "/photos/collections/velvet.jpg",
+    href: shopLink("/collections/velvet"),
   },
   {
-    id: "under-50k",
-    label: "Under ₦50,000",
-    products: [
-      products.lagosNights,
-      products.midnightJasmine,
-      products.saharaMusk,
-      products.citrusCrown,
-      products.cocoaOud,
-    ].filter((p) => p.price < 50000).slice(0, 4),
+    eyebrow: "Signature Collection",
+    name: "The Bonny Collection",
+    copy: "Inspired by the island that raised us. Warm tobacco, golden citrus and sandalwood. Bright by day, smouldering by night, and made to survive the heat.",
+    image: "/photos/collections/bonny.jpg",
+    href: shopLink("/collections/bonny"),
   },
 ];
+
+/** Placeholder house names — replace with the brands Bottled Treasures actually stocks. */
+export const trendingHouses = ["Maison Ambre", "Atelier Noir", "Casa d'Oud", "Rose & Ivory", "Oro Parfums", "Saffron House"];
 
 export const heroSlides = [
   {
     eyebrow: "The Noir Collection",
     title: "Bottled Treasures,",
     accent: "Worn Like Gold",
-    copy: "Rare ouds, smoked amber and velvet florals — hand-picked in Lagos for those who leave a trail.",
+    copy: "Rare ouds, smoked amber and velvet florals — hand-picked on Bonny Island for those who leave a trail.",
     cta: "Shop the Collection",
     href: shopLink("/collections/all"),
-    shape: "square" as BottleShape,
-    tone: "burgundy" as const,
   },
   {
     eyebrow: "New Season Arrivals",
@@ -189,8 +65,6 @@ export const heroSlides = [
     copy: "Discover this season's most wanted fragrances — bold, long-lasting and unmistakably yours.",
     cta: "Discover New Arrivals",
     href: shopLink("/collections/new-arrivals"),
-    shape: "round" as BottleShape,
-    tone: "ink" as const,
   },
   {
     eyebrow: "As Long As It Smells Great",
@@ -199,8 +73,6 @@ export const heroSlides = [
     copy: "Gift sets, travel sizes and wholesale for resellers — delivered across Nigeria.",
     cta: "Explore Gift Sets",
     href: shopLink("/collections/gift-sets"),
-    shape: "tall" as BottleShape,
-    tone: "burgundy" as const,
   },
 ];
 
@@ -210,6 +82,7 @@ export const families = [
     tagline: "Oud · Sandalwood · Cedar",
     copy: "Deep, warm and grounded. The scent of polished wood and quiet confidence.",
     href: shopLink("/collections/woody"),
+    image: "/photos/families/woody.jpg",
     shape: "square" as BottleShape,
     tone: "ink" as const,
     count: 24,
@@ -219,6 +92,7 @@ export const families = [
     tagline: "Rose · Jasmine · Tuberose",
     copy: "Lush petals with a dark heart. Romantic, opulent, unforgettable.",
     href: shopLink("/collections/floral"),
+    image: "/photos/families/floral.jpg",
     shape: "round" as BottleShape,
     tone: "burgundy" as const,
     count: 18,
@@ -228,6 +102,7 @@ export const families = [
     tagline: "Saffron · Clove · Pink Pepper",
     copy: "Heat and intrigue. Fragrances that announce you before you speak.",
     href: shopLink("/collections/spicy"),
+    image: "/photos/families/spicy.jpg",
     shape: "tall" as BottleShape,
     tone: "ink" as const,
     count: 15,
@@ -251,7 +126,7 @@ export const orderSteps = [
   },
   {
     title: "Pickup or Dispatch",
-    copy: "Collect from our Lagos studio or have it dispatched to your door — same-day within Lagos, 2–5 working days nationwide.",
+    copy: "Collect from our Bonny Island studio or have it delivered to your door — same-day on Bonny Island, 2–5 working days to the rest of Nigeria.",
   },
 ];
 
@@ -259,10 +134,11 @@ export const posts = [
   {
     date: "2026-09-24",
     category: "Scent Guide",
-    title: "How to Make Your Perfume Last All Day in Lagos Heat",
+    title: "How to Make Your Perfume Last All Day in the Bonny Island Heat",
     excerpt:
       "Pulse points, layering and the one mistake almost everyone makes — our guide to fragrance that survives the humidity.",
     href: shopLink("/blogs/journal/make-perfume-last"),
+    image: "/photos/journal/perfume-last.jpg",
     shape: "classic" as BottleShape,
     tone: "burgundy" as const,
   },
@@ -273,6 +149,7 @@ export const posts = [
     excerpt:
       "From agarwood forests to your wrist — the story of the world's most precious fragrance ingredient.",
     href: shopLink("/blogs/journal/oud-liquid-gold"),
+    image: "/photos/journal/oud.jpg",
     shape: "square" as BottleShape,
     tone: "ink" as const,
   },
@@ -283,6 +160,7 @@ export const posts = [
     excerpt:
       "Choosing a fragrance for someone else is intimate. Here's how to get it right — every single time.",
     href: shopLink("/blogs/journal/gifting-signature-scent"),
+    image: "/photos/journal/gifting.jpg",
     shape: "round" as BottleShape,
     tone: "burgundy" as const,
   },
@@ -295,15 +173,27 @@ export const faqs = [
   },
   {
     q: "How do I place an order?",
-    a: "Browse the shop at shop.bottledtreasures.ng, add items to your cart and check out. Pay via bank transfer to the account shown, then upload your proof of payment. You'll receive a confirmation on WhatsApp or email once verified.",
+    a: "Tap Shop, add your favourites to the cart and check out. Pay via bank transfer to the account shown, then upload your proof of payment. You'll receive a confirmation on WhatsApp or email once verified.",
   },
   {
     q: "How long does delivery take?",
-    a: "Orders within Lagos are dispatched same-day or next-day. Nationwide deliveries arrive within 2–5 working days. You can also choose free pickup from our Lagos studio.",
+    a: "Orders on Bonny Island are delivered same-day or next-day. Deliveries to Port Harcourt and the rest of Nigeria arrive within 2–5 working days. You can also choose free pickup from our Bonny Island studio.",
   },
   {
     q: "Do you offer wholesale or reseller pricing?",
     a: "Yes. We supply boutiques, gift businesses and independent resellers across Nigeria. Minimum order quantities apply — reach out on WhatsApp or email wholesale@bottledtreasures.ng for our wholesale catalogue.",
+  },
+  {
+    q: "Do you offer samples or testers?",
+    a: "Yes. Most fragrances are available as 2ml and 10ml decants, so you can live with a scent before committing to a full bottle. You can also visit our Bonny Island studio to test in person.",
+  },
+  {
+    q: "Can I buy a gift card?",
+    a: "Digital gift cards are available from ₦10,000 to ₦500,000 and are delivered by email or WhatsApp. They never expire and can be used on anything in the shop.",
+  },
+  {
+    q: "Are there any promotions or discounts?",
+    a: "Join our newsletter for 10% off your first order and early access to private sales. We also run seasonal offers around Valentine's, Eid, Mother's Day and the festive season.",
   },
   {
     q: "Can I return or exchange a fragrance?",
@@ -313,8 +203,8 @@ export const faqs = [
 
 export const contact = {
   phone: "+234 800 000 0000",
-  email: "hello@bottledtreasures.ng",
-  address: "Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
+  email: "official@bottledtreasures.ng",
+  address: "Bonny Island, Rivers State, Nigeria",
   hours: "Mon – Sat · 9am – 7pm",
   socials: {
     instagram: "https://instagram.com/bottledtreasures",
