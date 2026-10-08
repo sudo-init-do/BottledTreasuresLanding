@@ -10,7 +10,7 @@ export default function AddToCart({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
 
-  if (!product.inStock) {
+  if (product.stock <= 0) {
     return <p className="mt-8 border border-gold/30 px-5 py-4 text-sm text-cream/70">Sold out for now. Message us on WhatsApp to be told when it&apos;s back.</p>;
   }
 
@@ -20,7 +20,7 @@ export default function AddToCart({ product }: { product: Product }) {
         <div className="flex h-12 items-center border border-gold/30">
           <button type="button" aria-label="Less" onClick={() => setQty((q) => Math.max(1, q - 1))} className="h-full w-11 text-lg text-gold hover:bg-gold/10">−</button>
           <span className="w-10 text-center" aria-live="polite">{qty}</span>
-          <button type="button" aria-label="More" onClick={() => setQty((q) => Math.min(20, q + 1))} className="h-full w-11 text-lg text-gold hover:bg-gold/10">+</button>
+          <button type="button" aria-label="More" onClick={() => setQty((q) => Math.min(product.stock, 20, q + 1))} className="h-full w-11 text-lg text-gold hover:bg-gold/10">+</button>
         </div>
         <button
           type="button"
@@ -33,6 +33,7 @@ export default function AddToCart({ product }: { product: Product }) {
           Add to Cart
         </button>
       </div>
+      {product.stock < 5 && <p className="text-sm text-gold">Only {product.stock} left</p>}
       {added && (
         <Link href="/cart" className="btn-outline w-full">
           Go to Cart

@@ -31,13 +31,16 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
   } catch {
     /* handled below */
   }
-  // Prices always come from the database, never from the browser.
+  // Prices and stock always come from the database, never from the browser.
   const { products } = await readDb();
   const items: OrderItem[] = [];
   for (const w of Array.isArray(wanted) ? wanted : []) {
     const p = products.find((x) => x.slug === w?.slug);
     const qty = Math.floor(Number(w?.qty));
-    if (!p || !p.inStock || !(qty > 0)) continue;
+    if (!p || !(qty > 0)) continue;
+    if (p.stock < qty) {
+      return { error: p.stock > 0 ? `Only ${p.stock} of ${p.name} left. Please reduce the quantity in your cart.` : `${p.name} just sold out. Please remove it from your cart.` };
+    }
     items.push({ slug: p.slug, name: p.name, price: p.price, qty: Math.min(qty, 20), image: p.image });
   }
   if (!items.length) return { error: "Your cart is empty, or the items are no longer available." };
@@ -61,8 +64,16 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
     total: subtotal + deliveryFee,
     proof: saved.path,
   };
-  await updateDb((db) => {
+  const result = await updateDb((db) => {
+    // check again inside the write, in case someone else bought the last bottle meanwhile
+    for (const i of items) {
+      const p = db.products.find((x) => x.slug === i.slug);
+      if (!p || p.stock < i.qty) return { error: `Sorry, ${i.name} just sold out. Please update your cart.` };
+    }
+    for (const i of items) db.products.find((x) => x.slug === i.slug)!.stock -= i.qty;
     db.orders.unshift(order);
+    return {};
   });
+  if (result.error) return result;
   redirect(`/order/${code}?placed=1`);
 }

@@ -239,7 +239,7 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
             </button>
           </div>
           <p className="mt-6 text-xs uppercase tracking-wider2 text-cream/50">
-            Popular: Oud Noir · Lagos Nights · Velvet Rose
+            Popular: Oud Noir · Bonny Nights · Velvet Rose
           </p>
         </form>
       </div>

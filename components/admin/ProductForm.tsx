@@ -82,10 +82,11 @@ export default function ProductForm({ product }: { product?: Product }) {
             ))}
           </div>
         </fieldset>
-        <label className="flex items-center gap-3 text-sm text-cream">
-          <input type="checkbox" name="inStock" defaultChecked={product ? product.inStock : true} className="h-4 w-4 accent-[#C9A84C]" />
-          In stock (untick to show &ldquo;Sold out&rdquo;)
-        </label>
+        <div className="max-w-[200px]">
+          <label className="label" htmlFor="pf-stock">Bottles in stock</label>
+          <input id="pf-stock" name="stock" inputMode="numeric" defaultValue={product?.stock ?? 0} className="field" />
+          <p className="mt-1.5 text-xs text-cream/50">0 shows as &ldquo;Sold out&rdquo;.</p>
+        </div>
 
         {state.error && <p role="alert" className="border border-gold/50 px-4 py-3 text-sm text-gold-light">{state.error}</p>}
         <SubmitButton>{product ? "Save Changes" : "Add Product"}</SubmitButton>

@@ -24,7 +24,7 @@ export default function BrandStory() {
               Our Story
             </p>
             <h2 className="section-title mt-5">
-              Born in Lagos.
+              Born on Bonny Island.
               <br />
               <em className="text-gold">Bottled</em> for the World.
             </h2>
@@ -32,7 +32,7 @@ export default function BrandStory() {
           <Reveal variant="left" delay={150} className="mt-8 space-y-5 text-base leading-relaxed text-cream/70 sm:text-[17px]">
             <p>
               Bottled Treasures began with a simple belief: a great fragrance is the most personal luxury you
-              can own. What started as a small collection shared among friends in Lagos has grown into a house
+              can own. What started as a small collection shared among friends on Bonny Island has grown into a house
               trusted by thousands of fragrance lovers across Nigeria.
             </p>
             <p>
@@ -62,7 +62,7 @@ export default function BrandStory() {
               tone="burgundy"
               className="relative aspect-[4/5]"
               image="/photos/story/story.jpg"
-              alt="A selection of Bottled Treasures fragrances in our Lagos studio"
+              alt="A selection of Bottled Treasures fragrances in our Bonny Island studio"
               sizes="(min-width: 1024px) 40vw, 100vw"
             />
             <div className="absolute -bottom-8 -left-4 border border-gold/40 bg-ink px-6 py-5 sm:-left-10 sm:px-8 sm:py-6">

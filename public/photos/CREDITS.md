@@ -8,7 +8,7 @@ All photos are free for commercial use. None show third-party brand logos.
 | --- | --- |
 | products/oud-noir-royale.jpg | https://www.pexels.com/photo/3059609/ |
 | products/velvet-rose-ember.jpg | https://www.pexels.com/photo/11161892/ |
-| products/lagos-nights.jpg | https://www.pexels.com/photo/264819/ |
+| products/bonny-nights.jpg | https://www.pexels.com/photo/264819/ |
 | products/golden-sandalwood.jpg | https://www.pexels.com/photo/12402366/ |
 | products/amber-sultan.jpg | https://www.pexels.com/photo/3615229/ |
 | products/midnight-jasmine.jpg | https://www.pexels.com/photo/8450248/ |
@@ -27,7 +27,7 @@ All photos are free for commercial use. None show third-party brand logos.
 
 ## CC0 / public domain (rawpixel and WordPress Photo Directory, via Openverse)
 
-products/citrus-crown.jpg, collections/noir.jpg, collections/velvet.jpg, collections/lagos.jpg,
+products/citrus-crown.jpg, collections/noir.jpg, collections/velvet.jpg, collections/bonny.jpg,
 home/tealight-set.jpg, home/diffuser-set.jpg, families/woody.jpg, families/floral.jpg, families/spicy.jpg
 
 These are placeholders. Replace product photos with photos of the actual products before launch.

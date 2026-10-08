@@ -18,7 +18,7 @@ function Submit() {
 
 export default function CheckoutForm({ settings }: { settings: Settings }) {
   const { items, subtotal, ready } = useCart();
-  const [delivery, setDelivery] = useState<DeliveryMethod>("lagos");
+  const [delivery, setDelivery] = useState<DeliveryMethod>("island");
   const [state, action] = useFormState<CheckoutState, FormData>(placeOrder, {});
   const fee = DELIVERY[delivery].fee;
 

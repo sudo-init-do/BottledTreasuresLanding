@@ -47,7 +47,7 @@ export default function Footer() {
           <div>
             <Logo />
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">
-              A Lagos perfume house curating rare, authentic fragrances for those who leave a lasting impression.
+              A Bonny Island perfume house curating rare, authentic fragrances for those who leave a lasting impression.
             </p>
             <Image
               src="/brand/tagline.png"
@@ -121,7 +121,7 @@ export default function Footer() {
         </p>
 
         <div className="flex flex-col items-center justify-between gap-6 border-t border-gold/15 py-8 text-xs text-cream/50 lg:flex-row">
-          <p>© {new Date().getFullYear()} Bottled Treasures. All rights reserved. Lagos, Nigeria.</p>
+          <p>© {new Date().getFullYear()} Bottled Treasures. All rights reserved. Bonny Island, Rivers State, Nigeria.</p>
           <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
             {legal.map((l) => (
               <li key={l.label}>

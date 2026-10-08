@@ -1,4 +1,4 @@
-const PHRASE = "BOTTLED TREASURES · LAGOS, NIGERIA · AS LONG AS IT SMELLS GREAT ·";
+const PHRASE = "BOTTLED TREASURES · BONNY ISLAND, RIVERS STATE · AS LONG AS IT SMELLS GREAT ·";
 
 export default function AnnouncementBar() {
   // Two identical halves so the -50% translate loops seamlessly.

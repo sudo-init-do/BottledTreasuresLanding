@@ -1,6 +1,6 @@
 # Bottled Treasures
 
-Luxury perfume marketing site for **Bottled Treasures**, Lagos. *As long as it smells great.*
+Luxury perfume site and shop for **Bottled Treasures**, Bonny Island, Rivers State. *As long as it smells great.*
 
 Built with Next.js 14 (App Router), TypeScript and Tailwind CSS. Scroll effects use CSS animations and `IntersectionObserver` — no animation libraries.
 
@@ -13,7 +13,7 @@ Section order follows shop.seindesignature.com, restyled in the Bottled Treasure
 3. Full-screen hero carousel (3 slides, autoplay, swipe, keyboard-accessible controls)
 4. "Discover Your Most WANTED Collections": 5 tabs (New Arrivals, Best Sellers, Under ₦50,000, Gifts for Him, Gifts for Her), 8 products each
 5. Shop by Fragrance Family: Woody, Floral, Spicy
-6. Featured collections: alternating image/text rows (Noir, Velvet, Lagos)
+6. Featured collections: alternating image/text rows (Noir, Velvet, Bonny)
 7. Home fragrance row (diffusers, candles, room spray) with View All
 8. Trending houses: intro, Explore Brands button and brand wordmarks
 9. About / brand story with animated stats
@@ -65,7 +65,7 @@ Fonts: Cormorant Garamond (headings, `font-serif`) and Jost (body, `font-sans`) 
 **For the owner** (`/admin`, login required):
 
 - **Orders**: see new orders, view the payment receipt, change status (Checking payment → Paid → Dispatched → Completed), WhatsApp the customer
-- **Products**: add, edit, mark sold out, delete; changes show on the site straight away
+- **Products (inventory)**: stock count per product with − / + buttons (tap the number to type an exact count); badges are red under 5, gold 5–19, green 20+. Add, edit and delete products; changes show on the site straight away. Stock goes down when an order is placed and back up if the order is cancelled; at 0 the product shows as sold out
 - **Settings**: bank details shown at checkout, WhatsApp number
 
 Login details come from `.env` (copy `.env.example`). When running locally without a `.env`, the login is `admin@bottledtreasures.ng` / `changeme`.

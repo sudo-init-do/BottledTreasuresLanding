@@ -14,7 +14,7 @@ export const FILTERS: { id: string; label: string; test: (p: Product) => boolean
   { id: "spicy", label: "Spicy", test: (p) => p.tags.includes("spicy") },
   { id: "noir", label: "Noir", test: (p) => p.tags.includes("noir") },
   { id: "velvet", label: "Velvet", test: (p) => p.tags.includes("velvet") },
-  { id: "lagos", label: "Lagos", test: (p) => p.tags.includes("lagos") },
+  { id: "bonny", label: "Bonny", test: (p) => p.tags.includes("bonny") },
   { id: "home", label: "Home Fragrance", test: (p) => p.tags.includes("home") },
 ];
 

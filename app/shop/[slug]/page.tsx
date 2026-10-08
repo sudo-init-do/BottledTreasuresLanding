@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
               <li>✓ 100% authentic, sealed</li>
               <li>✓ Pay by bank transfer, then upload your receipt</li>
               <li>
-                ✓ {DELIVERY.pickup.label} (free), Lagos delivery {formatNaira(DELIVERY.lagos.fee)}, nationwide {formatNaira(DELIVERY.nationwide.fee)}
+                ✓ {DELIVERY.pickup.label} (free), Bonny Island delivery {formatNaira(DELIVERY.island.fee)}, rest of Nigeria {formatNaira(DELIVERY.nationwide.fee)}
               </li>
             </ul>
           </div>

@@ -59,7 +59,7 @@ export default function HomeFragrance({ items }: { items: Product[] }) {
                   <button
                     type="button"
                     onClick={() => addItem({ slug: item.slug, name: item.name, price: item.price, image: item.image })}
-                    disabled={!item.inStock}
+                    disabled={item.stock <= 0}
                     aria-label={`Add ${item.name} to cart`}
                     className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center border border-gold/40 text-gold transition-colors duration-300 hover:bg-gold hover:text-ink"
                   >

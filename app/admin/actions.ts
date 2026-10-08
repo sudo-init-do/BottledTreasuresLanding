@@ -49,7 +49,18 @@ export async function setOrderStatus(fd: FormData) {
   if (!ORDER_STATUSES.some((s) => s.id === status)) return;
   await updateDb((db) => {
     const o = db.orders.find((x) => x.id === id);
-    if (o) o.status = status;
+    if (!o) return;
+    o.status = status;
+    // Cancelling puts the bottles back on the shelf; un-cancelling takes them out again.
+    const back = status === "cancelled" && !o.stockReturned;
+    const out = status !== "cancelled" && o.stockReturned;
+    if (back || out) {
+      for (const i of o.items) {
+        const p = db.products.find((x) => x.slug === i.slug);
+        if (p) p.stock = Math.max(0, p.stock + (back ? i.qty : -i.qty));
+      }
+      o.stockReturned = back;
+    }
   });
   revalidatePath("/admin", "layout");
 }
@@ -90,7 +101,7 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
       .slice(0, 6),
     description: text(fd, "description", 1500),
     tags: TAGS.map((t) => t.id).filter((t) => fd.get(`tag-${t}`)) as Tag[],
-    inStock: fd.get("inStock") === "on",
+    stock: Math.max(0, Math.min(99999, Math.floor(Number(text(fd, "stock").replace(/[^\d]/g, "")) || 0))),
   };
 
   const result = await updateDb((db) => {
@@ -120,6 +131,36 @@ export async function deleteProduct(fd: FormData) {
   });
   revalidatePath("/", "layout");
   redirect("/admin/products");
+}
+
+/** Quick +/- from the products table. Returns the new stock count. */
+export async function adjustStock(id: string, delta: number): Promise<number | null> {
+  await requireAdmin();
+  const step = Math.trunc(Number(delta));
+  if (!Number.isFinite(step) || Math.abs(step) > 1000) return null;
+  const next = await updateDb((db) => {
+    const p = db.products.find((x) => x.id === id);
+    if (!p) return null;
+    p.stock = Math.max(0, Math.min(99999, p.stock + step));
+    return p.stock;
+  });
+  revalidatePath("/", "layout");
+  return next;
+}
+
+/** Sets an exact stock count (typed into the number on the products table). */
+export async function setStock(id: string, value: number): Promise<number | null> {
+  await requireAdmin();
+  const n = Math.floor(Number(value));
+  if (!Number.isFinite(n) || n < 0 || n > 99999) return null;
+  const next = await updateDb((db) => {
+    const p = db.products.find((x) => x.id === id);
+    if (!p) return null;
+    p.stock = n;
+    return p.stock;
+  });
+  revalidatePath("/", "layout");
+  return next;
 }
 
 // ---------- settings ----------

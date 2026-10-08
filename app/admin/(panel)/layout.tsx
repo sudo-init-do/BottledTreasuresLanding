@@ -13,7 +13,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-ink">
       <header className="sticky top-0 z-40 border-b border-gold/20 bg-ink/95 backdrop-blur">
-        <div className="container-site flex h-16 items-center justify-between gap-4">
+        <div className="container-site flex h-16 items-center justify-between gap-2 sm:gap-4">
           <Link href="/admin" className="flex items-center gap-3">
             <BrandMark className="h-8 w-auto text-gold" />
             <span className="hidden font-serif text-lg tracking-[0.12em] text-cream sm:inline">DASHBOARD</span>
@@ -22,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <div className="flex items-center gap-4">
             <Link href="/" target="_blank" className="hidden text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold md:inline">View shop ↗</Link>
             <form action={logout}>
-              <button className="whitespace-nowrap text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold">Log out</button>
+              <button className="whitespace-nowrap text-[10px] uppercase tracking-wider2 text-cream/60 hover:text-gold sm:text-[11px]">Log out</button>
             </form>
           </div>
         </div>

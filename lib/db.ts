@@ -30,7 +30,28 @@ function ensureSeeded() {
 
 async function load(): Promise<Database> {
   await ensureSeeded();
-  return JSON.parse(await fs.readFile(DB_FILE, "utf8")) as Database;
+  return upgrade(JSON.parse(await fs.readFile(DB_FILE, "utf8")));
+}
+
+/** Brings data saved by older versions of the site up to date. */
+function upgrade(db: Database): Database {
+  for (const p of db.products as (Database["products"][number] & { inStock?: boolean })[]) {
+    if (typeof p.stock !== "number") p.stock = p.inStock === false ? 0 : 10;
+    delete p.inStock;
+    // the business moved its naming from Lagos to Bonny Island
+    p.tags = p.tags.map((t) => ((t as string) === "lagos" ? "bonny" : t));
+    if (p.slug === "lagos-nights") {
+      p.slug = "bonny-nights";
+      p.name = "Bonny Nights";
+      p.image = "/photos/products/bonny-nights.jpg";
+    }
+    p.description = p.description.replace(/Lagos Nights/g, "Bonny Nights").replace(/Hand-picked in Lagos/g, "Hand-picked on Bonny Island");
+  }
+  for (const o of db.orders) {
+    if ((o.delivery as string) === "lagos") o.delivery = "island";
+    for (const i of o.items) if (i.slug === "lagos-nights") Object.assign(i, { slug: "bonny-nights", name: "Bonny Nights", image: "/photos/products/bonny-nights.jpg" });
+  }
+  return db;
 }
 
 async function save(db: Database) {

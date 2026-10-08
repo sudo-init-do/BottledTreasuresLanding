@@ -8,7 +8,7 @@ export const TAGS = [
   { id: "spicy", label: "Spicy" },
   { id: "noir", label: "Noir Collection" },
   { id: "velvet", label: "Velvet Collection" },
-  { id: "lagos", label: "Lagos Collection" },
+  { id: "bonny", label: "Bonny Collection" },
   { id: "home", label: "Home Fragrance" },
 ] as const;
 
@@ -26,16 +26,17 @@ export type Product = {
   badge?: string;
   image: string;
   tags: Tag[];
-  inStock: boolean;
+  /** Bottles on hand. 0 shows as sold out in the shop. */
+  stock: number;
   createdAt: string;
 };
 
 export type OrderItem = { slug: string; name: string; price: number; qty: number; image: string };
 
 export const DELIVERY = {
-  pickup: { label: "Pickup from our Lekki studio", fee: 0 },
-  lagos: { label: "Delivery within Lagos", fee: 3000 },
-  nationwide: { label: "Delivery outside Lagos", fee: 6000 },
+  pickup: { label: "Pickup from our Bonny Island studio", fee: 0 },
+  island: { label: "Delivery on Bonny Island", fee: 3000 },
+  nationwide: { label: "Delivery to the rest of Nigeria", fee: 6000 },
 } as const;
 export type DeliveryMethod = keyof typeof DELIVERY;
 
@@ -60,6 +61,8 @@ export type Order = {
   subtotal: number;
   total: number;
   proof: string;
+  /** True once a cancelled order's bottles have been put back into stock. */
+  stockReturned?: boolean;
 };
 
 export type Settings = {
@@ -70,5 +73,10 @@ export type Settings = {
 };
 
 export type Database = { products: Product[]; orders: Order[]; settings: Settings };
+
+export type StockLevel = "low" | "medium" | "healthy";
+
+/** Under 5 is low, 5–19 is medium, 20 or more is healthy. */
+export const stockLevel = (n: number): StockLevel => (n < 5 ? "low" : n < 20 ? "medium" : "healthy");
 
 export const formatNaira = (amount: number) => `₦${amount.toLocaleString("en-NG")}`;

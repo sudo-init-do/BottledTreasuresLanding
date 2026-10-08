@@ -39,10 +39,10 @@ export const signatureCollections = [
   },
   {
     eyebrow: "Signature Collection",
-    name: "The Lagos Collection",
-    copy: "Inspired by the city that raised us. Warm tobacco, golden citrus and sandalwood. Bright by day, smouldering by night, and made to survive the heat.",
-    image: "/photos/collections/lagos.jpg",
-    href: shopLink("/collections/lagos"),
+    name: "The Bonny Collection",
+    copy: "Inspired by the island that raised us. Warm tobacco, golden citrus and sandalwood. Bright by day, smouldering by night, and made to survive the heat.",
+    image: "/photos/collections/bonny.jpg",
+    href: shopLink("/collections/bonny"),
   },
 ];
 
@@ -54,7 +54,7 @@ export const heroSlides = [
     eyebrow: "The Noir Collection",
     title: "Bottled Treasures,",
     accent: "Worn Like Gold",
-    copy: "Rare ouds, smoked amber and velvet florals — hand-picked in Lagos for those who leave a trail.",
+    copy: "Rare ouds, smoked amber and velvet florals — hand-picked on Bonny Island for those who leave a trail.",
     cta: "Shop the Collection",
     href: shopLink("/collections/all"),
   },
@@ -126,7 +126,7 @@ export const orderSteps = [
   },
   {
     title: "Pickup or Dispatch",
-    copy: "Collect from our Lagos studio or have it dispatched to your door — same-day within Lagos, 2–5 working days nationwide.",
+    copy: "Collect from our Bonny Island studio or have it delivered to your door — same-day on Bonny Island, 2–5 working days to the rest of Nigeria.",
   },
 ];
 
@@ -134,7 +134,7 @@ export const posts = [
   {
     date: "2026-09-24",
     category: "Scent Guide",
-    title: "How to Make Your Perfume Last All Day in Lagos Heat",
+    title: "How to Make Your Perfume Last All Day in the Bonny Island Heat",
     excerpt:
       "Pulse points, layering and the one mistake almost everyone makes — our guide to fragrance that survives the humidity.",
     href: shopLink("/blogs/journal/make-perfume-last"),
@@ -177,7 +177,7 @@ export const faqs = [
   },
   {
     q: "How long does delivery take?",
-    a: "Orders within Lagos are dispatched same-day or next-day. Nationwide deliveries arrive within 2–5 working days. You can also choose free pickup from our Lagos studio.",
+    a: "Orders on Bonny Island are delivered same-day or next-day. Deliveries to Port Harcourt and the rest of Nigeria arrive within 2–5 working days. You can also choose free pickup from our Bonny Island studio.",
   },
   {
     q: "Do you offer wholesale or reseller pricing?",
@@ -185,7 +185,7 @@ export const faqs = [
   },
   {
     q: "Do you offer samples or testers?",
-    a: "Yes. Most fragrances are available as 2ml and 10ml decants, so you can live with a scent before committing to a full bottle. You can also visit our Lekki studio to test in person.",
+    a: "Yes. Most fragrances are available as 2ml and 10ml decants, so you can live with a scent before committing to a full bottle. You can also visit our Bonny Island studio to test in person.",
   },
   {
     q: "Can I buy a gift card?",
@@ -204,7 +204,7 @@ export const faqs = [
 export const contact = {
   phone: "+234 800 000 0000",
   email: "hello@bottledtreasures.ng",
-  address: "Admiralty Way, Lekki Phase 1, Lagos, Nigeria",
+  address: "Bonny Island, Rivers State, Nigeria",
   hours: "Mon – Sat · 9am – 7pm",
   socials: {
     instagram: "https://instagram.com/bottledtreasures",

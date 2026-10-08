@@ -53,10 +53,10 @@ export default function ProductCard({ product }: { product: Product }) {
           <button
             type="button"
             onClick={() => addItem({ slug: product.slug, name: product.name, price: product.price, image: product.image })}
-            disabled={!product.inStock}
+            disabled={product.stock <= 0}
             className="btn-outline w-full !py-3.5 disabled:pointer-events-none disabled:opacity-40"
           >
-            {product.inStock ? "Add to Cart" : "Sold Out"}
+            {product.stock > 0 ? "Add to Cart" : "Sold Out"}
           </button>
         </div>
       </div>
