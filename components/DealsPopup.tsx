@@ -70,7 +70,7 @@ export default function DealsPopup() {
         }`}
       >
         <div className="relative hidden aspect-[4/5] sm:block">
-          <Image src="/images/popup.jpg" alt="" fill sizes="384px" className="object-cover" />
+          <Image src="/photos/popup.jpg" alt="" fill sizes="384px" className="object-cover" />
           <div aria-hidden className="absolute inset-3 border border-gold/25" />
         </div>
         <div className="relative flex flex-col justify-center px-7 py-12 sm:px-10">

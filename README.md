@@ -36,7 +36,7 @@ All store links point to `https://shop.bottledtreasures.ng`. Products, collectio
 
 ## Images
 
-Everything lives in `public/images` and is served locally. All photos are free stock photography (Pexels licence or CC0), chosen to avoid third-party brand logos; sources are listed in `public/images/CREDITS.md`.
+Everything lives in `public/photos` and is served locally. All photos are free stock photography (Pexels licence or CC0), chosen to avoid third-party brand logos; sources are listed in `public/photos/CREDITS.md`.
 
 The product photos are stand-ins. Replace them with photos of the real products before launch, keeping the same file names (see the `slug` of each product in `lib/data.ts`).
 

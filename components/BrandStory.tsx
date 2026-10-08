@@ -61,7 +61,7 @@ export default function BrandStory() {
             <Placeholder
               tone="burgundy"
               className="relative aspect-[4/5]"
-              image="/images/story/story.jpg"
+              image="/photos/story/story.jpg"
               alt="A selection of Bottled Treasures fragrances in our Lagos studio"
               sizes="(min-width: 1024px) 40vw, 100vw"
             />

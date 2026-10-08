@@ -22,7 +22,7 @@ export type Product = {
   for?: "him" | "her" | "unisex";
 };
 
-const product = (p: Omit<Product, "image">): Product => ({ ...p, image: `/images/products/${p.slug}.jpg` });
+const product = (p: Omit<Product, "image">): Product => ({ ...p, image: `/photos/products/${p.slug}.jpg` });
 
 const products = {
   oudNoir: product({ id: "oud-noir", name: "Oud Noir Royale", notes: ["Oud", "Saffron", "Leather"], price: 85000, size: "100ml Eau de Parfum", badge: "New", shape: "square", tone: "ink", slug: "oud-noir-royale", for: "him" }),
@@ -80,31 +80,31 @@ export const signatureCollections = [
     eyebrow: "Signature Collection",
     name: "The Noir Collection",
     copy: "Our darkest, most decadent fragrances. Smoked oud, leather and cacao, built for evenings that run late. Each one opens bold and settles into something you can't stop leaning in for.",
-    image: "/images/collections/noir.jpg",
+    image: "/photos/collections/noir.jpg",
     href: shopLink("/collections/noir"),
   },
   {
     eyebrow: "Signature Collection",
     name: "The Velvet Collection",
     copy: "Rose, jasmine and tuberose with a dark heart. Romantic florals given weight with amber and musk, so they last from the first meeting to the last dance.",
-    image: "/images/collections/velvet.jpg",
+    image: "/photos/collections/velvet.jpg",
     href: shopLink("/collections/velvet"),
   },
   {
     eyebrow: "Signature Collection",
     name: "The Lagos Collection",
     copy: "Inspired by the city that raised us. Warm tobacco, golden citrus and sandalwood. Bright by day, smouldering by night, and made to survive the heat.",
-    image: "/images/collections/lagos.jpg",
+    image: "/photos/collections/lagos.jpg",
     href: shopLink("/collections/lagos"),
   },
 ];
 
 export const homeFragrances = [
-  { name: "Oud Ember Reed Diffuser", size: "200ml", price: 28000, image: "/images/home/reed-diffuser.jpg", slug: "oud-ember-reed-diffuser" },
-  { name: "Velvet Rose Candle", size: "220g", price: 22500, image: "/images/home/candle.jpg", slug: "velvet-rose-candle" },
-  { name: "Golden Hour Tealight Set", size: "12 tealights", price: 15000, image: "/images/home/tealight-set.jpg", slug: "golden-hour-tealight-set" },
-  { name: "Aroma Mist Diffuser", size: "300ml", price: 35000, image: "/images/home/mist-diffuser.jpg", slug: "aroma-mist-diffuser" },
-  { name: "Signature Diffuser Trio", size: "3 × 100ml", price: 42000, image: "/images/home/diffuser-set.jpg", slug: "signature-diffuser-trio" },
+  { name: "Oud Ember Reed Diffuser", size: "200ml", price: 28000, image: "/photos/home/reed-diffuser.jpg", slug: "oud-ember-reed-diffuser" },
+  { name: "Velvet Rose Candle", size: "220g", price: 22500, image: "/photos/home/candle.jpg", slug: "velvet-rose-candle" },
+  { name: "Golden Hour Tealight Set", size: "12 tealights", price: 15000, image: "/photos/home/tealight-set.jpg", slug: "golden-hour-tealight-set" },
+  { name: "Aroma Mist Diffuser", size: "300ml", price: 35000, image: "/photos/home/mist-diffuser.jpg", slug: "aroma-mist-diffuser" },
+  { name: "Signature Diffuser Trio", size: "3 × 100ml", price: 42000, image: "/photos/home/diffuser-set.jpg", slug: "signature-diffuser-trio" },
 ];
 
 /** Placeholder house names — replace with the brands Bottled Treasures actually stocks. */
@@ -143,7 +143,7 @@ export const families = [
     tagline: "Oud · Sandalwood · Cedar",
     copy: "Deep, warm and grounded. The scent of polished wood and quiet confidence.",
     href: shopLink("/collections/woody"),
-    image: "/images/families/woody.jpg",
+    image: "/photos/families/woody.jpg",
     shape: "square" as BottleShape,
     tone: "ink" as const,
     count: 24,
@@ -153,7 +153,7 @@ export const families = [
     tagline: "Rose · Jasmine · Tuberose",
     copy: "Lush petals with a dark heart. Romantic, opulent, unforgettable.",
     href: shopLink("/collections/floral"),
-    image: "/images/families/floral.jpg",
+    image: "/photos/families/floral.jpg",
     shape: "round" as BottleShape,
     tone: "burgundy" as const,
     count: 18,
@@ -163,7 +163,7 @@ export const families = [
     tagline: "Saffron · Clove · Pink Pepper",
     copy: "Heat and intrigue. Fragrances that announce you before you speak.",
     href: shopLink("/collections/spicy"),
-    image: "/images/families/spicy.jpg",
+    image: "/photos/families/spicy.jpg",
     shape: "tall" as BottleShape,
     tone: "ink" as const,
     count: 15,
@@ -199,7 +199,7 @@ export const posts = [
     excerpt:
       "Pulse points, layering and the one mistake almost everyone makes — our guide to fragrance that survives the humidity.",
     href: shopLink("/blogs/journal/make-perfume-last"),
-    image: "/images/journal/perfume-last.jpg",
+    image: "/photos/journal/perfume-last.jpg",
     shape: "classic" as BottleShape,
     tone: "burgundy" as const,
   },
@@ -210,7 +210,7 @@ export const posts = [
     excerpt:
       "From agarwood forests to your wrist — the story of the world's most precious fragrance ingredient.",
     href: shopLink("/blogs/journal/oud-liquid-gold"),
-    image: "/images/journal/oud.jpg",
+    image: "/photos/journal/oud.jpg",
     shape: "square" as BottleShape,
     tone: "ink" as const,
   },
@@ -221,7 +221,7 @@ export const posts = [
     excerpt:
       "Choosing a fragrance for someone else is intimate. Here's how to get it right — every single time.",
     href: shopLink("/blogs/journal/gifting-signature-scent"),
-    image: "/images/journal/gifting.jpg",
+    image: "/photos/journal/gifting.jpg",
     shape: "round" as BottleShape,
     tone: "burgundy" as const,
   },
