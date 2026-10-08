@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { ArrowIcon, ChevronIcon } from "./Icons";
 import { heroSlides } from "@/lib/data";
 
@@ -46,27 +45,10 @@ export default function Hero() {
             aria-roledescription="slide"
             aria-label={`${i + 1} of ${total}`}
             aria-hidden={!isActive}
-            className={`grain absolute inset-0 bg-ink transition-opacity duration-[1400ms] ease-luxe ${
+            className={`grain absolute inset-0 ${i % 2 === 1 ? "bg-burgundy-900" : "bg-ink"} transition-opacity duration-[1400ms] ease-luxe ${
               isActive ? "z-10 opacity-100" : "z-0 opacity-0"
             }`}
           >
-            {/* Product photograph, slowly zooming while active */}
-            <div
-              key={isActive ? `on-${active}` : "off"}
-              className={`absolute inset-0 ${isActive ? "animate-slow-zoom" : ""}`}
-            >
-              <Image
-                src={slide.image}
-                alt=""
-                fill
-                priority={i === 0}
-                sizes="100vw"
-                className="object-cover object-[72%_50%] lg:object-center"
-              />
-            </div>
-            {/* Keep copy legible on small screens where the bottles sit behind it */}
-            <div aria-hidden className="absolute inset-0 bg-ink/55 lg:bg-ink/10" />
-
             {/* Gold frame overlay */}
             <div aria-hidden className="pointer-events-none absolute inset-4 border border-gold/15 sm:inset-8" />
 

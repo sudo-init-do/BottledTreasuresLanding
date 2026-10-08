@@ -118,7 +118,6 @@ export const heroSlides = [
     copy: "Rare ouds, smoked amber and velvet florals — hand-picked in Lagos for those who leave a trail.",
     cta: "Shop the Collection",
     href: shopLink("/collections/all"),
-    image: "/images/hero/hero-1.jpg",
   },
   {
     eyebrow: "New Season Arrivals",
@@ -127,7 +126,6 @@ export const heroSlides = [
     copy: "Discover this season's most wanted fragrances — bold, long-lasting and unmistakably yours.",
     cta: "Discover New Arrivals",
     href: shopLink("/collections/new-arrivals"),
-    image: "/images/hero/hero-2.jpg",
   },
   {
     eyebrow: "As Long As It Smells Great",
@@ -136,7 +134,6 @@ export const heroSlides = [
     copy: "Gift sets, travel sizes and wholesale for resellers — delivered across Nigeria.",
     cta: "Explore Gift Sets",
     href: shopLink("/collections/gift-sets"),
-    image: "/images/hero/hero-3.jpg",
   },
 ];
 
