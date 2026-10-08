@@ -23,7 +23,7 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
   if (!name || !phone) return { error: "Please add your name and phone number." };
   if (!(delivery in DELIVERY)) return { error: "Please choose pickup or delivery." };
   if (delivery !== "pickup" && (!address || !city)) return { error: "Please add your delivery address and city." };
-  if (!(proof instanceof File) || proof.size === 0) return { error: "Please upload your payment receipt." };
+  if (!(proof instanceof Blob) || proof.size === 0) return { error: "Please upload your payment receipt." };
 
   let wanted: { slug: string; qty: number }[] = [];
   try {

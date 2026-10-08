@@ -80,13 +80,18 @@ npm run dev        # http://localhost:3000
 npm run build && npm start
 ```
 
-## Docker
+## Production deployment (Docker)
+
+The image uses `node:18-alpine`, runs the Next.js standalone server as a non-root user on **port 3000**, and has a health check at `/api/health`.
 
 ```bash
-cp .env.example .env        # then edit it
-docker compose up --build   # http://localhost:3000
+cp .env.example .env          # fill in ADMIN_EMAIL, ADMIN_PASSWORD, SESSION_SECRET
+docker compose up -d --build  # http://localhost:3000 (change with HOST_PORT in .env)
+docker compose logs -f        # watch the logs
 ```
 
-Shop data is kept in the `shop-data` Docker volume.
-
-The Dockerfile is a multi-stage build using Next.js `standalone` output.
+- **Environment variables**: all listed in `.env.example`. In production the dashboard login stays disabled until `ADMIN_EMAIL`, `ADMIN_PASSWORD` and `SESSION_SECRET` are set.
+- **HTTPS**: put the site behind HTTPS (e.g. a reverse proxy such as Caddy, Nginx or your host's load balancer). The login cookie is HTTPS-only; set `COOKIE_SECURE=false` only if you must use the dashboard over plain `http://`.
+- **Data**: orders, payment receipts and product photos are stored in the `shop-data` volume (`/app/data`). Back it up, e.g. `docker run --rm -v bottledtreasureslanding_shop-data:/data -v "$PWD":/backup alpine tar czf /backup/shop-data.tgz -C /data .`
+- **Updating**: `git pull && docker compose up -d --build`. Data in the volume is kept.
+- **Different base image source**: `docker compose build --build-arg NODE_IMAGE=public.ecr.aws/docker/library/node:18-alpine` if Docker Hub rate-limits your server.

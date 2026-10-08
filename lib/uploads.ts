@@ -17,7 +17,7 @@ export const CONTENT_TYPES: Record<string, string> = Object.fromEntries(Object.e
 const MAX_BYTES = 5 * 1024 * 1024;
 
 /** Saves an uploaded file and returns its public path (/media/<kind>/<name>), or an error message. */
-export async function saveUpload(file: File, kind: UploadKind, allowPdf = false): Promise<{ path: string } | { error: string }> {
+export async function saveUpload(file: Blob, kind: UploadKind, allowPdf = false): Promise<{ path: string } | { error: string }> {
   const ext = TYPES[file.type];
   if (!ext || (ext === "pdf" && !allowPdf)) return { error: allowPdf ? "Upload a JPG, PNG, WebP or PDF file." : "Upload a JPG, PNG or WebP image." };
   if (file.size > MAX_BYTES) return { error: "That file is over 5MB. Try a smaller screenshot or photo." };

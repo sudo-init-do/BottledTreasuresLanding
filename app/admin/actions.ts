@@ -23,7 +23,7 @@ const same = (a: string, b: string) => {
 
 export async function login(_prev: FormState, fd: FormData): Promise<FormState> {
   const creds = adminCredentials();
-  if (!creds) return { error: "Login isn't set up yet. Add ADMIN_EMAIL and ADMIN_PASSWORD to the server settings." };
+  if (!creds) return { error: "Login isn't set up yet. Add ADMIN_EMAIL, ADMIN_PASSWORD and SESSION_SECRET to the server settings." };
   const email = text(fd, "email").toLowerCase();
   const password = String(fd.get("password") ?? "");
   if (!same(email, creds.email.toLowerCase()) || !same(password, creds.password)) {
@@ -31,7 +31,14 @@ export async function login(_prev: FormState, fd: FormData): Promise<FormState> 
     return { error: "Wrong email or password." };
   }
   const { token, maxAge } = await createSessionToken(creds.email);
-  cookies().set(SESSION_COOKIE, token, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge });
+  cookies().set(SESSION_COOKIE, token, {
+    httpOnly: true,
+    sameSite: "lax",
+    // HTTPS-only in production, unless COOKIE_SECURE=false (for running on plain http://)
+    secure: process.env.NODE_ENV === "production" && process.env.COOKIE_SECURE !== "false",
+    path: "/",
+    maxAge,
+  });
   redirect("/admin");
 }
 
@@ -82,7 +89,7 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
 
   let image: string | undefined;
   const file = fd.get("image");
-  if (file instanceof File && file.size > 0) {
+  if (file instanceof Blob && file.size > 0) {
     const saved = await saveUpload(file, "products");
     if ("error" in saved) return { error: saved.error };
     image = saved.path;

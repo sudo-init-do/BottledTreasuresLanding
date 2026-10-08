@@ -10,6 +10,7 @@ const DEV_PASSWORD = "changeme";
 export function adminCredentials() {
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
+  if (process.env.NODE_ENV === "production" && !process.env.SESSION_SECRET) return null;
   if (email && password) return { email, password };
   if (process.env.NODE_ENV !== "production") return { email: DEV_EMAIL, password: DEV_PASSWORD };
   return null;

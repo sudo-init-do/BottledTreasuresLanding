@@ -2,7 +2,9 @@
 export const SESSION_COOKIE = "bt_admin";
 const MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-const secret = () => process.env.SESSION_SECRET || "dev-only-change-me";
+/** In production a real SESSION_SECRET is required; without one nobody can sign in (and no cookie is trusted). */
+const secret = () =>
+  process.env.SESSION_SECRET || (process.env.NODE_ENV === "production" ? null : "dev-only-change-me");
 
 const enc = new TextEncoder();
 const b64url = (bytes: ArrayBuffer | Uint8Array) =>
@@ -12,7 +14,9 @@ const b64url = (bytes: ArrayBuffer | Uint8Array) =>
     .replace(/=+$/, "");
 
 async function sign(data: string) {
-  const key = await crypto.subtle.importKey("raw", enc.encode(secret()), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+  const key_ = secret();
+  if (!key_) throw new Error("SESSION_SECRET is not set");
+  const key = await crypto.subtle.importKey("raw", enc.encode(key_), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
   return b64url(await crypto.subtle.sign("HMAC", key, enc.encode(data)));
 }
 
@@ -29,7 +33,7 @@ export async function createSessionToken(email: string) {
 }
 
 export async function verifySessionToken(token: string | undefined): Promise<boolean> {
-  if (!token) return false;
+  if (!token || !secret()) return false;
   const [payload, sig] = token.split(".");
   if (!payload || !sig || !safeEqual(await sign(payload), sig)) return false;
   try {
