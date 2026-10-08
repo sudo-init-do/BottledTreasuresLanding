@@ -26,6 +26,14 @@ Section order follows shop.seindesignature.com, restyled in the Bottled Treasure
 
 All store links point to `https://shop.bottledtreasures.ng`. Products, collections, brands, blog, FAQ and contact details live in `lib/data.ts`.
 
+## Logo
+
+- `components/BrandMark.tsx`: the logo mark as an SVG component (takes the text colour, so it can be gold, cream or ink).
+- `public/brand/mark.svg`: the same mark as a file, for use elsewhere.
+- `public/brand/tagline.png`: the handwritten "As long as it smells great" line, in gold on transparent.
+- `public/brand/logo-original.jpg`: the original artwork it was traced from.
+- `app/icon.svg`: browser-tab icon.
+
 ## Images
 
 Everything lives in `public/images` and is served locally (no external image URLs).

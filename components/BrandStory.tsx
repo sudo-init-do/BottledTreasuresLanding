@@ -1,3 +1,4 @@
+import Image from "next/image";
 import CountUp from "./CountUp";
 import Placeholder from "./Placeholder";
 import Reveal from "./Reveal";
@@ -39,7 +40,13 @@ export default function BrandStory() {
               florals and spiced signatures that last from morning meetings to midnight. Every bottle is
               authentic, every scent is tested, and every order is packed by hand.
             </p>
-            <p className="font-serif text-2xl italic text-gold">&ldquo;As long as it smells great.&rdquo;</p>
+            <Image
+              src="/brand/tagline.png"
+              alt="As long as it smells great"
+              width={1365}
+              height={177}
+              className="!mt-8 h-auto w-full max-w-sm"
+            />
           </Reveal>
           <Reveal variant="left" delay={300} className="mt-10">
             <a href={shopLink("/pages/about")} className="btn-outline">

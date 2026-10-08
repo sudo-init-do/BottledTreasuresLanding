@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import BrandMark from "./BrandMark";
 import { ArrowIcon, CloseIcon } from "./Icons";
 
 const STORAGE_KEY = "bt-deals-popup-dismissed";
@@ -82,6 +83,7 @@ export default function DealsPopup() {
           >
             <CloseIcon />
           </button>
+          <BrandMark className="mb-6 h-12 w-auto self-start text-gold" />
           <p className="eyebrow">The Inner Circle</p>
           <h2 id="deals-title" className="mt-4 font-serif text-4xl leading-[1.05] text-cream">
             Want access to <em className="text-gold">exclusive</em> deals?

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Logo from "./Logo";
 import { InstagramIcon, MailIcon, PhoneIcon, PinIcon, TikTokIcon, WhatsAppIcon } from "./Icons";
 import { contact, SHOP_URL, shopLink } from "@/lib/data";
@@ -48,7 +49,13 @@ export default function Footer() {
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-cream/60">
               A Lagos perfume house curating rare, authentic fragrances for those who leave a lasting impression.
             </p>
-            <p className="mt-5 font-serif text-xl italic text-gold">As long as it smells great.</p>
+            <Image
+              src="/brand/tagline.png"
+              alt="As long as it smells great"
+              width={1365}
+              height={177}
+              className="mt-6 h-auto w-64"
+            />
             <ul className="mt-8 flex gap-3">
               {socials.map(({ label, href, Icon }) => (
                 <li key={label}>
