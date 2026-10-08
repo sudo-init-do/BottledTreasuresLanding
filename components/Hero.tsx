@@ -70,15 +70,6 @@ export default function Hero() {
             {/* Gold frame overlay */}
             <div aria-hidden className="pointer-events-none absolute inset-4 border border-gold/15 sm:inset-8" />
 
-            {/* Oversized slide numeral */}
-            <span
-              aria-hidden
-              className="pointer-events-none absolute bottom-[-4vw] right-6 select-none font-serif text-[30vw] leading-none text-transparent sm:right-12 lg:text-[18vw]"
-              style={{ WebkitTextStroke: "1px rgba(201,168,76,0.12)" }}
-            >
-              0{i + 1}
-            </span>
-
             {/* Copy */}
             <div className="container-site relative flex h-full items-center pt-24">
               <div className="max-w-2xl">
