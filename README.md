@@ -36,12 +36,9 @@ All store links point to `https://shop.bottledtreasures.ng`. Products, collectio
 
 ## Images
 
-Everything lives in `public/images` and is served locally (no external image URLs).
+Everything lives in `public/images` and is served locally. All photos are free stock photography (Pexels licence or CC0), chosen to avoid third-party brand logos; sources are listed in `public/images/CREDITS.md`.
 
-- Product, hero, collection, home-fragrance, journal, story and pop-up images are 3D renders made with `tools/bottle-renderer` (see its README to add products or re-render).
-- Fragrance-family photos are CC0 public-domain photos (credits in `public/images/families/CREDITS.md`).
-
-To use real photography, replace a file with one of the same name and aspect ratio.
+The product photos are stand-ins. Replace them with photos of the real products before launch, keeping the same file names (see the `slug` of each product in `lib/data.ts`).
 
 ## Brand tokens
 

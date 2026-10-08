@@ -102,9 +102,9 @@ export const signatureCollections = [
 export const homeFragrances = [
   { name: "Oud Ember Reed Diffuser", size: "200ml", price: 28000, image: "/images/home/reed-diffuser.jpg", slug: "oud-ember-reed-diffuser" },
   { name: "Velvet Rose Candle", size: "220g", price: 22500, image: "/images/home/candle.jpg", slug: "velvet-rose-candle" },
-  { name: "Golden Sandalwood Room Spray", size: "100ml", price: 18000, image: "/images/home/room-spray.jpg", slug: "golden-sandalwood-room-spray" },
-  { name: "Rose Fragrance Oil", size: "30ml", price: 15500, image: "/images/home/fragrance-oil.jpg", slug: "rose-fragrance-oil" },
-  { name: "Oud Noir Diffuser Refill", size: "250ml", price: 24000, image: "/images/home/diffuser-refill.jpg", slug: "oud-noir-diffuser-refill" },
+  { name: "Golden Hour Tealight Set", size: "12 tealights", price: 15000, image: "/images/home/tealight-set.jpg", slug: "golden-hour-tealight-set" },
+  { name: "Aroma Mist Diffuser", size: "300ml", price: 35000, image: "/images/home/mist-diffuser.jpg", slug: "aroma-mist-diffuser" },
+  { name: "Signature Diffuser Trio", size: "3 × 100ml", price: 42000, image: "/images/home/diffuser-set.jpg", slug: "signature-diffuser-trio" },
 ];
 
 /** Placeholder house names — replace with the brands Bottled Treasures actually stocks. */

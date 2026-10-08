@@ -6,5 +6,3 @@ next-env.d.ts
 .env*.local
 npm-debug.log*
 .DS_Store
-tools/bottle-renderer/node_modules
-tools/bottle-renderer/out
