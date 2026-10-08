@@ -15,7 +15,9 @@ export default function ProductCard({ product }: { product: Product }) {
           shape={product.shape}
           tone={product.tone}
           className="aspect-[4/5]"
-          artClassName="h-[62%]"
+          image={product.image}
+          alt={`${product.name} by Bottled Treasures`}
+          sizes="(min-width: 1024px) 25vw, (min-width: 480px) 50vw, 100vw"
         />
         {product.badge && (
           <span className="absolute left-5 top-5 bg-gold px-2.5 py-1 text-[9px] font-medium uppercase tracking-wider2 text-ink sm:left-6 sm:top-6">

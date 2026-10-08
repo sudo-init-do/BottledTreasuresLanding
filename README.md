@@ -6,19 +6,34 @@ Built with Next.js 14 (App Router), TypeScript and Tailwind CSS. Scroll effects 
 
 ## Sections
 
+Section order follows shop.seindesignature.com, restyled in the Bottled Treasures look:
+
 1. Scrolling announcement bar
 2. Fixed navbar (search overlay, account, cart badge, Shop Now)
 3. Full-screen hero carousel (3 slides, autoplay, swipe, keyboard-accessible controls)
-4. "Discover Your Most WANTED Collections" tabs — New Arrivals / Best Sellers / Under ₦50,000
-5. Shop by Fragrance Family — Woody, Floral, Spicy
-6. Brand story with animated stats
-7. How to Order — 3 steps
-8. Latest from Bottled Treasures (journal)
-9. FAQ accordion
-10. Newsletter signup
-11. Footer
+4. "Discover Your Most WANTED Collections": 5 tabs (New Arrivals, Best Sellers, Under ₦50,000, Gifts for Him, Gifts for Her), 8 products each
+5. Shop by Fragrance Family: Woody, Floral, Spicy
+6. Featured collections: alternating image/text rows (Noir, Velvet, Lagos)
+7. Home fragrance row (diffusers, candles, room spray) with View All
+8. Trending houses: intro, Explore Brands button and brand wordmarks
+9. About / brand story with animated stats
+10. How to Order: 3 steps
+11. Latest from Bottled Treasures (journal)
+12. FAQ accordion (8 questions)
+13. Newsletter signup
+14. Footer
+15. "Want access to exclusive deals?" pop-up (shows once per visitor after 6 seconds)
 
-All store links point to `https://shop.bottledtreasures.ng` (see `lib/data.ts`). Product, blog, FAQ and contact content lives in `lib/data.ts`. Images are CSS/SVG placeholders (`components/Placeholder.tsx`) — swap them for real photography when available.
+All store links point to `https://shop.bottledtreasures.ng`. Products, collections, brands, blog, FAQ and contact details live in `lib/data.ts`.
+
+## Images
+
+Everything lives in `public/images` and is served locally (no external image URLs).
+
+- Product, hero, collection, home-fragrance, journal, story and pop-up images are 3D renders made with `tools/bottle-renderer` (see its README to add products or re-render).
+- Fragrance-family photos are CC0 public-domain photos (credits in `public/images/families/CREDITS.md`).
+
+To use real photography, replace a file with one of the same name and aspect ratio.
 
 ## Brand tokens
 

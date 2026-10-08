@@ -51,7 +51,13 @@ export default function BrandStory() {
         <Reveal variant="right" className="relative">
           <div className="relative mx-auto max-w-lg lg:ml-auto">
             <div aria-hidden className="absolute -right-4 -top-4 h-full w-full border border-gold/30 sm:-right-6 sm:-top-6" />
-            <Placeholder shape="classic" tone="burgundy" className="relative aspect-[4/5]" artClassName="h-[56%]" />
+            <Placeholder
+              tone="burgundy"
+              className="relative aspect-[4/5]"
+              image="/images/story/story.jpg"
+              alt="A selection of Bottled Treasures fragrances in our Lagos studio"
+              sizes="(min-width: 1024px) 40vw, 100vw"
+            />
             <div className="absolute -bottom-8 -left-4 border border-gold/40 bg-ink px-6 py-5 sm:-left-10 sm:px-8 sm:py-6">
               <p className="font-serif text-4xl text-gold sm:text-5xl">100%</p>
               <p className="mt-1 text-[10px] uppercase tracking-luxe text-cream/60">Authentic Guaranteed</p>

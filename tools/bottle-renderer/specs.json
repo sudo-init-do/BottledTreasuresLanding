@@ -1,0 +1,1309 @@
+{
+ "p-oud-noir-royale": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "facet",
+    "capMat": "gold",
+    "liquid": "#6b2a0c",
+    "name": "Oud Noir Royale",
+    "sub": "Eau de Parfum \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-velvet-rose-ember": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "capMat": "gold",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose Ember",
+    "sub": "Eau de Parfum \u00b7 75ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-lagos-nights": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#9a5a14",
+    "name": "Lagos Nights",
+    "sub": "Eau de Parfum \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-golden-sandalwood": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "classic",
+    "cap": "dome",
+    "capMat": "gold",
+    "liquid": "#b8801f",
+    "name": "Golden Sandalwood",
+    "sub": "Eau de Parfum \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-amber-sultan": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "flat",
+    "cap": "facet",
+    "capMat": "gold",
+    "liquid": "#a8460c",
+    "name": "Amber Sultan",
+    "sub": "Extrait \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-midnight-jasmine": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "dome",
+    "capMat": "lacquer",
+    "liquid": "#cfa44a",
+    "name": "Midnight Jasmine",
+    "sub": "Eau de Parfum \u00b7 50ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-spiced-treasure": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "facet",
+    "capMat": "burg",
+    "liquid": "#7a1e0a",
+    "name": "Spiced Treasure",
+    "sub": "Eau de Parfum \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-sahara-white-musk": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "classic",
+    "cap": "sphere",
+    "capMat": "brushed",
+    "liquid": "#e6c27e",
+    "name": "Sahara White Musk",
+    "sub": "Eau de Parfum \u00b7 50ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-citrus-crown": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "gold",
+    "liquid": "#d89a2a",
+    "name": "Citrus Crown",
+    "sub": "Eau de Toilette \u00b7 50ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-cocoa-and-oud": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "cube",
+    "capMat": "lacquer",
+    "liquid": "#4a1c08",
+    "name": "Cocoa & Oud",
+    "sub": "Eau de Parfum \u00b7 75ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-ruby-oud": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "flat",
+    "cap": "cube",
+    "capMat": "burg",
+    "liquid": "#7a0f12",
+    "name": "Ruby Oud",
+    "sub": "Extrait \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "p-ivory-iris": {
+  "w": 1000,
+  "h": 1250,
+  "cam": [
+   0,
+   2.3,
+   12
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "classic",
+    "cap": "facet",
+    "capMat": "gold",
+    "liquid": "#e0b56a",
+    "name": "Ivory Iris",
+    "sub": "Eau de Parfum \u00b7 100ml",
+    "scale": 1.0
+   }
+  ]
+ },
+ "hero-1": {
+  "w": 2400,
+  "h": 1350,
+  "fov": 30,
+  "cam": [
+   1.6,
+   2.7,
+   14.5
+  ],
+  "target": [
+   1.6,
+   2.4,
+   0
+  ],
+  "glowFrom": [
+   3.5,
+   2.5,
+   -3
+  ],
+  "glowAt": [
+   3.6,
+   2.8,
+   -16
+  ],
+  "glowSpread": 5,
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "facet",
+    "liquid": "#6b2a0c",
+    "name": "Oud Noir Royale",
+    "sub": "Eau de Parfum",
+    "scale": 1.35,
+    "pos": [
+     3.6,
+     0.6,
+     0
+    ]
+   },
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose",
+    "sub": "Eau de Parfum",
+    "scale": 0.95,
+    "pos": [
+     1.3,
+     0,
+     -0.6
+    ]
+   },
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#9a5a14",
+    "name": "Lagos Nights",
+    "sub": "Eau de Parfum",
+    "scale": 1.0,
+    "pos": [
+     5.9,
+     0,
+     -0.8
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     3.6,
+     0.6,
+     2.2
+    ],
+    "pos": [
+     3.6,
+     0.3,
+     0
+    ],
+    "mat": "dark"
+   }
+  ]
+ },
+ "hero-2": {
+  "w": 2400,
+  "h": 1350,
+  "fov": 30,
+  "cam": [
+   1.6,
+   2.7,
+   14.5
+  ],
+  "target": [
+   1.6,
+   2.4,
+   0
+  ],
+  "glowFrom": [
+   3.5,
+   2.5,
+   -3
+  ],
+  "glowAt": [
+   3.6,
+   3.2,
+   -16
+  ],
+  "glowSpread": 5,
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose Ember",
+    "sub": "Eau de Parfum",
+    "scale": 1.55,
+    "pos": [
+     3.6,
+     0.9,
+     0
+    ]
+   },
+   {
+    "shape": "vial",
+    "cap": "tall",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose",
+    "sub": "Travel \u00b7 10ml",
+    "scale": 1.0,
+    "pos": [
+     1.4,
+     0,
+     0.8
+    ]
+   },
+   {
+    "shape": "round",
+    "cap": "dome",
+    "capMat": "lacquer",
+    "liquid": "#cfa44a",
+    "name": "Midnight Jasmine",
+    "sub": "Eau de Parfum",
+    "scale": 0.85,
+    "pos": [
+     6.0,
+     0,
+     -0.4
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "cyl",
+    "size": [
+     1.9,
+     0.9
+    ],
+    "pos": [
+     3.6,
+     0.45,
+     0
+    ],
+    "mat": "burg"
+   },
+   {
+    "type": "ring",
+    "size": [
+     2.6,
+     0.04
+    ],
+    "pos": [
+     3.6,
+     3.2,
+     -2.2
+    ],
+    "mat": "gold"
+   }
+  ]
+ },
+ "hero-3": {
+  "w": 2400,
+  "h": 1350,
+  "fov": 30,
+  "cam": [
+   1.6,
+   2.7,
+   14.5
+  ],
+  "target": [
+   1.6,
+   2.4,
+   0
+  ],
+  "glowFrom": [
+   3.5,
+   2.5,
+   -3
+  ],
+  "glowAt": [
+   3.6,
+   2.8,
+   -16
+  ],
+  "glowSpread": 5,
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "facet",
+    "capMat": "burg",
+    "liquid": "#7a1e0a",
+    "name": "Spiced Treasure",
+    "sub": "Eau de Parfum",
+    "scale": 1.15,
+    "pos": [
+     3.2,
+     1.0,
+     0
+    ]
+   },
+   {
+    "shape": "classic",
+    "cap": "dome",
+    "liquid": "#b8801f",
+    "name": "Golden Sandalwood",
+    "sub": "Eau de Parfum",
+    "scale": 0.95,
+    "pos": [
+     5.3,
+     0.5,
+     0.2
+    ]
+   },
+   {
+    "shape": "jar",
+    "candle": true,
+    "lid": false,
+    "liquid": "#5a1a0a",
+    "label": true,
+    "name": "Oud Ember",
+    "sub": "Candle",
+    "scale": 0.8,
+    "pos": [
+     1.4,
+     0,
+     0.9
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     2.0,
+     1.0,
+     2.0
+    ],
+    "pos": [
+     3.2,
+     0.5,
+     0
+    ],
+    "mat": "dark"
+   },
+   {
+    "type": "box",
+    "size": [
+     2.0,
+     0.5,
+     2.0
+    ],
+    "pos": [
+     5.3,
+     0.25,
+     0.2
+    ],
+    "mat": "burg"
+   }
+  ]
+ },
+ "feat-noir": {
+  "w": 1400,
+  "h": 1050,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11.5
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "cube",
+    "capMat": "lacquer",
+    "liquid": "#4a1c08",
+    "name": "Cocoa & Oud",
+    "sub": "Eau de Parfum",
+    "pos": [
+     -2.4,
+     0,
+     -0.5
+    ]
+   },
+   {
+    "shape": "flat",
+    "cap": "facet",
+    "capMat": "gold",
+    "liquid": "#6b2a0c",
+    "name": "Oud Noir Royale",
+    "sub": "Eau de Parfum",
+    "scale": 1.2,
+    "pos": [
+     0,
+     0.5,
+     0.3
+    ]
+   },
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#3a1408",
+    "name": "Noir Absolu",
+    "sub": "Extrait",
+    "pos": [
+     2.4,
+     0,
+     -0.4
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     2.4,
+     0.5,
+     1.8
+    ],
+    "pos": [
+     0,
+     0.25,
+     0.3
+    ],
+    "mat": "dark"
+   }
+  ]
+ },
+ "feat-velvet": {
+  "w": 1400,
+  "h": 1050,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11.5
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose Ember",
+    "sub": "Eau de Parfum",
+    "scale": 1.15,
+    "pos": [
+     -0.3,
+     0.6,
+     0
+    ]
+   },
+   {
+    "shape": "round",
+    "cap": "dome",
+    "capMat": "burg",
+    "liquid": "#b8303c",
+    "name": "Rose Nectar",
+    "sub": "Eau de Parfum",
+    "scale": 0.75,
+    "pos": [
+     2.2,
+     0,
+     0.6
+    ]
+   },
+   {
+    "shape": "vial",
+    "cap": "tall",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose",
+    "sub": "10ml",
+    "pos": [
+     -2.5,
+     0,
+     0.8
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "cyl",
+    "size": [
+     1.5,
+     0.6
+    ],
+    "pos": [
+     -0.3,
+     0.3,
+     0
+    ],
+    "mat": "burg"
+   }
+  ]
+ },
+ "feat-lagos": {
+  "w": 1400,
+  "h": 1050,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11.5
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#9a5a14",
+    "name": "Lagos Nights",
+    "sub": "Eau de Parfum",
+    "scale": 1.1,
+    "pos": [
+     -1.1,
+     0,
+     0
+    ]
+   },
+   {
+    "shape": "tall",
+    "cap": "facet",
+    "capMat": "gold",
+    "liquid": "#d89a2a",
+    "name": "Citrus Crown",
+    "sub": "Eau de Toilette",
+    "scale": 1.0,
+    "pos": [
+     1.1,
+     0,
+     -0.3
+    ]
+   },
+   {
+    "shape": "classic",
+    "cap": "dome",
+    "liquid": "#b8801f",
+    "name": "Golden Sandalwood",
+    "sub": "Eau de Parfum",
+    "scale": 0.75,
+    "pos": [
+     2.9,
+     0,
+     0.9
+    ]
+   },
+   {
+    "shape": "vial",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#9a5a14",
+    "name": "Lagos Nights",
+    "sub": "10ml",
+    "pos": [
+     -2.9,
+     0,
+     0.9
+    ]
+   }
+  ]
+ },
+ "home-reed-diffuser": {
+  "w": 900,
+  "h": 900,
+  "fov": 30,
+  "cam": [
+   0,
+   2.8,
+   11.5
+  ],
+  "target": [
+   0,
+   2.2,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "classic",
+    "cap": "none",
+    "reeds": true,
+    "liquid": "#9a5a14",
+    "name": "Oud Ember",
+    "sub": "Reed Diffuser \u00b7 200ml",
+    "pos": [
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ "home-candle": {
+  "w": 900,
+  "h": 900,
+  "fov": 30,
+  "cam": [
+   0,
+   2.2,
+   9.5
+  ],
+  "target": [
+   0,
+   1.2,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "jar",
+    "candle": true,
+    "lid": false,
+    "liquid": "#5a1a0a",
+    "name": "Velvet Rose",
+    "sub": "Candle \u00b7 220g",
+    "scale": 1.25,
+    "pos": [
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ "home-room-spray": {
+  "w": 900,
+  "h": 900,
+  "fov": 30,
+  "cam": [
+   0,
+   2.3,
+   11.5
+  ],
+  "target": [
+   0,
+   1.75,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "spray",
+    "capMat": "gold",
+    "liquid": "#b8801f",
+    "name": "Golden Sandalwood",
+    "sub": "Room Spray \u00b7 100ml",
+    "pos": [
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ "home-fragrance-oil": {
+  "w": 900,
+  "h": 900,
+  "fov": 30,
+  "cam": [
+   0,
+   2.2,
+   10.5
+  ],
+  "target": [
+   0,
+   1.3,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "vial",
+    "cap": "dome",
+    "capMat": "gold",
+    "liquid": "#8c1020",
+    "name": "Rose Oil",
+    "sub": "Fragrance Oil \u00b7 30ml",
+    "scale": 1.6,
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "capScale": 0.6
+   }
+  ]
+ },
+ "home-diffuser-refill": {
+  "w": 900,
+  "h": 900,
+  "fov": 30,
+  "cam": [
+   0,
+   2.2,
+   10.5
+  ],
+  "target": [
+   0,
+   1.6,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "cube",
+    "capMat": "lacquer",
+    "liquid": "#6b2a0c",
+    "name": "Oud Noir",
+    "sub": "Diffuser Refill \u00b7 250ml",
+    "pos": [
+     0,
+     0,
+     0
+    ]
+   }
+  ]
+ },
+ "story": {
+  "w": 1000,
+  "h": 1250,
+  "fov": 30,
+  "cam": [
+   0,
+   2.6,
+   12.5
+  ],
+  "target": [
+   0,
+   1.9,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "facet",
+    "liquid": "#6b2a0c",
+    "name": "Oud Noir Royale",
+    "sub": "Eau de Parfum",
+    "scale": 1.1,
+    "pos": [
+     -0.6,
+     1.2,
+     0
+    ]
+   },
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose",
+    "sub": "Eau de Parfum",
+    "scale": 0.8,
+    "pos": [
+     1.4,
+     0.6,
+     0.6
+    ]
+   },
+   {
+    "shape": "tall",
+    "cap": "tall",
+    "capMat": "lacquer",
+    "liquid": "#9a5a14",
+    "name": "Lagos Nights",
+    "sub": "Eau de Parfum",
+    "scale": 0.85,
+    "pos": [
+     -2.0,
+     0,
+     1.2
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     2.4,
+     1.2,
+     1.8
+    ],
+    "pos": [
+     -0.6,
+     0.6,
+     0
+    ],
+    "mat": "dark"
+   },
+   {
+    "type": "box",
+    "size": [
+     1.8,
+     0.6,
+     1.6
+    ],
+    "pos": [
+     1.4,
+     0.3,
+     0.6
+    ],
+    "mat": "burg"
+   }
+  ]
+ },
+ "blog-perfume-last": {
+  "w": 1400,
+  "h": 960,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "tall",
+    "cap": "spray",
+    "liquid": "#d89a2a",
+    "name": "Citrus Crown",
+    "sub": "Eau de Toilette",
+    "pos": [
+     -0.8,
+     0,
+     0
+    ]
+   },
+   {
+    "shape": "vial",
+    "cap": "tall",
+    "liquid": "#d89a2a",
+    "name": "Citrus Crown",
+    "sub": "10ml",
+    "pos": [
+     1.0,
+     0,
+     0.8
+    ],
+    "rotY": 0.2
+   }
+  ]
+ },
+ "blog-oud": {
+  "w": 1400,
+  "h": 960,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "square",
+    "cap": "facet",
+    "liquid": "#3a1408",
+    "name": "Pure Oud",
+    "sub": "Extrait",
+    "scale": 1.1,
+    "pos": [
+     0,
+     0.8,
+     0
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     3.2,
+     0.8,
+     2.2
+    ],
+    "pos": [
+     0,
+     0.4,
+     0
+    ],
+    "mat": "dark"
+   },
+   {
+    "type": "box",
+    "size": [
+     0.5,
+     0.3,
+     1.4
+    ],
+    "pos": [
+     -2.6,
+     0.15,
+     0.6
+    ],
+    "rot": [
+     0,
+     0.5,
+     0
+    ],
+    "mat": "burg"
+   },
+   {
+    "type": "box",
+    "size": [
+     0.4,
+     0.25,
+     1.1
+    ],
+    "pos": [
+     2.5,
+     0.125,
+     0.9
+    ],
+    "rot": [
+     0,
+     -0.4,
+     0
+    ],
+    "mat": "burg"
+   }
+  ]
+ },
+ "blog-gifting": {
+  "w": 1400,
+  "h": 960,
+  "fov": 30,
+  "cam": [
+   0,
+   2.0,
+   11
+  ],
+  "target": [
+   0,
+   1.5,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose Ember",
+    "sub": "Eau de Parfum",
+    "pos": [
+     -1.2,
+     0,
+     0.4
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "box",
+    "size": [
+     2.0,
+     1.4,
+     2.0
+    ],
+    "pos": [
+     1.4,
+     0.7,
+     -0.3
+    ],
+    "rot": [
+     0,
+     -0.35,
+     0
+    ],
+    "mat": "burg"
+   },
+   {
+    "type": "box",
+    "size": [
+     2.06,
+     0.18,
+     2.06
+    ],
+    "pos": [
+     1.4,
+     0.95,
+     -0.3
+    ],
+    "rot": [
+     0,
+     -0.35,
+     0
+    ],
+    "mat": "gold"
+   },
+   {
+    "type": "box",
+    "size": [
+     0.2,
+     1.42,
+     2.06
+    ],
+    "pos": [
+     1.4,
+     0.7,
+     -0.3
+    ],
+    "rot": [
+     0,
+     -0.35,
+     0
+    ],
+    "mat": "gold"
+   }
+  ]
+ },
+ "popup": {
+  "w": 900,
+  "h": 1100,
+  "fov": 30,
+  "cam": [
+   0,
+   2.2,
+   10.5
+  ],
+  "target": [
+   0,
+   1.7,
+   0
+  ],
+  "bottles": [
+   {
+    "shape": "round",
+    "cap": "sphere",
+    "liquid": "#8c1020",
+    "name": "Velvet Rose Ember",
+    "sub": "Eau de Parfum",
+    "scale": 1.05,
+    "pos": [
+     0,
+     0.6,
+     0
+    ]
+   }
+  ],
+  "props": [
+   {
+    "type": "cyl",
+    "size": [
+     1.5,
+     0.6
+    ],
+    "pos": [
+     0,
+     0.3,
+     0
+    ],
+    "mat": "burg"
+   },
+   {
+    "type": "ring",
+    "size": [
+     2.2,
+     0.035
+    ],
+    "pos": [
+     0,
+     2.2,
+     -1.8
+    ],
+    "mat": "gold"
+   }
+  ]
+ }
+}
