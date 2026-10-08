@@ -1,79 +1,26 @@
-export const SHOP_URL = "https://shop.bottledtreasures.ng";
+export const SHOP_URL = "/shop";
 
-export const shopLink = (path = "") => `${SHOP_URL}${path}`;
+/** Turns the old storefront-style paths used around the site into this site's own pages. */
+export const shopLink = (path = "") => {
+  if (!path) return SHOP_URL;
+  if (path.startsWith("/products/")) return `/shop/${path.slice("/products/".length)}`;
+  if (path.startsWith("/collections/")) {
+    const c = path.slice("/collections/".length);
+    const map: Record<string, string> = { all: "", "new-arrivals": "new", "best-sellers": "best", "gift-sets": "", "home-fragrance": "home" };
+    const f = c in map ? map[c] : c;
+    return f ? `/shop?f=${f}` : SHOP_URL;
+  }
+  if (path === "/cart") return "/cart";
+  if (path === "/account" || path === "/pages/track-order") return "/track";
+  if (path === "/search") return "/shop";
+  if (path.startsWith("/blogs")) return "/#journal";
+  if (path === "/pages/about") return "/#story";
+  return "/#faq";
+};
 
-export const formatNaira = (amount: number) =>
-  `₦${amount.toLocaleString("en-NG")}`;
+export { formatNaira } from "./types";
 
 export type BottleShape = "classic" | "tall" | "round" | "square";
-
-export type Product = {
-  id: string;
-  name: string;
-  notes: string[];
-  price: number;
-  compareAt?: number;
-  size: string;
-  badge?: string;
-  shape: BottleShape;
-  tone: "ink" | "burgundy";
-  slug: string;
-  image: string;
-  for?: "him" | "her" | "unisex";
-};
-
-const product = (p: Omit<Product, "image">): Product => ({ ...p, image: `/photos/products/${p.slug}.jpg` });
-
-const products = {
-  oudNoir: product({ id: "oud-noir", name: "Oud Noir Royale", notes: ["Oud", "Saffron", "Leather"], price: 85000, size: "100ml Eau de Parfum", badge: "New", shape: "square", tone: "ink", slug: "oud-noir-royale", for: "him" }),
-  velvetRose: product({ id: "velvet-rose", name: "Velvet Rose Ember", notes: ["Damask Rose", "Amber", "Musk"], price: 62000, size: "75ml Eau de Parfum", badge: "New", shape: "round", tone: "burgundy", slug: "velvet-rose-ember", for: "her" }),
-  lagosNights: product({ id: "lagos-nights", name: "Lagos Nights", notes: ["Tobacco", "Vanilla", "Cardamom"], price: 48500, compareAt: 55000, size: "100ml Eau de Parfum", badge: "Bestseller", shape: "tall", tone: "ink", slug: "lagos-nights", for: "him" }),
-  goldenSandal: product({ id: "golden-sandal", name: "Golden Sandalwood", notes: ["Sandalwood", "Cedar", "Vetiver"], price: 72000, size: "100ml Eau de Parfum", shape: "classic", tone: "burgundy", slug: "golden-sandalwood", for: "unisex" }),
-  amberSultan: product({ id: "amber-sultan", name: "Amber Sultan", notes: ["Amber", "Benzoin", "Patchouli"], price: 95000, size: "100ml Extrait de Parfum", badge: "Bestseller", shape: "square", tone: "burgundy", slug: "amber-sultan", for: "him" }),
-  midnightJasmine: product({ id: "midnight-jasmine", name: "Midnight Jasmine", notes: ["Jasmine", "Tuberose", "Neroli"], price: 44000, size: "50ml Eau de Parfum", shape: "round", tone: "ink", slug: "midnight-jasmine", for: "her" }),
-  spicedTreasure: product({ id: "spiced-treasure", name: "Spiced Treasure", notes: ["Pink Pepper", "Clove", "Oud"], price: 58000, size: "100ml Eau de Parfum", badge: "Bestseller", shape: "tall", tone: "ink", slug: "spiced-treasure", for: "him" }),
-  saharaMusk: product({ id: "sahara-musk", name: "Sahara White Musk", notes: ["White Musk", "Iris", "Cashmere"], price: 38000, compareAt: 42000, size: "50ml Eau de Parfum", shape: "classic", tone: "burgundy", slug: "sahara-white-musk", for: "her" }),
-  citrusCrown: product({ id: "citrus-crown", name: "Citrus Crown", notes: ["Bergamot", "Neroli", "Vetiver"], price: 32500, size: "50ml Eau de Toilette", badge: "Value", shape: "tall", tone: "ink", slug: "citrus-crown", for: "unisex" }),
-  cocoaOud: product({ id: "cocoa-oud", name: "Cocoa & Oud", notes: ["Cacao", "Oud", "Tonka"], price: 49000, size: "75ml Eau de Parfum", shape: "square", tone: "burgundy", slug: "cocoa-and-oud", for: "him" }),
-  rubyOud: product({ id: "ruby-oud", name: "Ruby Oud", notes: ["Raspberry", "Oud", "Rose"], price: 110000, size: "100ml Extrait de Parfum", badge: "Limited", shape: "square", tone: "burgundy", slug: "ruby-oud", for: "her" }),
-  ivoryIris: product({ id: "ivory-iris", name: "Ivory Iris", notes: ["Iris", "Violet", "Suede"], price: 67000, size: "100ml Eau de Parfum", shape: "classic", tone: "ink", slug: "ivory-iris", for: "her" }),
-};
-
-const all = Object.values(products);
-
-export type CollectionTab = {
-  id: string;
-  label: string;
-  products: Product[];
-};
-
-export const collections: CollectionTab[] = [
-  {
-    id: "new",
-    label: "New Arrivals",
-    products: [products.oudNoir, products.velvetRose, products.rubyOud, products.ivoryIris, products.goldenSandal, products.midnightJasmine, products.cocoaOud, products.citrusCrown],
-  },
-  {
-    id: "best",
-    label: "Best Sellers",
-    products: [products.lagosNights, products.amberSultan, products.spicedTreasure, products.velvetRose, products.oudNoir, products.saharaMusk, products.goldenSandal, products.midnightJasmine],
-  },
-  {
-    id: "under-50k",
-    label: "Under ₦50,000",
-    products: all.filter((p) => p.price < 50000),
-  },
-  {
-    id: "him",
-    label: "Gifts for Him",
-    products: all.filter((p) => p.for === "him" || p.for === "unisex").slice(0, 8),
-  },
-  {
-    id: "her",
-    label: "Gifts for Her",
-    products: all.filter((p) => p.for === "her" || p.for === "unisex").slice(0, 8),
-  },
-];
 
 export const signatureCollections = [
   {
@@ -97,14 +44,6 @@ export const signatureCollections = [
     image: "/photos/collections/lagos.jpg",
     href: shopLink("/collections/lagos"),
   },
-];
-
-export const homeFragrances = [
-  { name: "Oud Ember Reed Diffuser", size: "200ml", price: 28000, image: "/photos/home/reed-diffuser.jpg", slug: "oud-ember-reed-diffuser" },
-  { name: "Velvet Rose Candle", size: "220g", price: 22500, image: "/photos/home/candle.jpg", slug: "velvet-rose-candle" },
-  { name: "Golden Hour Tealight Set", size: "12 tealights", price: 15000, image: "/photos/home/tealight-set.jpg", slug: "golden-hour-tealight-set" },
-  { name: "Aroma Mist Diffuser", size: "300ml", price: 35000, image: "/photos/home/mist-diffuser.jpg", slug: "aroma-mist-diffuser" },
-  { name: "Signature Diffuser Trio", size: "3 × 100ml", price: 42000, image: "/photos/home/diffuser-set.jpg", slug: "signature-diffuser-trio" },
 ];
 
 /** Placeholder house names — replace with the brands Bottled Treasures actually stocks. */

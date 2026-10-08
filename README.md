@@ -1,4 +1,4 @@
-# Bottled Treasures — Landing Site
+# Bottled Treasures
 
 Luxury perfume marketing site for **Bottled Treasures**, Lagos. *As long as it smells great.*
 
@@ -24,7 +24,7 @@ Section order follows shop.seindesignature.com, restyled in the Bottled Treasure
 14. Footer
 15. "Want access to exclusive deals?" pop-up (shows once per visitor after 6 seconds)
 
-All store links point to `https://shop.bottledtreasures.ng`. Products, collections, brands, blog, FAQ and contact details live in `lib/data.ts`.
+Products live in the shop database (managed from `/admin`). Page content such as the hero, collections, brands, blog, FAQ and contact details lives in `lib/data.ts`.
 
 ## Logo
 
@@ -53,6 +53,25 @@ Defined in `tailwind.config.ts`:
 
 Fonts: Cormorant Garamond (headings, `font-serif`) and Jost (body, `font-sans`) via `next/font/google`.
 
+## Shop and dashboard
+
+**For customers** (no account needed):
+
+- `/shop`: all products, with filters and search
+- `/shop/<product>`: product page
+- `/cart` → `/checkout`: details, pickup or delivery, bank transfer, upload payment receipt
+- `/order/<code>`: confirmation; `/track`: track an order with its number and phone
+
+**For the owner** (`/admin`, login required):
+
+- **Orders**: see new orders, view the payment receipt, change status (Checking payment → Paid → Dispatched → Completed), WhatsApp the customer
+- **Products**: add, edit, mark sold out, delete; changes show on the site straight away
+- **Settings**: bank details shown at checkout, WhatsApp number
+
+Login details come from `.env` (copy `.env.example`). When running locally without a `.env`, the login is `admin@bottledtreasures.ng` / `changeme`.
+
+Orders, receipts and uploaded photos are saved in the `data/` folder (a simple JSON file plus uploads). Back this folder up. The first run fills the shop with the starter products from `lib/seed.ts`.
+
 ## Develop
 
 ```bash
@@ -64,7 +83,10 @@ npm run build && npm start
 ## Docker
 
 ```bash
+cp .env.example .env        # then edit it
 docker compose up --build   # http://localhost:3000
 ```
+
+Shop data is kept in the `shop-data` Docker volume.
 
 The Dockerfile is a multi-stage build using Next.js `standalone` output.

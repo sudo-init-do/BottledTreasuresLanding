@@ -7,7 +7,15 @@ services:
     container_name: bottled-treasures
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
       NODE_ENV: production
       PORT: 3000
+    volumes:
+      # keeps orders, receipts and product photos when the container is rebuilt
+      - shop-data:/app/data
     restart: unless-stopped
+
+volumes:
+  shop-data:

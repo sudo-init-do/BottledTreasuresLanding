@@ -59,6 +59,7 @@ export default function Placeholder({
             fill
             sizes={sizes}
             priority={priority}
+            unoptimized={image.startsWith("/media/")}
             className={`-z-10 object-cover transition-transform duration-[1200ms] ease-luxe group-hover:scale-105 ${imageClassName}`}
           />
           {shade > 0 && <div aria-hidden className={`absolute inset-0 -z-10 ${shades[shade]}`} />}

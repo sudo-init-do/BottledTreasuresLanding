@@ -13,18 +13,22 @@ import FAQ from "@/components/FAQ";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import DealsPopup from "@/components/DealsPopup";
+import { homeCollections, homeFragrances } from "@/lib/shop";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const [collections, homeItems] = await Promise.all([homeCollections(), homeFragrances()]);
   return (
     <>
       <AnnouncementBar />
       <Navbar />
       <main>
         <Hero />
-        <FeaturedCollections />
+        <FeaturedCollections collections={collections} />
         <FragranceFamilies />
         <SignatureCollections />
-        <HomeFragrance />
+        <HomeFragrance items={homeItems} />
         <TrendingHouses />
         <BrandStory />
         <HowToOrder />

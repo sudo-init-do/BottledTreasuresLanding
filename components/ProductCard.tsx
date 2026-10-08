@@ -2,18 +2,17 @@
 
 import Placeholder from "./Placeholder";
 import { useCart } from "./CartContext";
-import { formatNaira, shopLink, type Product } from "@/lib/data";
+import Link from "next/link";
+import { formatNaira, type Product } from "@/lib/types";
 
 export default function ProductCard({ product }: { product: Product }) {
   const { addItem } = useCart();
-  const href = shopLink(`/products/${product.slug}`);
+  const href = `/shop/${product.slug}`;
 
   return (
     <article className="group relative flex h-full flex-col border border-gold/15 bg-ink-800 transition-all duration-700 ease-luxe hover:-translate-y-1.5 hover:border-gold/50 hover:shadow-[0_24px_60px_-20px_rgba(0,0,0,0.9)]">
-      <a href={href} className="relative block" aria-label={product.name}>
+      <Link href={href} className="relative block" aria-label={product.name}>
         <Placeholder
-          shape={product.shape}
-          tone={product.tone}
           className="aspect-[4/5]"
           image={product.image}
           alt={`${product.name} by Bottled Treasures`}
@@ -30,18 +29,18 @@ export default function ProductCard({ product }: { product: Product }) {
           </span>
         )}
         <span className="absolute inset-x-6 bottom-6 translate-y-2 text-center text-[10px] uppercase tracking-luxe text-gold opacity-0 transition-all duration-500 ease-luxe group-hover:translate-y-0 group-hover:opacity-100">
-          Quick View
+          View Details
         </span>
-      </a>
+      </Link>
 
       <div className="flex flex-1 flex-col px-5 pb-5 pt-6 text-center sm:px-6">
         <p className="text-[10px] font-medium uppercase tracking-[0.25em] text-gold">
           {product.notes.join(" · ")}
         </p>
         <h3 className="mt-3 font-serif text-2xl leading-tight text-cream">
-          <a href={href} className="transition-colors hover:text-gold">
+          <Link href={href} className="transition-colors hover:text-gold">
             {product.name}
-          </a>
+          </Link>
         </h3>
         <p className="mt-1.5 text-xs text-cream/45">{product.size}</p>
         <p className="mt-4 flex items-baseline justify-center gap-3">
@@ -53,10 +52,11 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="mt-auto pt-6">
           <button
             type="button"
-            onClick={() => addItem(product.name)}
-            className="btn-outline w-full !py-3.5"
+            onClick={() => addItem({ slug: product.slug, name: product.name, price: product.price, image: product.image })}
+            disabled={!product.inStock}
+            className="btn-outline w-full !py-3.5 disabled:pointer-events-none disabled:opacity-40"
           >
-            Add to Cart
+            {product.inStock ? "Add to Cart" : "Sold Out"}
           </button>
         </div>
       </div>
