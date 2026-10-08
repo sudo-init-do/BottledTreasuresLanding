@@ -203,7 +203,7 @@ export const faqs = [
 
 export const contact = {
   phone: "+234 800 000 0000",
-  email: "hello@bottledtreasures.ng",
+  email: "official@bottledtreasures.ng",
   address: "Bonny Island, Rivers State, Nigeria",
   hours: "Mon – Sat · 9am – 7pm",
   socials: {
