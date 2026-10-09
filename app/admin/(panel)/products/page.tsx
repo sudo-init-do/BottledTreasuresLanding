@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
+import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import StockControl from "@/components/admin/StockControl";
-import { getProducts } from "@/lib/shop";
+import { getInventory } from "@/lib/shop";
 import { formatNaira, stockLevel } from "@/lib/types";
 
 export default async function ProductsPage({ searchParams }: { searchParams: { saved?: string; view?: string } }) {
-  const all = await getProducts();
+  const all = await getInventory();
   const lowOnly = searchParams.view === "low";
   const products = lowOnly ? all.filter((p) => stockLevel(p.stock) === "low").sort((a, b) => a.stock - b.stock) : all;
 
@@ -59,9 +60,9 @@ export default async function ProductsPage({ searchParams }: { searchParams: { s
             <thead className="border-b border-gold/15 text-[11px] uppercase tracking-wider2 text-cream/50">
               <tr>
                 <th className="px-4 py-3 font-medium">Product</th>
-                <th className="hidden px-4 py-3 font-medium sm:table-cell">Price</th>
+                <th className="hidden px-4 py-3 font-medium sm:table-cell">Retail / Wholesale</th>
                 <th className="px-4 py-3 font-medium">In stock</th>
-                <th className="hidden px-4 py-3 sm:table-cell"><span className="sr-only">Edit</span></th>
+                <th className="hidden px-4 py-3 sm:table-cell"><span className="sr-only">Actions</span></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gold/10">
@@ -75,18 +76,28 @@ export default async function ProductsPage({ searchParams }: { searchParams: { s
                       <span className="min-w-0">
                         <span className="block font-serif text-lg leading-tight text-cream hover:text-gold sm:text-xl">{p.name}</span>
                         <span className="block truncate text-xs text-cream/50">
-                          <span className="sm:hidden">{formatNaira(p.price)} · </span>
+                          <span className="sm:hidden">{formatNaira(p.price)}{p.size && " · "}</span>
                           {p.size}
                         </span>
                       </span>
                     </Link>
+                    <div className="mt-2 flex items-center gap-5 sm:hidden">
+                      <Link href={`/admin/products/${p.id}`} className="text-[11px] uppercase tracking-wider2 text-cream/50 hover:text-gold">Edit</Link>
+                      <DeleteProductButton id={p.id} name={p.name} compact />
+                    </div>
                   </td>
-                  <td className="hidden whitespace-nowrap px-4 py-3 font-sans tabular-nums text-cream/90 sm:table-cell">{formatNaira(p.price)}</td>
+                  <td className="hidden whitespace-nowrap px-4 py-3 font-sans tabular-nums text-cream/90 sm:table-cell">
+                    {formatNaira(p.price)}
+                    <span className="block text-xs text-cream/50">{p.wholesalePrice ? `${formatNaira(p.wholesalePrice)} wholesale` : "No wholesale price"}</span>
+                  </td>
                   <td className="px-3 py-3 sm:px-4">
                     <StockControl id={p.id} name={p.name} initial={p.stock} />
                   </td>
                   <td className="hidden px-4 py-3 text-right sm:table-cell">
-                    <Link href={`/admin/products/${p.id}`} className="text-[11px] uppercase tracking-wider2 text-cream/50 hover:text-gold">Edit</Link>
+                    <div className="flex items-center justify-end gap-5">
+                      <Link href={`/admin/products/${p.id}`} className="text-[11px] uppercase tracking-wider2 text-cream/50 hover:text-gold">Edit</Link>
+                      <DeleteProductButton id={p.id} name={p.name} compact />
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -22,6 +22,8 @@ export type Product = {
   description: string;
   price: number;
   compareAt?: number;
+  /** Trade price for bulk buyers. Owner-only: never sent to the shop pages. */
+  wholesalePrice?: number;
   size: string;
   badge?: string;
   image: string;

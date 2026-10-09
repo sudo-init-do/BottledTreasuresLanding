@@ -84,8 +84,11 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
   const price = Math.round(Number(text(fd, "price").replace(/[^\d.]/g, "")));
   const compareRaw = text(fd, "compareAt").replace(/[^\d.]/g, "");
   const compareAt = compareRaw ? Math.round(Number(compareRaw)) : undefined;
+  const wholesaleRaw = text(fd, "wholesalePrice").replace(/[^\d.]/g, "");
+  const wholesalePrice = wholesaleRaw ? Math.round(Number(wholesaleRaw)) : undefined;
   if (!name) return { error: "Add a product name." };
-  if (!(price > 0)) return { error: "Add a price in Naira, e.g. 45000." };
+  if (!(price > 0)) return { error: "Add a retail price in Naira, e.g. 45000." };
+  if (wholesalePrice !== undefined && !(wholesalePrice > 0)) return { error: "The wholesale price should be a number in Naira, e.g. 38000, or left empty." };
 
   let image: string | undefined;
   const file = fd.get("image");
@@ -99,6 +102,7 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
     name,
     price,
     compareAt: compareAt && compareAt > price ? compareAt : undefined,
+    wholesalePrice,
     size: text(fd, "size", 60),
     badge: text(fd, "badge", 20) || undefined,
     notes: text(fd, "notes")
@@ -130,14 +134,16 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
   redirect("/admin/products?saved=1");
 }
 
-export async function deleteProduct(fd: FormData) {
+/** Removes a product for good. Past orders keep their own copy of its name, price and photo. */
+export async function deleteProduct(id: string): Promise<{ error?: string }> {
   await requireAdmin();
-  const id = text(fd, "id");
-  await updateDb((db) => {
+  const removed = await updateDb((db) => {
+    const before = db.products.length;
     db.products = db.products.filter((p) => p.id !== id);
+    return db.products.length < before;
   });
   revalidatePath("/", "layout");
-  redirect("/admin/products");
+  return removed ? {} : { error: "That product was already deleted." };
 }
 
 /** Quick +/- from the products table. Returns the new stock count. */

@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import ProductForm from "@/components/admin/ProductForm";
-import SubmitButton from "@/components/admin/SubmitButton";
+import DeleteProductButton from "@/components/admin/DeleteProductButton";
 import { readDb } from "@/lib/db";
-import { deleteProduct } from "../../../actions";
 
 export default async function EditProductPage({ params }: { params: { id: string } }) {
   const product = (await readDb()).products.find((p) => p.id === params.id);
@@ -16,11 +15,10 @@ export default async function EditProductPage({ params }: { params: { id: string
         <Link href={`/shop/${product.slug}`} target="_blank" className="text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold">View in shop ↗</Link>
       </div>
       <ProductForm product={product} />
-      <form action={deleteProduct} className="border-t border-gold/15 pt-8">
-        <input type="hidden" name="id" value={product.id} />
-        <p className="mb-3 text-sm text-cream/60">Deleting removes it from the shop. Past orders keep their details.</p>
-        <SubmitButton pendingText="Deleting…" className="btn-outline">Delete Product</SubmitButton>
-      </form>
+      <div className="border-t border-gold/15 pt-8">
+        <p className="mb-3 text-sm text-cream/60">Deleting removes it from the shop for good. Past orders keep their details.</p>
+        <DeleteProductButton id={product.id} name={product.name} redirectTo="/admin/products" />
+      </div>
     </div>
   );
 }

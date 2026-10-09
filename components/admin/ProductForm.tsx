@@ -45,17 +45,22 @@ export default function ProductForm({ product }: { product?: Product }) {
         </div>
         <div className="grid gap-5 sm:grid-cols-3">
           <div>
-            <label className="label" htmlFor="pf-price">Price (₦) *</label>
+            <label className="label" htmlFor="pf-price">Retail price (₦) *</label>
             <input id="pf-price" name="price" required inputMode="numeric" defaultValue={product?.price} placeholder="45000" className="field" />
+          </div>
+          <div>
+            <label className="label" htmlFor="pf-wholesale">Wholesale price (₦)</label>
+            <input id="pf-wholesale" name="wholesalePrice" inputMode="numeric" defaultValue={product?.wholesalePrice} placeholder="38000" aria-describedby="pf-wholesale-hint" className="field" />
+            <p id="pf-wholesale-hint" className="mt-1.5 text-xs text-cream/50">Only you see this. It isn&rsquo;t shown in the shop.</p>
           </div>
           <div>
             <label className="label" htmlFor="pf-compare">Old price (₦)</label>
             <input id="pf-compare" name="compareAt" inputMode="numeric" defaultValue={product?.compareAt} placeholder="Shows as a sale" className="field" />
           </div>
-          <div>
-            <label className="label" htmlFor="pf-size">Size</label>
-            <input id="pf-size" name="size" defaultValue={product?.size} placeholder="100ml Eau de Parfum" className="field" />
-          </div>
+        </div>
+        <div>
+          <label className="label" htmlFor="pf-size">Size</label>
+          <input id="pf-size" name="size" defaultValue={product?.size} placeholder="100ml Eau de Parfum" className="field" />
         </div>
         <div className="grid gap-5 sm:grid-cols-[2fr_1fr]">
           <div>
@@ -83,7 +88,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           </div>
         </fieldset>
         <div className="max-w-[200px]">
-          <label className="label" htmlFor="pf-stock">Bottles in stock</label>
+          <label className="label" htmlFor="pf-stock">Stock quantity</label>
           <input id="pf-stock" name="stock" inputMode="numeric" defaultValue={product?.stock ?? 0} className="field" />
           <p className="mt-1.5 text-xs text-cream/50">0 shows as &ldquo;Sold out&rdquo;.</p>
         </div>

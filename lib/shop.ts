@@ -20,12 +20,21 @@ export const FILTERS: { id: string; label: string; test: (p: Product) => boolean
 
 const newestFirst = (a: Product, b: Product) => b.createdAt.localeCompare(a.createdAt);
 
-export async function getProducts() {
+/** Shop pages pass products to client components, so owner-only fields are dropped here. */
+const forShop = ({ wholesalePrice: _, ...p }: Product): Product => p;
+
+/** Every product with all fields, for the dashboard. */
+export async function getInventory() {
   return (await readDb()).products.slice().sort(newestFirst);
 }
 
+export async function getProducts() {
+  return (await getInventory()).map(forShop);
+}
+
 export async function getProduct(slug: string) {
-  return (await readDb()).products.find((p) => p.slug === slug);
+  const p = (await readDb()).products.find((x) => x.slug === slug);
+  return p && forShop(p);
 }
 
 export async function searchProducts(filter = "all", q = "") {
