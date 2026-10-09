@@ -43,6 +43,7 @@ export function seedDatabase(): Database {
       createdAt: new Date(now - i * 60_000).toISOString(),
     })),
     orders: [],
+    customers: [],
     settings: {
       bankName: "Your Bank",
       accountName: "Bottled Treasures",

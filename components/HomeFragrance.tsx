@@ -6,9 +6,9 @@ import SectionHeading from "./SectionHeading";
 import { useCart } from "./CartContext";
 import { ArrowIcon, PlusIcon } from "./Icons";
 import Link from "next/link";
-import { formatNaira, type Product } from "@/lib/types";
+import { formatNaira, type ShopProduct } from "@/lib/types";
 
-export default function HomeFragrance({ items }: { items: Product[] }) {
+export default function HomeFragrance({ items }: { items: ShopProduct[] }) {
   const { addItem } = useCart();
   return (
     <section id="home-fragrance" className="border-y border-gold/10 bg-ink-800 py-24 sm:py-28">
@@ -54,11 +54,14 @@ export default function HomeFragrance({ items }: { items: Product[] }) {
                       </Link>
                     </h3>
                     <p className="mt-1 text-xs text-cream/45">{item.size}</p>
-                    <p className="mt-2 font-serif text-lg text-gold">{formatNaira(item.price)}</p>
+                    <p className="mt-2 font-serif text-lg text-gold">
+                      {formatNaira(item.price)}
+                      {item.retailPrice && <span className="ml-2 font-sans text-[10px] uppercase tracking-wider2">Wholesale</span>}
+                    </p>
                   </div>
                   <button
                     type="button"
-                    onClick={() => addItem({ slug: item.slug, name: item.name, price: item.price, image: item.image })}
+                    onClick={() => addItem({ slug: item.slug, name: item.name, image: item.image })}
                     disabled={item.stock <= 0}
                     aria-label={`Add ${item.name} to cart`}
                     className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center border border-gold/40 text-gold transition-colors duration-300 hover:bg-gold hover:text-ink"

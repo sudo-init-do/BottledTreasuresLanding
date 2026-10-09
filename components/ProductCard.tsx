@@ -3,9 +3,9 @@
 import Placeholder from "./Placeholder";
 import { useCart } from "./CartContext";
 import Link from "next/link";
-import { formatNaira, type Product } from "@/lib/types";
+import { formatNaira, type ShopProduct } from "@/lib/types";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({ product }: { product: ShopProduct }) {
   const { addItem } = useCart();
   const href = `/shop/${product.slug}`;
 
@@ -45,14 +45,15 @@ export default function ProductCard({ product }: { product: Product }) {
         <p className="mt-1.5 text-xs text-cream/45">{product.size}</p>
         <p className="mt-4 flex items-baseline justify-center gap-3">
           <span className="font-serif text-2xl text-cream">{formatNaira(product.price)}</span>
-          {product.compareAt && (
-            <span className="text-sm text-cream/40 line-through">{formatNaira(product.compareAt)}</span>
+          {(product.retailPrice ?? product.compareAt) && (
+            <span className="text-sm text-cream/40 line-through">{formatNaira((product.retailPrice ?? product.compareAt)!)}</span>
           )}
         </p>
+        {product.retailPrice && <p className="mt-1 text-[10px] uppercase tracking-wider2 text-gold">Wholesale price</p>}
         <div className="mt-auto pt-6">
           <button
             type="button"
-            onClick={() => addItem({ slug: product.slug, name: product.name, price: product.price, image: product.image })}
+            onClick={() => addItem({ slug: product.slug, name: product.name, image: product.image })}
             disabled={product.stock <= 0}
             className="btn-outline w-full !py-3.5 disabled:pointer-events-none disabled:opacity-40"
           >

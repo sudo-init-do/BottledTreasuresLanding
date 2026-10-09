@@ -16,8 +16,12 @@ function Submit() {
   );
 }
 
-export default function CheckoutForm({ settings }: { settings: Settings }) {
-  const { items, subtotal, ready } = useCart();
+/** `prices` comes from the server for the visitor's tier, so the transfer amount matches what the order will be charged. */
+export default function CheckoutForm({ settings, prices, wholesale = false }: { settings: Settings; prices: Record<string, number>; wholesale?: boolean }) {
+  const { items: cart, ready } = useCart();
+  // products deleted since they were added to the cart can't be ordered
+  const items = cart.filter((i) => i.slug in prices);
+  const subtotal = items.reduce((n, i) => n + prices[i.slug] * i.qty, 0);
   const [delivery, setDelivery] = useState<DeliveryMethod>("island");
   const [state, action] = useFormState<CheckoutState, FormData>(placeOrder, {});
   const fee = DELIVERY[delivery].fee;
@@ -108,11 +112,12 @@ export default function CheckoutForm({ settings }: { settings: Settings }) {
 
       <aside className="h-fit space-y-5 border border-gold/20 bg-ink-800 p-6 lg:sticky lg:top-28">
         <h2 className="font-serif text-2xl text-cream">Your order</h2>
+        {wholesale && <p className="-mt-3 text-xs uppercase tracking-wider2 text-gold">Wholesale prices</p>}
         <ul className="space-y-2 text-sm">
           {items.map((i) => (
             <li key={i.slug} className="flex justify-between gap-4">
               <span className="text-cream/80">{i.name} × {i.qty}</span>
-              <span>{formatNaira(i.price * i.qty)}</span>
+              <span>{formatNaira(prices[i.slug] * i.qty)}</span>
             </li>
           ))}
         </ul>

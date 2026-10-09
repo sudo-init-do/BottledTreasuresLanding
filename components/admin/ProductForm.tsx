@@ -51,7 +51,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           <div>
             <label className="label" htmlFor="pf-wholesale">Wholesale price (₦)</label>
             <input id="pf-wholesale" name="wholesalePrice" inputMode="numeric" defaultValue={product?.wholesalePrice} placeholder="38000" aria-describedby="pf-wholesale-hint" className="field" />
-            <p id="pf-wholesale-hint" className="mt-1.5 text-xs text-cream/50">Only you see this. It isn&rsquo;t shown in the shop.</p>
+            <p id="pf-wholesale-hint" className="mt-1.5 text-xs text-cream/50">Shown instead of the retail price to signed-in wholesale customers.</p>
           </div>
           <div>
             <label className="label" htmlFor="pf-compare">Old price (₦)</label>

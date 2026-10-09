@@ -11,7 +11,8 @@ export const shopLink = (path = "") => {
     return f ? `/shop?f=${f}` : SHOP_URL;
   }
   if (path === "/cart") return "/cart";
-  if (path === "/account" || path === "/pages/track-order") return "/track";
+  if (path === "/account") return "/account";
+  if (path === "/pages/track-order") return "/track";
   if (path === "/search") return "/shop";
   if (path.startsWith("/blogs")) return "/#journal";
   if (path === "/pages/about") return "/#story";

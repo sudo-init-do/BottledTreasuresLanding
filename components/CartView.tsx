@@ -6,8 +6,10 @@ import { useCart } from "./CartContext";
 import { CloseIcon } from "./Icons";
 import { formatNaira } from "@/lib/types";
 
-export default function CartView() {
-  const { items, subtotal, setQty, removeItem, ready } = useCart();
+/** `prices` comes from the server for the visitor's tier (wholesale customers get wholesale prices). */
+export default function CartView({ prices, wholesale = false }: { prices: Record<string, number>; wholesale?: boolean }) {
+  const { items, setQty, removeItem, ready } = useCart();
+  const subtotal = items.reduce((n, i) => n + (prices[i.slug] ?? 0) * i.qty, 0);
 
   if (!ready) return <div className="h-64" />;
 
@@ -36,14 +38,18 @@ export default function CartView() {
                   <CloseIcon width={18} height={18} />
                 </button>
               </div>
-              <p className="mt-1 text-sm text-cream/50">{formatNaira(i.price)} each</p>
+              {i.slug in prices ? (
+                <p className="mt-1 text-sm text-cream/50">{formatNaira(prices[i.slug])} each{wholesale && " · wholesale"}</p>
+              ) : (
+                <p className="mt-1 text-sm text-stock-low">No longer available. Please remove it.</p>
+              )}
               <div className="mt-auto flex items-center justify-between pt-3">
                 <div className="flex h-10 items-center border border-gold/30">
                   <button type="button" aria-label="Less" onClick={() => setQty(i.slug, i.qty - 1)} className="h-full w-9 text-gold hover:bg-gold/10">−</button>
                   <span className="w-8 text-center text-sm">{i.qty}</span>
                   <button type="button" aria-label="More" onClick={() => setQty(i.slug, i.qty + 1)} className="h-full w-9 text-gold hover:bg-gold/10">+</button>
                 </div>
-                <p className="font-serif text-xl text-cream">{formatNaira(i.price * i.qty)}</p>
+                <p className="font-serif text-xl text-cream">{i.slug in prices ? formatNaira(prices[i.slug] * i.qty) : "—"}</p>
               </div>
             </div>
           </li>
@@ -52,6 +58,7 @@ export default function CartView() {
 
       <aside className="h-fit border border-gold/20 bg-ink-800 p-6">
         <h2 className="font-serif text-2xl text-cream">Summary</h2>
+        {wholesale && <p className="mt-2 text-xs uppercase tracking-wider2 text-gold">Wholesale prices</p>}
         <dl className="mt-5 space-y-3 text-sm">
           <div className="flex justify-between"><dt className="text-cream/60">Subtotal</dt><dd>{formatNaira(subtotal)}</dd></div>
           <div className="flex justify-between"><dt className="text-cream/60">Delivery</dt><dd className="text-cream/60">Chosen at checkout</dd></div>

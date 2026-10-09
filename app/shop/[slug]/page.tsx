@@ -42,8 +42,16 @@ export default async function ProductPage({ params }: { params: { slug: string }
             <p className="mt-2 text-sm text-cream/50">{product.size}</p>
             <p className="mt-6 flex items-baseline gap-3">
               <span className="font-serif text-4xl text-cream">{formatNaira(product.price)}</span>
-              {product.compareAt && <span className="text-cream/40 line-through">{formatNaira(product.compareAt)}</span>}
+              {product.retailPrice ? (
+                <span className="text-cream/40">
+                  <span className="sr-only">Retail price </span>
+                  <span className="line-through">{formatNaira(product.retailPrice)}</span>
+                </span>
+              ) : (
+                product.compareAt && <span className="text-cream/40 line-through">{formatNaira(product.compareAt)}</span>
+              )}
             </p>
+            {product.retailPrice && <p className="mt-2 text-[11px] uppercase tracking-wider2 text-gold">Your wholesale price</p>}
             <p className="mt-6 max-w-lg leading-relaxed text-cream/70">{product.description}</p>
 
             <AddToCart product={product} />

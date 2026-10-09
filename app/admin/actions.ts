@@ -5,10 +5,11 @@ import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { adminCredentials, requireAdmin } from "@/lib/auth";
+import { MIN_PASSWORD, hashPassword } from "@/lib/customers";
 import { updateDb } from "@/lib/db";
 import { SESSION_COOKIE, createSessionToken } from "@/lib/session";
 import { saveUpload } from "@/lib/uploads";
-import { ORDER_STATUSES, TAGS, type OrderStatus, type Product, type Tag } from "@/lib/types";
+import { ORDER_STATUSES, TAGS, TIERS, type Customer, type OrderStatus, type Product, type Tag, type Tier } from "@/lib/types";
 
 export type FormState = { error?: string; ok?: string };
 
@@ -174,6 +175,43 @@ export async function setStock(id: string, value: number): Promise<number | null
   });
   revalidatePath("/", "layout");
   return next;
+}
+
+// ---------- customers ----------
+
+/** Creates a customer account, or updates one. A new password or switching the account off signs the customer out. */
+export async function saveCustomer(_prev: FormState, fd: FormData): Promise<FormState> {
+  await requireAdmin();
+  const id = text(fd, "id");
+  const name = text(fd, "name", 100);
+  const email = text(fd, "email", 120).toLowerCase();
+  const tier = text(fd, "tier") as Tier;
+  const active = id ? fd.get("active") === "on" : true;
+  const password = String(fd.get("password") ?? "");
+  if (!name) return { error: "Add the customer's name." };
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { error: "Add a valid email address. The customer signs in with it." };
+  if (!TIERS.some((t) => t.id === tier)) return { error: "Choose wholesale or retail." };
+  if ((!id || password) && password.length < MIN_PASSWORD) {
+    return { error: id ? `The new password needs at least ${MIN_PASSWORD} characters.` : `Set a password of at least ${MIN_PASSWORD} characters.` };
+  }
+  const passwordHash = password ? await hashPassword(password.slice(0, 200)) : undefined;
+
+  const result = await updateDb((db): FormState => {
+    if (db.customers.some((c) => c.email === email && c.id !== id)) return { error: "Another customer already uses that email." };
+    if (id) {
+      const c = db.customers.find((x) => x.id === id);
+      if (!c) return { error: "That customer no longer exists." };
+      if (passwordHash || (c.active && !active)) c.sessionVersion += 1;
+      Object.assign(c, { name, email, tier, active }, passwordHash ? { passwordHash } : {});
+      return {};
+    }
+    const customer: Customer = { id: randomBytes(6).toString("hex"), name, email, passwordHash: passwordHash!, tier, active: true, sessionVersion: 1, createdAt: new Date().toISOString() };
+    db.customers.unshift(customer);
+    return {};
+  });
+  if (result.error) return result;
+  revalidatePath("/", "layout");
+  redirect("/admin/customers?saved=1");
 }
 
 // ---------- settings ----------

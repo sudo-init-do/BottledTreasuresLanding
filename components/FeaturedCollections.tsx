@@ -4,9 +4,9 @@ import { useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import Reveal from "./Reveal";
 import { ArrowIcon } from "./Icons";
-import type { Product } from "@/lib/types";
+import type { ShopProduct } from "@/lib/types";
 
-type Tab = { id: string; label: string; products: Product[] };
+type Tab = { id: string; label: string; products: ShopProduct[] };
 
 export default function FeaturedCollections({ collections }: { collections: Tab[] }) {
   const [active, setActive] = useState(collections[0].id);
