@@ -97,8 +97,8 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               <SearchIcon />
             </button>
             <a
-              href="/track"
-              aria-label="Track your order"
+              href="/account"
+              aria-label="Your account"
               className="hidden p-2 text-cream/85 transition-colors hover:text-gold sm:block"
             >
               <UserIcon />
@@ -195,6 +195,13 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
               className="flex items-center gap-3 text-xs uppercase tracking-wider2 text-cream/80"
             >
               <UserIcon /> Track My Order
+            </a>
+            <a
+              href="/account"
+              tabIndex={menuOpen ? 0 : -1}
+              className="flex items-center gap-3 text-xs uppercase tracking-wider2 text-cream/80"
+            >
+              <UserIcon /> Wholesale Account
             </a>
             <a href="/shop" tabIndex={menuOpen ? 0 : -1} className="btn-gold w-full">
               Shop Now

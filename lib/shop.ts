@@ -1,8 +1,9 @@
 import "server-only";
+import { currentTier } from "./customers";
 import { readDb } from "./db";
-import type { Product } from "./types";
+import type { Product, ShopProduct, Tier } from "./types";
 
-export const FILTERS: { id: string; label: string; test: (p: Product) => boolean }[] = [
+export const FILTERS: { id: string; label: string; test: (p: ShopProduct) => boolean }[] = [
   { id: "all", label: "All", test: (p) => !p.tags.includes("home") },
   { id: "new", label: "New Arrivals", test: (p) => p.tags.includes("new") },
   { id: "best", label: "Best Sellers", test: (p) => p.tags.includes("best") },
@@ -20,21 +21,35 @@ export const FILTERS: { id: string; label: string; test: (p: Product) => boolean
 
 const newestFirst = (a: Product, b: Product) => b.createdAt.localeCompare(a.createdAt);
 
-/** Shop pages pass products to client components, so owner-only fields are dropped here. */
-const forShop = ({ wholesalePrice: _, ...p }: Product): Product => p;
+/**
+ * Prices a product for a tier. Shop pages pass products to client components, so the wholesale
+ * price is always dropped from the object and only ever appears as `price` for wholesale customers.
+ */
+export function priceFor({ wholesalePrice, ...p }: Product, tier: Tier): ShopProduct {
+  if (tier === "wholesale" && wholesalePrice) return { ...p, price: wholesalePrice, compareAt: undefined, retailPrice: p.price };
+  return p;
+}
 
 /** Every product with all fields, for the dashboard. */
 export async function getInventory() {
   return (await readDb()).products.slice().sort(newestFirst);
 }
 
+/** Products priced for the current visitor. */
 export async function getProducts() {
-  return (await getInventory()).map(forShop);
+  const [products, tier] = await Promise.all([getInventory(), currentTier()]);
+  return products.map((p) => priceFor(p, tier));
 }
 
 export async function getProduct(slug: string) {
-  const p = (await readDb()).products.find((x) => x.slug === slug);
-  return p && forShop(p);
+  const [{ products }, tier] = await Promise.all([readDb(), currentTier()]);
+  const p = products.find((x) => x.slug === slug);
+  return p && priceFor(p, tier);
+}
+
+/** Current price of every product for this visitor, keyed by slug. The cart and checkout use it instead of prices saved in the browser. */
+export async function getPriceList(): Promise<Record<string, number>> {
+  return Object.fromEntries((await getProducts()).map((p) => [p.slug, p.price]));
 }
 
 export async function searchProducts(filter = "all", q = "") {

@@ -3,9 +3,9 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "./CartContext";
-import type { Product } from "@/lib/types";
+import type { ShopProduct } from "@/lib/types";
 
-export default function AddToCart({ product }: { product: Product }) {
+export default function AddToCart({ product }: { product: ShopProduct }) {
   const { addItem } = useCart();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -26,7 +26,7 @@ export default function AddToCart({ product }: { product: Product }) {
           type="button"
           className="btn-gold flex-1"
           onClick={() => {
-            addItem({ slug: product.slug, name: product.name, price: product.price, image: product.image }, qty);
+            addItem({ slug: product.slug, name: product.name, image: product.image }, qty);
             setAdded(true);
           }}
         >

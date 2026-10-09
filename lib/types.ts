@@ -22,7 +22,7 @@ export type Product = {
   description: string;
   price: number;
   compareAt?: number;
-  /** Trade price for bulk buyers. Owner-only: never sent to the shop pages. */
+  /** Price for signed-in wholesale customers. Only sent to their browsers, never to guests or retail customers. */
   wholesalePrice?: number;
   size: string;
   badge?: string;
@@ -65,7 +65,35 @@ export type Order = {
   proof: string;
   /** True once a cancelled order's bottles have been put back into stock. */
   stockReturned?: boolean;
+  /** Set when a signed-in wholesale customer placed the order at wholesale prices. */
+  wholesale?: { customerId: string };
 };
+
+export type Tier = "retail" | "wholesale";
+export const TIERS: { id: Tier; label: string }[] = [
+  { id: "wholesale", label: "Wholesale" },
+  { id: "retail", label: "Retail" },
+];
+
+/** A customer account. The owner creates these in the dashboard; there is no public sign-up. */
+export type Customer = {
+  id: string;
+  name: string;
+  email: string;
+  /** scrypt$salt$hash */
+  passwordHash: string;
+  tier: Tier;
+  active: boolean;
+  /** Bumped when the password changes or the account is disabled, which signs the customer out everywhere. */
+  sessionVersion: number;
+  createdAt: string;
+};
+
+/**
+ * A product as the shop pages see it, priced for the current visitor.
+ * `retailPrice` is only set when `price` is the wholesale price.
+ */
+export type ShopProduct = Omit<Product, "wholesalePrice"> & { retailPrice?: number };
 
 export type Settings = {
   bankName: string;
@@ -74,7 +102,7 @@ export type Settings = {
   whatsapp: string;
 };
 
-export type Database = { products: Product[]; orders: Order[]; settings: Settings };
+export type Database = { products: Product[]; orders: Order[]; customers: Customer[]; settings: Settings };
 
 export type StockLevel = "low" | "medium" | "healthy";
 

@@ -35,6 +35,7 @@ async function load(): Promise<Database> {
 
 /** Brings data saved by older versions of the site up to date. */
 function upgrade(db: Database): Database {
+  db.customers ??= [];
   for (const p of db.products as (Database["products"][number] & { inStock?: boolean })[]) {
     if (typeof p.stock !== "number") p.stock = p.inStock === false ? 0 : 10;
     delete p.inStock;

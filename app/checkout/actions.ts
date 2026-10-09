@@ -2,7 +2,9 @@
 
 import { randomBytes } from "node:crypto";
 import { redirect } from "next/navigation";
+import { currentCustomer } from "@/lib/customers";
 import { readDb, updateDb } from "@/lib/db";
+import { priceFor } from "@/lib/shop";
 import { saveUpload } from "@/lib/uploads";
 import { DELIVERY, type DeliveryMethod, type Order, type OrderItem } from "@/lib/types";
 
@@ -32,7 +34,9 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
     /* handled below */
   }
   // Prices and stock always come from the database, never from the browser.
-  const { products } = await readDb();
+  // Signed-in wholesale customers pay the wholesale price where a product has one.
+  const [{ products }, customer] = await Promise.all([readDb(), currentCustomer()]);
+  const tier = customer?.tier ?? "retail";
   const items: OrderItem[] = [];
   for (const w of Array.isArray(wanted) ? wanted : []) {
     const p = products.find((x) => x.slug === w?.slug);
@@ -41,7 +45,7 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
     if (p.stock < qty) {
       return { error: p.stock > 0 ? `Only ${p.stock} of ${p.name} left. Please reduce the quantity in your cart.` : `${p.name} just sold out. Please remove it from your cart.` };
     }
-    items.push({ slug: p.slug, name: p.name, price: p.price, qty: Math.min(qty, 20), image: p.image });
+    items.push({ slug: p.slug, name: p.name, price: priceFor(p, tier).price, qty: Math.min(qty, 20), image: p.image });
   }
   if (!items.length) return { error: "Your cart is empty, or the items are no longer available." };
 
@@ -63,6 +67,7 @@ export async function placeOrder(_prev: CheckoutState, fd: FormData): Promise<Ch
     subtotal,
     total: subtotal + deliveryFee,
     proof: saved.path,
+    ...(customer && tier === "wholesale" ? { wholesale: { customerId: customer.id } } : {}),
   };
   const result = await updateDb((db) => {
     // check again inside the write, in case someone else bought the last bottle meanwhile

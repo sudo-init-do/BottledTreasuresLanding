@@ -2,13 +2,13 @@
 
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from "react";
 
-export type CartItem = { slug: string; name: string; price: number; image: string; qty: number };
+/** What the cart remembers in the browser. Prices are not saved: they always come from the server, for the visitor's tier. */
+export type CartItem = { slug: string; name: string; image: string; qty: number };
 type AddInput = Omit<CartItem, "qty">;
 
 type CartContextValue = {
   items: CartItem[];
   count: number;
-  subtotal: number;
   lastAdded: string | null;
   ready: boolean;
   addItem: (item: AddInput, qty?: number) => void;
@@ -29,7 +29,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(KEY) || "[]");
-      if (Array.isArray(saved)) setItems(saved);
+      // carts saved by older versions also stored a price; keep only what's needed
+      if (Array.isArray(saved)) setItems(saved.map(({ slug, name, image, qty }: CartItem) => ({ slug, name, image, qty })));
     } catch {
       /* ignore */
     }
@@ -66,10 +67,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => () => clearTimeout(timer.current), []);
 
   const count = items.reduce((n, i) => n + i.qty, 0);
-  const subtotal = items.reduce((n, i) => n + i.qty * i.price, 0);
 
   return (
-    <CartContext.Provider value={{ items, count, subtotal, lastAdded, ready, addItem, setQty, removeItem, clear }}>
+    <CartContext.Provider value={{ items, count, lastAdded, ready, addItem, setQty, removeItem, clear }}>
       {children}
     </CartContext.Provider>
   );

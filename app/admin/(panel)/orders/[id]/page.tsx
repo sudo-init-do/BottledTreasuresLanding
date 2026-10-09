@@ -8,8 +8,10 @@ import { DELIVERY, ORDER_STATUSES, formatNaira } from "@/lib/types";
 import { setOrderStatus } from "../../../actions";
 
 export default async function OrderDetail({ params }: { params: { id: string } }) {
-  const order = (await readDb()).orders.find((o) => o.id === params.id);
+  const db = await readDb();
+  const order = db.orders.find((o) => o.id === params.id);
   if (!order) notFound();
+  const account = order.wholesale && db.customers.find((x) => x.id === order.wholesale!.customerId);
   const c = order.customer;
   const wa = c.phone.replace(/\D/g, "").replace(/^0/, "234");
   const isPdf = order.proof.endsWith(".pdf");
@@ -51,6 +53,16 @@ export default async function OrderDetail({ params }: { params: { id: string } }
 
           <div className="border border-gold/20 bg-ink-800 p-5">
             <h2 className="eyebrow">Items</h2>
+            {order.wholesale && (
+              <p className="mt-2 text-sm text-gold">
+                Wholesale prices
+                {account ? (
+                  <> · <Link href={`/admin/customers/${account.id}`} className="underline hover:text-gold-light">{account.name}</Link></>
+                ) : (
+                  " · account since removed"
+                )}
+              </p>
+            )}
             <ul className="mt-3 space-y-2 text-sm">
               {order.items.map((i) => (
                 <li key={i.slug} className="flex justify-between gap-4"><span>{i.name} × {i.qty}</span><span>{formatNaira(i.price * i.qty)}</span></li>
