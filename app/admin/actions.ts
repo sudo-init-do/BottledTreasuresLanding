@@ -9,7 +9,7 @@ import { MIN_PASSWORD, hashPassword } from "@/lib/customers";
 import { updateDb } from "@/lib/db";
 import { SESSION_COOKIE, createSessionToken } from "@/lib/session";
 import { saveUpload } from "@/lib/uploads";
-import { ORDER_STATUSES, TAGS, TIERS, type Customer, type OrderStatus, type Product, type Tag, type Tier } from "@/lib/types";
+import { TAGS, TIERS, formatNaira, type Customer, type Product, type Sale, type Tag, type Tier } from "@/lib/types";
 
 export type FormState = { error?: string; ok?: string };
 
@@ -48,29 +48,64 @@ export async function logout() {
   redirect("/admin/login");
 }
 
-// ---------- orders ----------
+// ---------- sales ----------
 
-export async function setOrderStatus(fd: FormData) {
+/** Today's date on Bonny Island, YYYY-MM-DD. */
+const today = () => new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Lagos" });
+
+/** Records a sale she made (paid on WhatsApp, in person, etc.) and, if asked, takes the bottles off the stock count. */
+export async function recordSale(_prev: FormState, fd: FormData): Promise<FormState> {
   await requireAdmin();
-  const id = text(fd, "id");
-  const status = text(fd, "status") as OrderStatus;
-  if (!ORDER_STATUSES.some((s) => s.id === status)) return;
-  await updateDb((db) => {
-    const o = db.orders.find((x) => x.id === id);
-    if (!o) return;
-    o.status = status;
-    // Cancelling puts the bottles back on the shelf; un-cancelling takes them out again.
-    const back = status === "cancelled" && !o.stockReturned;
-    const out = status !== "cancelled" && o.stockReturned;
-    if (back || out) {
-      for (const i of o.items) {
-        const p = db.products.find((x) => x.slug === i.slug);
-        if (p) p.stock = Math.max(0, p.stock + (back ? i.qty : -i.qty));
-      }
-      o.stockReturned = back;
+  const productId = text(fd, "productId");
+  const qty = Math.floor(Number(text(fd, "qty")));
+  const price = Math.round(Number(text(fd, "price").replace(/[^\d.]/g, "")));
+  const dateRaw = text(fd, "date", 10);
+  const date = /^\d{4}-\d{2}-\d{2}$/.test(dateRaw) && dateRaw <= today() ? dateRaw : today();
+  const takeStock = fd.get("takeStock") === "on";
+  if (!productId) return { error: "Choose which product you sold." };
+  if (!(qty > 0) || qty > 9999) return { error: "Type how many bottles you sold, e.g. 2." };
+  if (!(price > 0)) return { error: "Type the price per bottle in Naira, e.g. 45000." };
+
+  const result = await updateDb((db): FormState => {
+    const p = db.products.find((x) => x.id === productId);
+    if (!p) return { error: "That product no longer exists. Refresh the page and try again." };
+    if (takeStock && p.stock < qty) {
+      return { error: `The dashboard only shows ${p.stock} ${p.name} in stock. If you have more, fix the count on the Products page first, or untick “Take these bottles off my stock”.` };
     }
+    if (takeStock) p.stock -= qty;
+    const sale: Sale = {
+      id: randomBytes(6).toString("hex"),
+      date,
+      productId: p.id,
+      name: p.name,
+      qty,
+      price,
+      total: qty * price,
+      customer: text(fd, "customer", 100),
+      note: text(fd, "note", 300),
+      tookStock: takeStock,
+      createdAt: new Date().toISOString(),
+    };
+    db.sales.unshift(sale);
+    return { ok: `Saved: ${qty} × ${p.name} for ${formatNaira(sale.total)}.${takeStock ? ` ${p.stock} left in stock.` : ""}` };
   });
-  revalidatePath("/admin", "layout");
+  revalidatePath("/", "layout");
+  return result;
+}
+
+/** Removes a sale recorded by mistake. Bottles it took off the stock count go back on. */
+export async function deleteSale(id: string): Promise<{ error?: string }> {
+  await requireAdmin();
+  const removed = await updateDb((db) => {
+    const sale = db.sales.find((x) => x.id === id);
+    if (!sale) return false;
+    const p = sale.tookStock ? db.products.find((x) => x.id === sale.productId) : undefined;
+    if (p) p.stock = Math.min(99999, p.stock + sale.qty);
+    db.sales = db.sales.filter((x) => x.id !== id);
+    return true;
+  });
+  revalidatePath("/", "layout");
+  return removed ? {} : { error: "That sale was already deleted." };
 }
 
 // ---------- products ----------
@@ -135,7 +170,7 @@ export async function saveProduct(_prev: FormState, fd: FormData): Promise<FormS
   redirect("/admin/products?saved=1");
 }
 
-/** Removes a product for good. Past orders keep their own copy of its name, price and photo. */
+/** Removes a product for good. Recorded sales keep their own copy of its name and price. */
 export async function deleteProduct(id: string): Promise<{ error?: string }> {
   await requireAdmin();
   const removed = await updateDb((db) => {
@@ -218,18 +253,12 @@ export async function saveCustomer(_prev: FormState, fd: FormData): Promise<Form
 
 export async function saveSettings(_prev: FormState, fd: FormData): Promise<FormState> {
   await requireAdmin();
-  const settings = {
-    bankName: text(fd, "bankName", 80),
-    accountName: text(fd, "accountName", 120),
-    accountNumber: text(fd, "accountNumber", 20).replace(/\s/g, ""),
-    whatsapp: text(fd, "whatsapp", 30),
-  };
-  if (!settings.bankName || !settings.accountName || !/^\d{10}$/.test(settings.accountNumber)) {
-    return { error: "Fill in the bank, account name and a 10-digit account number." };
-  }
+  const whatsapp = text(fd, "whatsapp", 30);
+  const digits = whatsapp.replace(/\D/g, "");
+  if (digits.length < 10 || digits.length > 15) return { error: "Type your WhatsApp number with the country code, e.g. +234 803 123 4567." };
   await updateDb((db) => {
-    db.settings = settings;
+    db.settings = { whatsapp };
   });
   revalidatePath("/", "layout");
-  return { ok: "Saved." };
+  return { ok: "Saved. Checkout now sends orders to this number." };
 }

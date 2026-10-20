@@ -6,7 +6,7 @@ import { seedDatabase } from "./seed";
 import type { Database } from "./types";
 
 /**
- * A tiny JSON-file database. Fine for a single shop with a few hundred orders;
+ * A tiny JSON-file database. Fine for a single shop with a few thousand sales;
  * all reads and writes go through here so it can be swapped for a real database later.
  */
 export const DATA_DIR = process.env.DATA_DIR || path.join(process.cwd(), "data");
@@ -36,6 +36,7 @@ async function load(): Promise<Database> {
 /** Brings data saved by older versions of the site up to date. */
 function upgrade(db: Database): Database {
   db.customers ??= [];
+  db.sales ??= [];
   for (const p of db.products as (Database["products"][number] & { inStock?: boolean })[]) {
     if (typeof p.stock !== "number") p.stock = p.inStock === false ? 0 : 10;
     delete p.inStock;
@@ -47,10 +48,6 @@ function upgrade(db: Database): Database {
       p.image = "/photos/products/bonny-nights.jpg";
     }
     p.description = p.description.replace(/Lagos Nights/g, "Bonny Nights").replace(/Hand-picked in Lagos/g, "Hand-picked on Bonny Island");
-  }
-  for (const o of db.orders) {
-    if ((o.delivery as string) === "lagos") o.delivery = "island";
-    for (const i of o.items) if (i.slug === "lagos-nights") Object.assign(i, { slug: "bonny-nights", name: "Bonny Nights", image: "/photos/products/bonny-nights.jpg" });
   }
   return db;
 }

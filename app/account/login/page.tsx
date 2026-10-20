@@ -23,8 +23,7 @@ export default async function CustomerLoginPage() {
             WhatsApp or email <a href="mailto:wholesale@bottledtreasures.ng" className="text-gold hover:underline">wholesale@bottledtreasures.ng</a> to apply.
           </p>
           <p>
-            Shopping for yourself? No account needed. <Link href="/shop" className="text-gold hover:underline">Go to the shop</Link> or{" "}
-            <Link href="/track" className="text-gold hover:underline">track an order</Link>.
+            Shopping for yourself? No account needed. <Link href="/shop" className="text-gold hover:underline">Go to the shop</Link>.
           </p>
         </div>
       </div>

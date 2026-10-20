@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import SiteChrome, { PageHeader } from "@/components/SiteChrome";
-import { FILTERS, searchProducts } from "@/lib/shop";
+import { readDb } from "@/lib/db";
+import { FILTERS, getProducts, searchProducts } from "@/lib/shop";
+import { whatsappLink } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Shop — Bottled Treasures" };
@@ -12,6 +14,9 @@ export default async function ShopPage({ searchParams }: { searchParams: { f?: s
   const q = searchParams.q?.slice(0, 60) ?? "";
   const products = await searchProducts(filter, q);
   const current = FILTERS.find((f) => f.id === filter)!;
+  // nothing in the shop at all (not just nothing matching a filter or search)
+  const empty = !products.length && (await getProducts()).length === 0;
+  const whatsapp = empty ? whatsappLink((await readDb()).settings.whatsapp) : "";
 
   return (
     <SiteChrome>
@@ -42,11 +47,21 @@ export default async function ShopPage({ searchParams }: { searchParams: { f?: s
           })}
         </nav>
 
-        <p className="mt-8 text-sm text-cream/50">
-          {products.length} {products.length === 1 ? "product" : "products"}
-        </p>
+        {empty ? null : (
+          <p className="mt-8 text-sm text-cream/50">
+            {products.length} {products.length === 1 ? "product" : "products"}
+          </p>
+        )}
 
-        {products.length ? (
+        {empty ? (
+          <div className="mt-8 border border-gold/15 px-6 py-16 text-center">
+            <p className="font-serif text-3xl text-cream">New fragrances are on the way.</p>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-cream/60">
+              Our shelves are being restocked right now. Check back soon, or message us on WhatsApp and we&apos;ll tell you what&apos;s coming.
+            </p>
+            <a href={whatsapp} target="_blank" rel="noopener noreferrer" className="btn-gold mt-8">Message us on WhatsApp</a>
+          </div>
+        ) : products.length ? (
           <div className="mt-6 grid grid-cols-1 gap-5 min-[480px]:grid-cols-2 sm:gap-6 lg:grid-cols-4">
             {products.map((p) => (
               <ProductCard key={p.id} product={p} />

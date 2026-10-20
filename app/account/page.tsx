@@ -30,7 +30,6 @@ export default async function AccountPage() {
         </div>
         <div className="flex flex-wrap items-center gap-4">
           <Link href="/shop" className="btn-gold">Shop Now</Link>
-          <Link href="/track" className="btn-outline">Track an Order</Link>
           <form action={customerLogout}>
             <SubmitButton pendingText="Signing out…" className="text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold">Sign out</SubmitButton>
           </form>

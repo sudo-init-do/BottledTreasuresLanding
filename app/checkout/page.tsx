@@ -14,7 +14,7 @@ export default async function CheckoutPage() {
     <SiteChrome>
       <PageHeader eyebrow="Checkout" title={<>Almost <em className="text-gold">Yours</em></>} />
       <div className="container-site py-12 sm:py-16">
-        <CheckoutForm settings={settings} prices={prices} wholesale={tier === "wholesale"} />
+        <CheckoutForm whatsapp={settings.whatsapp} prices={prices} wholesale={tier === "wholesale"} />
       </div>
     </SiteChrome>
   );
