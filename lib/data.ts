@@ -12,7 +12,6 @@ export const shopLink = (path = "") => {
   }
   if (path === "/cart") return "/cart";
   if (path === "/account") return "/account";
-  if (path === "/pages/track-order") return "/track";
   if (path === "/search") return "/shop";
   if (path.startsWith("/blogs")) return "/#journal";
   if (path === "/pages/about") return "/#story";
@@ -122,8 +121,8 @@ export const orderSteps = [
     copy: "Explore our collections online and add your favourite fragrances to your cart. Need help? Our scent consultants are a WhatsApp message away.",
   },
   {
-    title: "Pay & Upload Proof",
-    copy: "Pay via bank transfer to the account shown at checkout, then upload your proof of payment. We confirm every order within hours.",
+    title: "Order on WhatsApp",
+    copy: "At checkout, tap Order on WhatsApp. Your order arrives with us already written out, and we reply with how to pay.",
   },
   {
     title: "Pickup or Dispatch",
@@ -174,7 +173,7 @@ export const faqs = [
   },
   {
     q: "How do I place an order?",
-    a: "Tap Shop, add your favourites to the cart and check out. Pay via bank transfer to the account shown, then upload your proof of payment. You'll receive a confirmation on WhatsApp or email once verified.",
+    a: "Tap Shop, add your favourites to the cart and check out. Tap Order on WhatsApp and send the message: we'll reply with how to pay, then arrange pickup or delivery.",
   },
   {
     q: "How long does delivery take?",

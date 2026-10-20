@@ -13,22 +13,23 @@ import FAQ from "@/components/FAQ";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import DealsPopup from "@/components/DealsPopup";
+import { readDb } from "@/lib/db";
 import { homeCollections, homeFragrances } from "@/lib/shop";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [collections, homeItems] = await Promise.all([homeCollections(), homeFragrances()]);
+  const [collections, homeItems, { settings }] = await Promise.all([homeCollections(), homeFragrances(), readDb()]);
   return (
     <>
       <AnnouncementBar />
       <Navbar />
       <main>
         <Hero />
-        <FeaturedCollections collections={collections} />
+        <FeaturedCollections collections={collections} whatsapp={settings.whatsapp} />
         <FragranceFamilies />
         <SignatureCollections />
-        <HomeFragrance items={homeItems} />
+        {homeItems.length > 0 && <HomeFragrance items={homeItems} />}
         <TrendingHouses />
         <BrandStory />
         <HowToOrder />

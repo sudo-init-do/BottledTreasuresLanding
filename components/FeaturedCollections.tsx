@@ -4,14 +4,18 @@ import { useRef, useState } from "react";
 import ProductCard from "./ProductCard";
 import Reveal from "./Reveal";
 import { ArrowIcon } from "./Icons";
+import EmptyShop from "./EmptyShop";
 import type { ShopProduct } from "@/lib/types";
 
 type Tab = { id: string; label: string; products: ShopProduct[] };
 
-export default function FeaturedCollections({ collections }: { collections: Tab[] }) {
-  const [active, setActive] = useState(collections[0].id);
+export default function FeaturedCollections({ collections: all, whatsapp }: { collections: Tab[]; whatsapp: string }) {
+  // tabs with nothing in them are hidden; with no products at all, a message shows instead
+  const collections = all.filter((c) => c.products.length);
+  const [active, setActive] = useState(collections[0]?.id);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const current = collections.find((c) => c.id === active) ?? collections[0];
+  if (!current) return <EmptyShop whatsapp={whatsapp} />;
 
   const onKeyDown = (e: React.KeyboardEvent, index: number) => {
     if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;

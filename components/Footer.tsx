@@ -21,7 +21,6 @@ const columns = [
       { label: "How to Order", href: "#how-to-order" },
       { label: "Journal", href: "#journal" },
       { label: "FAQ", href: "#faq" },
-      { label: "Track Order", href: shopLink("/pages/track-order") },
     ],
   },
 ];

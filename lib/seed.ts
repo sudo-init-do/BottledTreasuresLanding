@@ -42,12 +42,9 @@ export function seedDatabase(): Database {
       // newest first by default
       createdAt: new Date(now - i * 60_000).toISOString(),
     })),
-    orders: [],
+    sales: [],
     customers: [],
     settings: {
-      bankName: "Your Bank",
-      accountName: "Bottled Treasures",
-      accountNumber: "0000000000",
       whatsapp: "+234 800 000 0000",
     },
   };
