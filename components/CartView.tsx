@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useCart } from "./CartContext";
 import { CloseIcon } from "./Icons";
 import { formatNaira } from "@/lib/types";
@@ -10,6 +11,11 @@ import { formatNaira } from "@/lib/types";
 export default function CartView({ prices, wholesale = false }: { prices: Record<string, number>; wholesale?: boolean }) {
   const { items, setQty, removeItem, ready } = useCart();
   const subtotal = items.reduce((n, i) => n + (prices[i.slug] ?? 0) * i.qty, 0);
+
+  // products the owner has deleted drop out of the cart
+  useEffect(() => {
+    if (ready) items.filter((i) => !(i.slug in prices)).forEach((i) => removeItem(i.slug));
+  }, [ready, items, prices, removeItem]);
 
   if (!ready) return <div className="h-64" />;
 

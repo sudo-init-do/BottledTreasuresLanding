@@ -39,7 +39,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: { s
         <p>
           <strong className="font-medium text-cream">Selling something new?</strong> Tap <strong className="font-medium text-cream">+ Add new product</strong>. To change a price, photo or name, tap <strong className="font-medium text-cream">Edit</strong>. To remove a product from the shop, tap <strong className="font-medium text-cream">Delete</strong>.
         </p>
-        <p>When a customer orders, their bottles are taken off automatically. At 0 the product shows as &ldquo;Sold out&rdquo; in the shop.</p>
+        <p>When you record a sale on the Sales page, its bottles are taken off here automatically. At 0 the product shows as &ldquo;Sold out&rdquo; in the shop. Deleted products disappear from the shop straight away.</p>
       </HelpBox>
 
       {searchParams.saved && (

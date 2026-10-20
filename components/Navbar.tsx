@@ -190,13 +190,6 @@ export default function Navbar({ solid = false }: { solid?: boolean }) {
           </ul>
           <div className="mt-auto space-y-4">
             <a
-              href="/track"
-              tabIndex={menuOpen ? 0 : -1}
-              className="flex items-center gap-3 text-xs uppercase tracking-wider2 text-cream/80"
-            >
-              <UserIcon /> Track My Order
-            </a>
-            <a
               href="/account"
               tabIndex={menuOpen ? 0 : -1}
               className="flex items-center gap-3 text-xs uppercase tracking-wider2 text-cream/80"
