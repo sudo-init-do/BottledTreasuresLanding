@@ -62,10 +62,10 @@ Fonts: Cormorant Garamond (headings, `font-serif`) and Jost (body, `font-sans`) 
 - `/cart` → `/checkout`: details, pickup or delivery, bank transfer, upload payment receipt
 - `/order/<code>`: confirmation; `/track`: track an order with its number and phone
 
-**For the owner** (`/admin`, login required):
+**For the owner** (`/admin`, login required). The dashboard uses a plain black-and-grey look (the `.admin` class in `app/globals.css` remaps the brand colours) with a short explanation on each page:
 
 - **Orders**: see new orders, view the payment receipt, change status (Checking payment → Paid → Dispatched → Completed), WhatsApp the customer
-- **Products (inventory)**: stock count per product with − / + buttons (tap the number to type an exact count); badges are red under 5, gold 5–19, green 20+. Add, edit and delete products; changes show on the site straight away. Stock goes down when an order is placed and back up if the order is cancelled; at 0 the product shows as sold out
+- **Products**: one plain list with an explanation at the top. Each product shows its photo, price and bottles in stock, with **+ Add stock** (type how many arrived; it is added to the count), **Correct count** (type the exact number), **Edit** and **Delete** (asks to confirm). **+ Add new product** opens a short form: photo, name, price and bottles are required; wholesale price, sale price, scent notes and shop sections are under "More options". Stock goes down when an order is placed and back up if it is cancelled; at 0 the product shows as sold out
 - **Settings**: bank details shown at checkout, WhatsApp number
 
 Login details come from `.env` (copy `.env.example`). When running locally without a `.env`, the login is `admin@bottledtreasures.ng` / `changeme`.

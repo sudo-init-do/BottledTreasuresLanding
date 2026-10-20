@@ -68,7 +68,7 @@ export default function CheckoutForm({ settings, prices, wholesale = false }: { 
             {(Object.keys(DELIVERY) as DeliveryMethod[]).map((d) => (
               <label key={d} className={`flex cursor-pointer items-center justify-between gap-4 border px-4 py-3 text-sm transition-colors ${delivery === d ? "border-gold bg-gold/5" : "border-gold/25"}`}>
                 <span className="flex items-center gap-3">
-                  <input type="radio" name="delivery" value={d} checked={delivery === d} onChange={() => setDelivery(d)} className="accent-[#C9A84C]" />
+                  <input type="radio" name="delivery" value={d} checked={delivery === d} onChange={() => setDelivery(d)} className="accent-gold" />
                   {DELIVERY[d].label}
                 </span>
                 <span className="text-cream/70">{DELIVERY[d].fee ? formatNaira(DELIVERY[d].fee) : "Free"}</span>

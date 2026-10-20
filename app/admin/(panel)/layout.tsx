@@ -11,23 +11,25 @@ export const metadata: Metadata = { title: "Dashboard — Bottled Treasures", ro
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   await requireAdmin();
   return (
-    <div className="min-h-screen bg-ink">
-      <header className="sticky top-0 z-40 border-b border-gold/20 bg-ink/95 backdrop-blur">
-        <div className="container-site flex h-16 items-center justify-between gap-2 sm:gap-4">
+    <div className="admin min-h-screen">
+      <header className="sticky top-0 z-40 border-b border-gold/15 bg-ink-800">
+        <div className="container-site flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3 sm:h-16 sm:flex-nowrap sm:py-0">
           <Link href="/admin" className="flex items-center gap-3">
             <BrandMark className="h-8 w-auto text-gold" />
-            <span className="hidden font-serif text-lg tracking-[0.12em] text-cream sm:inline">DASHBOARD</span>
+            <span className="text-sm font-medium text-cream">Bottled Treasures · Admin</span>
           </Link>
-          <AdminNav />
+          <div className="order-last -mx-1 w-full sm:order-none sm:mx-0 sm:w-auto">
+            <AdminNav />
+          </div>
           <div className="flex items-center gap-4">
-            <Link href="/" target="_blank" className="hidden text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold md:inline">View shop ↗</Link>
+            <Link href="/" target="_blank" className="text-sm text-cream/60 hover:text-cream">View shop ↗</Link>
             <form action={logout}>
-              <button className="whitespace-nowrap text-[10px] uppercase tracking-wider2 text-cream/60 hover:text-gold sm:text-[11px]">Log out</button>
+              <button className="whitespace-nowrap text-sm text-cream/60 hover:text-cream">Log out</button>
             </form>
           </div>
         </div>
       </header>
-      <main className="container-site py-10">{children}</main>
+      <main className="container-site max-w-5xl py-8 sm:py-10">{children}</main>
     </div>
   );
 }

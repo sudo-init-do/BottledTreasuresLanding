@@ -9,33 +9,35 @@ const config: Config = {
       full: "9999px",
     },
     extend: {
+      // Colours are CSS variables (see app/globals.css) so the dashboard can switch to a plain
+      // black-and-grey scheme with the `.admin` class while the shop keeps its brand colours.
       colors: {
         ink: {
-          DEFAULT: "#0D0404",
-          900: "#0D0404",
-          800: "#160808",
-          700: "#1E0B0B",
+          DEFAULT: "rgb(var(--c-ink) / <alpha-value>)",
+          900: "rgb(var(--c-ink) / <alpha-value>)",
+          800: "rgb(var(--c-ink-800) / <alpha-value>)",
+          700: "rgb(var(--c-ink-700) / <alpha-value>)",
         },
         burgundy: {
-          DEFAULT: "#6B1A1A",
-          700: "#561414",
-          900: "#2A0A0A",
+          DEFAULT: "rgb(var(--c-burgundy) / <alpha-value>)",
+          700: "rgb(var(--c-burgundy-700) / <alpha-value>)",
+          900: "rgb(var(--c-burgundy-900) / <alpha-value>)",
         },
         gold: {
-          DEFAULT: "#C9A84C",
-          light: "#DCC27A",
-          dark: "#9E8236",
+          DEFAULT: "rgb(var(--c-gold) / <alpha-value>)",
+          light: "rgb(var(--c-gold-light) / <alpha-value>)",
+          dark: "rgb(var(--c-gold-dark) / <alpha-value>)",
         },
         // stock badges in the dashboard
         stock: {
-          low: "#E5675C",
-          medium: "#C9A84C",
-          healthy: "#5FBF7A",
+          low: "rgb(var(--c-stock-low) / <alpha-value>)",
+          medium: "rgb(var(--c-stock-medium) / <alpha-value>)",
+          healthy: "rgb(var(--c-stock-healthy) / <alpha-value>)",
         },
         cream: {
-          DEFAULT: "#F5ECD7",
-          muted: "#CDBFA3",
-          dim: "#8F826B",
+          DEFAULT: "rgb(var(--c-cream) / <alpha-value>)",
+          muted: "rgb(var(--c-cream-muted) / <alpha-value>)",
+          dim: "rgb(var(--c-cream-dim) / <alpha-value>)",
         },
       },
       fontFamily: {

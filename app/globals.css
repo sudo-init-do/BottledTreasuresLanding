@@ -3,7 +3,23 @@
 @tailwind utilities;
 
 @layer base {
+  /* Brand colours (as RGB channels so Tailwind opacity modifiers work) */
   :root {
+    --c-ink: 13 4 4; /* #0D0404 */
+    --c-ink-800: 22 8 8;
+    --c-ink-700: 30 11 11;
+    --c-burgundy: 107 26 26; /* #6B1A1A */
+    --c-burgundy-700: 86 20 20;
+    --c-burgundy-900: 42 10 10;
+    --c-gold: 201 168 76; /* #C9A84C */
+    --c-gold-light: 220 194 122;
+    --c-gold-dark: 158 130 54;
+    --c-cream: 245 236 215; /* #F5ECD7 */
+    --c-cream-muted: 205 191 163;
+    --c-cream-dim: 143 130 107;
+    --c-stock-low: 229 103 92;
+    --c-stock-medium: 201 168 76;
+    --c-stock-healthy: 95 191 122;
     color-scheme: dark;
   }
 
@@ -32,6 +48,41 @@
   h3,
   h4 {
     @apply font-serif font-normal;
+  }
+}
+
+@layer base {
+  /* The owner dashboard: plain black text on light grey and white, one simple font. */
+  .admin {
+    color-scheme: light;
+    --c-ink: 244 244 245; /* page background */
+    --c-ink-800: 255 255 255; /* cards and inputs */
+    --c-ink-700: 235 235 237;
+    --c-burgundy: 232 232 234;
+    --c-burgundy-700: 222 222 225;
+    --c-burgundy-900: 238 238 240; /* highlighted boxes */
+    --c-gold: 17 17 17; /* accents become black */
+    --c-gold-light: 17 17 17;
+    --c-gold-dark: 17 17 17;
+    --c-cream: 17 17 17; /* text */
+    --c-cream-muted: 64 64 64;
+    --c-cream-dim: 102 102 102;
+    --c-stock-low: 17 17 17;
+    --c-stock-medium: 17 17 17;
+    --c-stock-healthy: 17 17 17;
+    --font-cormorant: var(--font-jost);
+    background: rgb(var(--c-ink));
+    color: rgb(var(--c-cream));
+    font-weight: 400;
+  }
+  .admin h1,
+  .admin h2,
+  .admin h3 {
+    @apply font-sans font-medium tracking-normal;
+  }
+  .admin ::selection {
+    background: #111;
+    color: #fff;
   }
 }
 

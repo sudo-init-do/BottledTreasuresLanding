@@ -27,7 +27,7 @@ export default function CustomerForm({ customer }: { customer?: Omit<Customer, "
         <div className="flex flex-wrap gap-2">
           {TIERS.map((t) => (
             <label key={t.id} className="flex cursor-pointer items-center gap-2 border border-gold/25 px-4 py-2.5 text-sm text-cream/80 has-[:checked]:border-gold has-[:checked]:text-gold">
-              <input type="radio" name="tier" value={t.id} defaultChecked={(customer?.tier ?? "wholesale") === t.id} className="accent-[#C9A84C]" />
+              <input type="radio" name="tier" value={t.id} defaultChecked={(customer?.tier ?? "wholesale") === t.id} className="accent-gold" />
               {t.label}
             </label>
           ))}
@@ -43,7 +43,7 @@ export default function CustomerForm({ customer }: { customer?: Omit<Customer, "
       </div>
       {customer && (
         <label className="flex cursor-pointer items-start gap-3 border border-gold/25 px-4 py-3 text-sm text-cream/80">
-          <input type="checkbox" name="active" defaultChecked={customer.active} className="mt-0.5 accent-[#C9A84C]" />
+          <input type="checkbox" name="active" defaultChecked={customer.active} className="mt-0.5 accent-gold" />
           <span>
             Account is on
             <span className="block text-xs text-cream/50">Untick to switch it off. They&rsquo;re signed out straight away and see retail prices.</span>

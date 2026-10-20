@@ -1,3 +1,4 @@
+import HelpBox from "@/components/admin/HelpBox";
 import Link from "next/link";
 import { readDb } from "@/lib/db";
 
@@ -6,9 +7,12 @@ export default async function CustomersPage({ searchParams }: { searchParams: { 
 
   return (
     <div className="space-y-8">
+      <HelpBox title="What this page is for">
+        <p>Customers don&apos;t need an account to buy. Create one here only for wholesale buyers: they sign in and see your wholesale prices instead of the normal prices.</p>
+      </HelpBox>
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-serif text-4xl text-cream">Customers</h1>
+          <h1 className="text-3xl text-cream">Customers</h1>
           <p className="mt-2 max-w-xl text-sm text-cream/60">
             Wholesale customers sign in at <span className="text-cream">/account/login</span> and see wholesale prices. Everyone else shops as a guest at retail prices.
           </p>
