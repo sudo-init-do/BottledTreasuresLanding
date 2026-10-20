@@ -10,7 +10,7 @@ const stepIcons = [
     <circle cx="33" cy="29" r="4" />
     <path d="m36 32 4 4" />
   </svg>,
-  // Pay & upload
+  // Order on WhatsApp
   <svg key="p" viewBox="0 0 48 48" className="h-10 w-10" fill="none" stroke="currentColor" strokeWidth="1">
     <rect x="6" y="12" width="28" height="20" />
     <path d="M6 18h28M11 26h7" />

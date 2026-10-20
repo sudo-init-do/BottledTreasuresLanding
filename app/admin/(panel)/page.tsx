@@ -1,68 +1,78 @@
 import HelpBox from "@/components/admin/HelpBox";
-import Link from "next/link";
-import { StatusBadge } from "@/components/OrderSummary";
+import DeleteSaleButton from "@/components/admin/DeleteSaleButton";
+import SaleForm from "@/components/admin/SaleForm";
 import { readDb } from "@/lib/db";
-import { ORDER_STATUSES, formatNaira } from "@/lib/types";
+import { formatNaira, type Sale } from "@/lib/types";
 
-const date = (iso: string) => new Date(iso).toLocaleString("en-NG", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" });
+const day = (iso: string) => new Date(`${iso}T12:00:00`).toLocaleDateString("en-NG", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
 
-export default async function OrdersPage({ searchParams }: { searchParams: { s?: string } }) {
-  const { orders } = await readDb();
-  const filter = ORDER_STATUSES.some((s) => s.id === searchParams.s) ? searchParams.s : undefined;
-  const shown = filter ? orders.filter((o) => o.status === filter) : orders;
-  const toCheck = orders.filter((o) => o.status === "pending").length;
-  const toSend = orders.filter((o) => o.status === "paid").length;
-  const sales = orders.filter((o) => ["paid", "dispatched", "completed"].includes(o.status)).reduce((n, o) => n + o.total, 0);
+const sum = (sales: Sale[]) => ({ money: sales.reduce((n, s) => n + s.total, 0), bottles: sales.reduce((n, s) => n + s.qty, 0) });
+
+export default async function SalesPage() {
+  const { sales, products } = await readDb();
+  const today = new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Lagos" });
+  const month = today.slice(0, 7);
+  const totals = [
+    { label: "Today", ...sum(sales.filter((s) => s.date === today)) },
+    { label: "This month", ...sum(sales.filter((s) => s.date.startsWith(month))) },
+    { label: "All time", ...sum(sales) },
+  ];
+  const sorted = [...sales].sort((a, b) => b.date.localeCompare(a.date) || b.createdAt.localeCompare(a.createdAt));
 
   return (
     <div className="space-y-8">
-      <HelpBox title="How orders work">
-        <p>1. A customer orders, pays by bank transfer and uploads their receipt. The order shows here as <strong className="font-medium text-cream">Checking payment</strong>.</p>
-        <p>2. Open the order, check the money arrived in your account, then change the status to <strong className="font-medium text-cream">Paid</strong>.</p>
-        <p>3. When you send it or it&apos;s ready to collect, change it to <strong className="font-medium text-cream">Dispatched</strong>, then <strong className="font-medium text-cream">Completed</strong>. Cancelling an order puts its bottles back in stock.</p>
+      <div>
+        <h1 className="text-3xl text-cream">Sales</h1>
+        <p className="mt-1 text-sm text-cream/60">Your record of everything you&apos;ve sold.</p>
+      </div>
+
+      <HelpBox title="How selling works">
+        <p>1. A customer fills their cart and taps <strong className="font-medium text-cream">Order on WhatsApp</strong>. Their order arrives on your WhatsApp, with what they want and where to deliver it.</p>
+        <p>2. Agree payment and delivery with them on WhatsApp, as you normally would.</p>
+        <p>3. Once they&apos;ve paid, come here and <strong className="font-medium text-cream">record the sale</strong>: choose the product, how many, and the price. The bottles come off your stock count automatically.</p>
+        <p>Recorded something by mistake? Tap <strong className="font-medium text-cream">Delete</strong> next to it and the bottles go back into stock.</p>
       </HelpBox>
+
       <div className="grid gap-4 sm:grid-cols-3">
-        {[
-          { label: "Payments to check", value: String(toCheck), href: "/admin?s=pending" },
-          { label: "Paid, ready to send", value: String(toSend), href: "/admin?s=paid" },
-          { label: "Total sales", value: formatNaira(sales), href: "/admin" },
-        ].map((s) => (
-          <Link key={s.label} href={s.href} className="border border-gold/20 bg-ink-800 p-5 transition-colors hover:border-gold/60">
-            <p className="text-[11px] uppercase tracking-wider2 text-cream/60">{s.label}</p>
-            <p className="mt-2 font-serif text-4xl text-gold">{s.value}</p>
-          </Link>
+        {totals.map((t) => (
+          <div key={t.label} className="rounded-lg border border-cream/15 bg-ink-800 p-5">
+            <p className="text-sm text-cream/60">{t.label}</p>
+            <p className="mt-1 text-2xl font-semibold tabular-nums text-cream">{formatNaira(t.money)}</p>
+            <p className="text-sm text-cream/60">{t.bottles} {t.bottles === 1 ? "bottle" : "bottles"}</p>
+          </div>
         ))}
       </div>
 
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <h1 className="text-3xl text-cream">Orders</h1>
-        <nav className="flex flex-wrap gap-2 text-[11px] uppercase tracking-wider2">
-          <Link href="/admin" className={`border px-3 py-1.5 ${!filter ? "border-gold text-gold" : "border-gold/20 text-cream/60"}`}>All</Link>
-          {ORDER_STATUSES.map((s) => (
-            <Link key={s.id} href={`/admin?s=${s.id}`} className={`border px-3 py-1.5 ${filter === s.id ? "border-gold text-gold" : "border-gold/20 text-cream/60"}`}>{s.label}</Link>
-          ))}
-        </nav>
-      </div>
-
-      {shown.length === 0 ? (
-        <p className="border border-gold/15 px-6 py-14 text-center text-cream/60">
-          {orders.length ? "No orders with this status." : "No orders yet. They'll appear here as soon as a customer checks out."}
-        </p>
+      {products.length ? (
+        <SaleForm products={products.map((p) => ({ id: p.id, name: p.name, price: p.price, stock: p.stock }))} today={today} />
       ) : (
-        <ul className="divide-y divide-gold/10 border border-gold/15">
-          {shown.map((o) => (
-            <li key={o.id}>
-              <Link href={`/admin/orders/${o.id}`} className="grid grid-cols-2 items-center gap-3 px-4 py-4 transition-colors hover:bg-ink-800 sm:grid-cols-[110px_1fr_auto_auto_auto] sm:gap-6">
-                <span className="font-medium text-gold">{o.code}</span>
-                <span className="min-w-0 truncate text-cream">{o.customer.name} <span className="text-cream/50">· {o.items.reduce((n, i) => n + i.qty, 0)} item(s)</span></span>
-                <span className="text-sm text-cream/50">{date(o.createdAt)}</span>
-                <span className="font-serif text-lg text-cream">{formatNaira(o.total)}</span>
-                <span className="justify-self-start sm:justify-self-end"><StatusBadge status={o.status} /></span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <p className="rounded-lg border border-cream/15 bg-ink-800 px-6 py-10 text-center text-cream/60">Add your products on the Products page first, then you can record sales here.</p>
       )}
+
+      <section className="space-y-3">
+        <h2 className="text-xl font-medium text-cream">Past sales</h2>
+        {sorted.length === 0 ? (
+          <p className="rounded-lg border border-cream/15 bg-ink-800 px-6 py-14 text-center text-cream/60">No sales recorded yet. Your first one will show here.</p>
+        ) : (
+          <ul className="divide-y divide-cream/10 overflow-hidden rounded-lg border border-cream/15 bg-ink-800">
+            {sorted.map((s) => (
+              <li key={s.id} className="grid gap-2 p-4 sm:grid-cols-[130px_1fr_auto_auto] sm:items-center sm:gap-6 sm:px-5">
+                <span className="text-sm text-cream/60">{day(s.date)}</span>
+                <div className="min-w-0">
+                  <p className="font-medium text-cream">
+                    {s.qty} × {s.name} <span className="font-normal text-cream/60">at {formatNaira(s.price)}</span>
+                  </p>
+                  {(s.customer || s.note) && <p className="truncate text-sm text-cream/60">{[s.customer, s.note].filter(Boolean).join(" · ")}</p>}
+                </div>
+                <span className="font-semibold tabular-nums text-cream">{formatNaira(s.total)}</span>
+                <span className="sm:justify-self-end">
+                  <DeleteSaleButton id={s.id} label={`${s.qty} × ${s.name}`} />
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }

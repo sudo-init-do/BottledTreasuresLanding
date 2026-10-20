@@ -59,18 +59,18 @@ Fonts: Cormorant Garamond (headings, `font-serif`) and Jost (body, `font-sans`) 
 
 - `/shop`: all products, with filters and search
 - `/shop/<product>`: product page
-- `/cart` → `/checkout`: details, pickup or delivery, bank transfer, upload payment receipt
-- `/order/<code>`: confirmation; `/track`: track an order with its number and phone
+- `/cart` → `/checkout`: name, phone, pickup or delivery, then **Order on WhatsApp** opens WhatsApp with the order written out (items, prices, delivery, total, address) and sends it to the number in Settings. Payment and delivery are arranged there; the site keeps no order record
+- Deleted products disappear from the shop and from carts straight away. With no products at all, the shop and homepage show a "New fragrances are on the way" message instead
 
 **For the owner** (`/admin`, login required). The dashboard uses a plain black-and-grey look (the `.admin` class in `app/globals.css` remaps the brand colours) with a short explanation on each page:
 
-- **Orders**: see new orders, view the payment receipt, change status (Checking payment → Paid → Dispatched → Completed), WhatsApp the customer
-- **Products**: one plain list with an explanation at the top. Each product shows its photo, price and bottles in stock, with **+ Add stock** (type how many arrived; it is added to the count), **Correct count** (type the exact number), **Edit** and **Delete** (asks to confirm). **+ Add new product** opens a short form: photo, name, price and bottles are required; wholesale price, sale price, scent notes and shop sections are under "More options". Stock goes down when an order is placed and back up if it is cancelled; at 0 the product shows as sold out
-- **Settings**: bank details shown at checkout, WhatsApp number
+- **Sales** (the dashboard home): once a customer has paid, record the sale: product, how many, price each (filled in from the shop price), optional customer, note and date. The bottles come off the stock count (untick to skip). Totals for today, this month and all time, and a list of past sales; deleting a sale puts its bottles back
+- **Products**: one plain list with an explanation at the top. Each product shows its photo, price and bottles in stock, with **+ Add stock** (type how many arrived; it is added to the count), **Correct count** (type the exact number), **Edit** and **Delete** (asks to confirm). **+ Add new product** opens a short form: photo, name, price and bottles are required; wholesale price, sale price, scent notes and shop sections are under "More options". Stock goes down when a sale is recorded; at 0 the product shows as sold out
+- **Settings**: the WhatsApp number checkout sends orders to
 
 Login details come from `.env` (copy `.env.example`). When running locally without a `.env`, the login is `admin@bottledtreasures.ng` / `changeme`.
 
-Orders, receipts and uploaded photos are saved in the `data/` folder (a simple JSON file plus uploads). Back this folder up. The first run fills the shop with the starter products from `lib/seed.ts`.
+Sales, products and uploaded photos are saved in the `data/` folder (a simple JSON file plus uploads). Back this folder up. The first run fills the shop with the starter products from `lib/seed.ts`.
 
 ## Develop
 
@@ -92,6 +92,6 @@ docker compose logs -f        # watch the logs
 
 - **Environment variables**: all listed in `.env.example`. In production the dashboard login stays disabled until `ADMIN_EMAIL`, `ADMIN_PASSWORD` and `SESSION_SECRET` are set.
 - **HTTPS**: put the site behind HTTPS (e.g. a reverse proxy such as Caddy, Nginx or your host's load balancer). The login cookie is HTTPS-only; set `COOKIE_SECURE=false` only if you must use the dashboard over plain `http://`.
-- **Data**: orders, payment receipts and product photos are stored in the `shop-data` volume (`/app/data`). Back it up, e.g. `docker run --rm -v bottledtreasureslanding_shop-data:/data -v "$PWD":/backup alpine tar czf /backup/shop-data.tgz -C /data .`
+- **Data**: sales, products and product photos are stored in the `shop-data` volume (`/app/data`). Back it up, e.g. `docker run --rm -v bottledtreasureslanding_shop-data:/data -v "$PWD":/backup alpine tar czf /backup/shop-data.tgz -C /data .`
 - **Updating**: `git pull && docker compose up -d --build`. Data in the volume is kept.
 - **Different base image source**: `docker compose build --build-arg NODE_IMAGE=public.ecr.aws/docker/library/node:18-alpine` if Docker Hub rate-limits your server.

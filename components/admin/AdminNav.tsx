@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const links = [
-  { href: "/admin", label: "Orders" },
+  { href: "/admin", label: "Sales" },
   { href: "/admin/products", label: "Products" },
   { href: "/admin/customers", label: "Customers" },
   { href: "/admin/settings", label: "Settings" },
@@ -15,7 +15,7 @@ export default function AdminNav() {
   return (
     <nav className="flex gap-0.5 sm:gap-1">
       {links.map((l) => {
-        const active = l.href === "/admin" ? path === "/admin" || path.startsWith("/admin/orders") : path.startsWith(l.href);
+        const active = l.href === "/admin" ? path === "/admin" : path.startsWith(l.href);
         return (
           <Link
             key={l.href}

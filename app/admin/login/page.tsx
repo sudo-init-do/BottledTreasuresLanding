@@ -12,7 +12,7 @@ export default function LoginPage() {
         <div className="text-center">
           <BrandMark className="mx-auto h-16 w-auto text-gold" />
           <h1 className="mt-6 font-serif text-4xl text-cream">Owner Sign In</h1>
-          <p className="mt-2 text-sm text-cream/60">Manage orders and products.</p>
+          <p className="mt-2 text-sm text-cream/60">Record sales and manage products.</p>
         </div>
         <div className="mt-10 border border-gold/25 bg-ink-800 p-7">
           <LoginForm />

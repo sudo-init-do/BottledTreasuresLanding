@@ -33,8 +33,6 @@ export type Product = {
   createdAt: string;
 };
 
-export type OrderItem = { slug: string; name: string; price: number; qty: number; image: string };
-
 export const DELIVERY = {
   pickup: { label: "Pickup from our Bonny Island studio", fee: 0 },
   island: { label: "Delivery on Bonny Island", fee: 3000 },
@@ -42,31 +40,23 @@ export const DELIVERY = {
 } as const;
 export type DeliveryMethod = keyof typeof DELIVERY;
 
-export const ORDER_STATUSES = [
-  { id: "pending", label: "Checking payment" },
-  { id: "paid", label: "Paid" },
-  { id: "dispatched", label: "Dispatched / Ready for pickup" },
-  { id: "completed", label: "Completed" },
-  { id: "cancelled", label: "Cancelled" },
-] as const;
-export type OrderStatus = (typeof ORDER_STATUSES)[number]["id"];
-
-export type Order = {
+/** A sale the owner records by hand in the dashboard after a customer has paid (orders arrive on WhatsApp). */
+export type Sale = {
   id: string;
-  code: string;
-  createdAt: string;
-  status: OrderStatus;
-  customer: { name: string; phone: string; email: string; address: string; city: string; note: string };
-  delivery: DeliveryMethod;
-  deliveryFee: number;
-  items: OrderItem[];
-  subtotal: number;
+  /** Day of the sale, YYYY-MM-DD. */
+  date: string;
+  /** Empty when the product has since been deleted or the sale was for something not in the shop. */
+  productId: string;
+  name: string;
+  qty: number;
+  /** Price per bottle, in Naira. */
+  price: number;
   total: number;
-  proof: string;
-  /** True once a cancelled order's bottles have been put back into stock. */
-  stockReturned?: boolean;
-  /** Set when a signed-in wholesale customer placed the order at wholesale prices. */
-  wholesale?: { customerId: string };
+  customer: string;
+  note: string;
+  /** True when recording the sale took the bottles off the stock count. */
+  tookStock: boolean;
+  createdAt: string;
 };
 
 export type Tier = "retail" | "wholesale";
@@ -96,17 +86,19 @@ export type Customer = {
 export type ShopProduct = Omit<Product, "wholesalePrice"> & { retailPrice?: number };
 
 export type Settings = {
-  bankName: string;
-  accountName: string;
-  accountNumber: string;
+  /** Checkout sends customers here with their order. */
   whatsapp: string;
 };
 
-export type Database = { products: Product[]; orders: Order[]; customers: Customer[]; settings: Settings };
+export type Database = { products: Product[]; sales: Sale[]; customers: Customer[]; settings: Settings };
 
 export type StockLevel = "low" | "medium" | "healthy";
 
 /** Under 5 is low, 5–19 is medium, 20 or more is healthy. */
 export const stockLevel = (n: number): StockLevel => (n < 5 ? "low" : n < 20 ? "medium" : "healthy");
+
+/** A wa.me link for a number typed any way (0803…, +234 803…), with an optional prefilled message. */
+export const whatsappLink = (number: string, text?: string) =>
+  `https://wa.me/${number.replace(/\D/g, "").replace(/^0/, "234")}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
 export const formatNaira = (amount: number) => `₦${amount.toLocaleString("en-NG")}`;
