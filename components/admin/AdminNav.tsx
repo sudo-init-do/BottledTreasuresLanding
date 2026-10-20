@@ -21,7 +21,7 @@ export default function AdminNav() {
             key={l.href}
             href={l.href}
             aria-current={active ? "page" : undefined}
-            className={`px-2 py-2 text-[10px] font-medium uppercase tracking-wider2 transition-colors sm:px-4 sm:text-[11px] ${active ? "bg-gold text-ink" : "text-cream/70 hover:text-gold"}`}
+            className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors sm:px-4 sm:text-sm ${active ? "bg-gold text-ink-800" : "text-cream/60 hover:bg-ink hover:text-cream"}`}
           >
             {l.label}
           </Link>

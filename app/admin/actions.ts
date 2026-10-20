@@ -151,7 +151,7 @@ export async function deleteProduct(id: string): Promise<{ error?: string }> {
 export async function adjustStock(id: string, delta: number): Promise<number | null> {
   await requireAdmin();
   const step = Math.trunc(Number(delta));
-  if (!Number.isFinite(step) || Math.abs(step) > 1000) return null;
+  if (!Number.isFinite(step) || Math.abs(step) > 99999) return null;
   const next = await updateDb((db) => {
     const p = db.products.find((x) => x.id === id);
     if (!p) return null;

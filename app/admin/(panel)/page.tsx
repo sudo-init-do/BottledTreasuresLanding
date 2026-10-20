@@ -1,3 +1,4 @@
+import HelpBox from "@/components/admin/HelpBox";
 import Link from "next/link";
 import { StatusBadge } from "@/components/OrderSummary";
 import { readDb } from "@/lib/db";
@@ -15,6 +16,11 @@ export default async function OrdersPage({ searchParams }: { searchParams: { s?:
 
   return (
     <div className="space-y-8">
+      <HelpBox title="How orders work">
+        <p>1. A customer orders, pays by bank transfer and uploads their receipt. The order shows here as <strong className="font-medium text-cream">Checking payment</strong>.</p>
+        <p>2. Open the order, check the money arrived in your account, then change the status to <strong className="font-medium text-cream">Paid</strong>.</p>
+        <p>3. When you send it or it&apos;s ready to collect, change it to <strong className="font-medium text-cream">Dispatched</strong>, then <strong className="font-medium text-cream">Completed</strong>. Cancelling an order puts its bottles back in stock.</p>
+      </HelpBox>
       <div className="grid gap-4 sm:grid-cols-3">
         {[
           { label: "Payments to check", value: String(toCheck), href: "/admin?s=pending" },
@@ -29,7 +35,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: { s?:
       </div>
 
       <div className="flex flex-wrap items-end justify-between gap-4">
-        <h1 className="font-serif text-4xl text-cream">Orders</h1>
+        <h1 className="text-3xl text-cream">Orders</h1>
         <nav className="flex flex-wrap gap-2 text-[11px] uppercase tracking-wider2">
           <Link href="/admin" className={`border px-3 py-1.5 ${!filter ? "border-gold text-gold" : "border-gold/20 text-cream/60"}`}>All</Link>
           {ORDER_STATUSES.map((s) => (

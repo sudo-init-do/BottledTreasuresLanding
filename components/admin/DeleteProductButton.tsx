@@ -23,11 +23,11 @@ export default function DeleteProductButton({ id, name, redirectTo, compact = fa
       }
     });
 
-  const small = "text-[11px] uppercase tracking-wider2";
+  const small = "text-sm";
 
   if (!confirming) {
     return (
-      <span className="inline-flex flex-col items-start gap-1 sm:items-end">
+      <span className="inline-flex flex-col items-start gap-1">
         <button
           type="button"
           onClick={() => {
@@ -35,22 +35,24 @@ export default function DeleteProductButton({ id, name, redirectTo, compact = fa
             setConfirming(true);
           }}
           aria-label={`Delete ${name}`}
-          className={compact ? `${small} text-cream/50 hover:text-stock-low` : "btn-outline"}
+          className={compact ? `${small} text-cream/60 underline underline-offset-2 hover:text-cream` : "rounded-md border border-cream/40 px-4 py-2 text-sm font-medium text-cream hover:bg-cream hover:text-ink-800"}
         >
-          Delete{compact ? "" : " Product"}
+          Delete{compact ? "" : " this product"}
         </button>
-        {error && <span role="alert" className="text-xs text-stock-low">{error}</span>}
+        {error && <span role="alert" className="text-xs font-medium text-cream">{error}</span>}
       </span>
     );
   }
 
   return (
-    <span role="alertdialog" aria-label={`Delete ${name}?`} className="inline-flex flex-wrap items-center gap-3 sm:justify-end">
-      <span className="text-sm text-cream/80">Delete {compact ? "" : <strong className="font-medium text-cream">{name}</strong>} permanently?</span>
-      <button type="button" autoFocus onClick={() => setConfirming(false)} disabled={pending} className={`${small} text-cream/60 hover:text-gold`}>
+    <span role="alertdialog" aria-label={`Delete ${name}?`} className="inline-flex flex-wrap items-center gap-3">
+      <span className="text-sm text-cream/80">
+        Delete <strong className="font-medium text-cream">{name}</strong> from the shop? This can&apos;t be undone.
+      </span>
+      <button type="button" autoFocus onClick={() => setConfirming(false)} disabled={pending} className={`${small} text-cream/60 underline underline-offset-2 hover:text-cream`}>
         Cancel
       </button>
-      <button type="button" onClick={remove} disabled={pending} className={`${small} border border-stock-low px-3 py-1.5 text-stock-low hover:bg-stock-low hover:text-cream disabled:opacity-60`}>
+      <button type="button" onClick={remove} disabled={pending} className={`${small} rounded-md bg-cream px-3 py-1.5 font-medium text-ink-800 hover:opacity-85 disabled:opacity-60`}>
         {pending ? "Deleting…" : "Yes, delete"}
       </button>
     </span>

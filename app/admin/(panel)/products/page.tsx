@@ -1,109 +1,95 @@
 import Image from "next/image";
 import Link from "next/link";
 import DeleteProductButton from "@/components/admin/DeleteProductButton";
-import StockControl from "@/components/admin/StockControl";
+import HelpBox from "@/components/admin/HelpBox";
+import RestockControl from "@/components/admin/RestockControl";
 import { getInventory } from "@/lib/shop";
-import { formatNaira, stockLevel } from "@/lib/types";
+import { formatNaira } from "@/lib/types";
 
 export default async function ProductsPage({ searchParams }: { searchParams: { saved?: string; view?: string } }) {
   const all = await getInventory();
   const lowOnly = searchParams.view === "low";
-  const products = lowOnly ? all.filter((p) => stockLevel(p.stock) === "low").sort((a, b) => a.stock - b.stock) : all;
+  const products = lowOnly ? all.filter((p) => p.stock < 5).sort((a, b) => a.stock - b.stock) : all;
 
   const bottles = all.reduce((n, p) => n + p.stock, 0);
-  const low = all.filter((p) => p.stock > 0 && p.stock < 5).length;
-  const soldOut = all.filter((p) => p.stock === 0).length;
+  const lowCount = all.filter((p) => p.stock < 5).length;
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-serif text-4xl text-cream">Inventory</h1>
-        <Link href="/admin/products/new" className="btn-gold">+ Add Product</Link>
-      </div>
-      {searchParams.saved && <p role="status" className="border border-gold/50 px-4 py-3 text-sm text-gold">Saved. The shop is updated.</p>}
-
-      <div className="grid grid-cols-3 gap-2 sm:gap-4">
-        <div className="border border-gold/20 bg-ink-800 p-3 sm:p-5">
-          <p className="text-[10px] uppercase tracking-wider2 text-cream/60 sm:text-[11px]">Bottles on hand</p>
-          <p className="mt-2 font-sans text-3xl font-light tabular-nums sm:text-4xl text-cream">{bottles.toLocaleString("en-NG")}</p>
-          <p className="mt-1 hidden text-xs text-cream/50 sm:block">across {all.length} products</p>
+        <div>
+          <h1 className="text-3xl text-cream">Products</h1>
+          <p className="mt-1 text-sm text-cream/60">
+            {all.length} products · {bottles.toLocaleString("en-NG")} bottles in stock
+            {lowCount > 0 && ` · ${lowCount} low or sold out`}
+          </p>
         </div>
-        <Link href="/admin/products?view=low" className="border border-stock-low/40 bg-ink-800 p-3 sm:p-5 transition-colors hover:border-stock-low">
-          <p className="text-[10px] uppercase tracking-wider2 text-cream/60 sm:text-[11px]">Running low</p>
-          <p className="mt-2 font-sans text-3xl font-light tabular-nums sm:text-4xl text-stock-low">{low}</p>
-          <p className="mt-1 hidden text-xs text-cream/50 sm:block">under 5 left · tap to see them</p>
-        </Link>
-        <Link href="/admin/products?view=low" className="border border-gold/20 bg-ink-800 p-3 sm:p-5 transition-colors hover:border-gold/60">
-          <p className="text-[10px] uppercase tracking-wider2 text-cream/60 sm:text-[11px]">Sold out</p>
-          <p className="mt-2 font-sans text-3xl font-light tabular-nums sm:text-4xl text-cream">{soldOut}</p>
-          <p className="mt-1 hidden text-xs text-cream/50 sm:block">hidden from buying until restocked</p>
+        <Link href="/admin/products/new" className="rounded-md bg-gold px-5 py-3 text-sm font-medium text-ink-800 hover:opacity-85">
+          + Add new product
         </Link>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <nav className="flex gap-2 text-[11px] uppercase tracking-wider2">
-          <Link href="/admin/products" className={`border px-3 py-1.5 ${!lowOnly ? "border-gold text-gold" : "border-gold/20 text-cream/60"}`}>All ({all.length})</Link>
-          <Link href="/admin/products?view=low" className={`border px-3 py-1.5 ${lowOnly ? "border-gold text-gold" : "border-gold/20 text-cream/60"}`}>Low stock ({low + soldOut})</Link>
-        </nav>
-        <p className="flex flex-wrap items-center gap-4 text-xs text-cream/60">
-          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-stock-low" /> under 5</span>
-          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-stock-medium" /> 5–19</span>
-          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-stock-healthy" /> 20+</span>
+      <HelpBox title="How this page works">
+        <p>
+          <strong className="font-medium text-cream">New delivery?</strong> Find the product and tap <strong className="font-medium text-cream">+ Add stock</strong>, then type how many bottles arrived. They&apos;re added to what you already have.
         </p>
-      </div>
+        <p>
+          <strong className="font-medium text-cream">Number wrong?</strong> Tap <strong className="font-medium text-cream">Correct count</strong> and type the exact number you have.
+        </p>
+        <p>
+          <strong className="font-medium text-cream">Selling something new?</strong> Tap <strong className="font-medium text-cream">+ Add new product</strong>. To change a price, photo or name, tap <strong className="font-medium text-cream">Edit</strong>. To remove a product from the shop, tap <strong className="font-medium text-cream">Delete</strong>.
+        </p>
+        <p>When a customer orders, their bottles are taken off automatically. At 0 the product shows as &ldquo;Sold out&rdquo; in the shop.</p>
+      </HelpBox>
+
+      {searchParams.saved && (
+        <p role="status" className="rounded-md border border-cream/30 bg-ink-800 px-4 py-3 text-sm font-medium text-cream">
+          ✓ Saved. The shop now shows your changes.
+        </p>
+      )}
+
+      <nav className="flex gap-2 text-sm">
+        <Link href="/admin/products" aria-current={!lowOnly ? "page" : undefined} className={`rounded-full border px-4 py-1.5 ${!lowOnly ? "border-cream bg-cream text-ink-800" : "border-cream/25 text-cream/70 hover:border-cream/60"}`}>
+          All products
+        </Link>
+        <Link href="/admin/products?view=low" aria-current={lowOnly ? "page" : undefined} className={`rounded-full border px-4 py-1.5 ${lowOnly ? "border-cream bg-cream text-ink-800" : "border-cream/25 text-cream/70 hover:border-cream/60"}`}>
+          Low or sold out ({lowCount})
+        </Link>
+      </nav>
 
       {products.length === 0 ? (
-        <p className="border border-gold/15 px-6 py-14 text-center text-cream/60">{lowOnly ? "Nothing is running low. Everything is well stocked." : "No products yet."}</p>
+        <p className="rounded-lg border border-cream/15 bg-ink-800 px-6 py-14 text-center text-cream/60">
+          {lowOnly ? "Nothing is running low. Every product has 5 or more bottles." : "No products yet. Tap “+ Add new product” to add your first one."}
+        </p>
       ) : (
-        <div className="relative overflow-x-auto border border-gold/15">
-          <table className="w-full text-left">
-            <thead className="border-b border-gold/15 text-[11px] uppercase tracking-wider2 text-cream/50">
-              <tr>
-                <th className="px-4 py-3 font-medium">Product</th>
-                <th className="hidden px-4 py-3 font-medium sm:table-cell">Retail / Wholesale</th>
-                <th className="px-4 py-3 font-medium">In stock</th>
-                <th className="hidden px-4 py-3 sm:table-cell"><span className="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gold/10">
-              {products.map((p) => (
-                <tr key={p.id} className="transition-colors hover:bg-ink-800/60">
-                  <td className="px-3 py-3 sm:px-4">
-                    <Link href={`/admin/products/${p.id}`} className="flex min-w-0 items-center gap-3 sm:gap-4">
-                      <span className="relative hidden h-14 w-12 shrink-0 min-[420px]:block overflow-hidden border border-gold/15 bg-ink-800">
-                        <Image src={p.image} alt="" fill sizes="48px" className="object-cover" unoptimized={p.image.startsWith("/media/")} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block font-serif text-lg leading-tight text-cream hover:text-gold sm:text-xl">{p.name}</span>
-                        <span className="block truncate text-xs text-cream/50">
-                          <span className="sm:hidden">{formatNaira(p.price)}{p.size && " · "}</span>
-                          {p.size}
-                        </span>
-                      </span>
-                    </Link>
-                    <div className="mt-2 flex items-center gap-5 sm:hidden">
-                      <Link href={`/admin/products/${p.id}`} className="text-[11px] uppercase tracking-wider2 text-cream/50 hover:text-gold">Edit</Link>
-                      <DeleteProductButton id={p.id} name={p.name} compact />
-                    </div>
-                  </td>
-                  <td className="hidden whitespace-nowrap px-4 py-3 font-sans tabular-nums text-cream/90 sm:table-cell">
+        <ul className="divide-y divide-cream/10 overflow-hidden rounded-lg border border-cream/15 bg-ink-800">
+          {products.map((p) => (
+            <li key={p.id} className="grid gap-4 p-4 sm:grid-cols-[1fr_200px_auto] sm:items-center sm:gap-6 sm:p-5">
+              <div className="flex min-w-0 items-center gap-4">
+                <span className="relative h-16 w-14 shrink-0 overflow-hidden rounded border border-cream/10 bg-ink">
+                  <Image src={p.image} alt="" fill sizes="56px" className="object-cover" unoptimized={p.image.startsWith("/media/")} />
+                </span>
+                <div className="min-w-0">
+                  <p className="font-medium text-cream">{p.name}</p>
+                  <p className="text-sm text-cream/60">
                     {formatNaira(p.price)}
-                    <span className="block text-xs text-cream/50">{p.wholesalePrice ? `${formatNaira(p.wholesalePrice)} wholesale` : "No wholesale price"}</span>
-                  </td>
-                  <td className="px-3 py-3 sm:px-4">
-                    <StockControl id={p.id} name={p.name} initial={p.stock} />
-                  </td>
-                  <td className="hidden px-4 py-3 text-right sm:table-cell">
-                    <div className="flex items-center justify-end gap-5">
-                      <Link href={`/admin/products/${p.id}`} className="text-[11px] uppercase tracking-wider2 text-cream/50 hover:text-gold">Edit</Link>
-                      <DeleteProductButton id={p.id} name={p.name} compact />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                    {p.size && <span className="text-cream/50"> · {p.size}</span>}
+                  </p>
+                  {p.wholesalePrice && <p className="text-xs text-cream/50">Wholesale {formatNaira(p.wholesalePrice)}</p>}
+                </div>
+              </div>
+
+              <RestockControl id={p.id} name={p.name} initial={p.stock} />
+
+              <div className="flex items-center gap-4 sm:flex-col sm:items-end sm:gap-2">
+                <Link href={`/admin/products/${p.id}`} className="text-sm text-cream/60 underline underline-offset-2 hover:text-cream">
+                  Edit
+                </Link>
+                <DeleteProductButton id={p.id} name={p.name} compact />
+              </div>
+            </li>
+          ))}
+        </ul>
       )}
     </div>
   );

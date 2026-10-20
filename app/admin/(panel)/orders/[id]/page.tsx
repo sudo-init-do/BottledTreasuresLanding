@@ -1,3 +1,4 @@
+import HelpBox from "@/components/admin/HelpBox";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -18,9 +19,13 @@ export default async function OrderDetail({ params }: { params: { id: string } }
 
   return (
     <div className="space-y-8">
+      <HelpBox title="What to do with this order">
+        <p>Look at the payment receipt below and check the total arrived in your bank account. Then choose the new status and tap <strong className="font-medium text-cream">Save Status</strong>.</p>
+        <p>Use <strong className="font-medium text-cream">WhatsApp customer</strong> to message them about delivery or pickup.</p>
+      </HelpBox>
       <Link href="/admin" className="text-[11px] uppercase tracking-wider2 text-cream/60 hover:text-gold">← All orders</Link>
       <div className="flex flex-wrap items-center gap-4">
-        <h1 className="font-serif text-4xl text-cream">Order {order.code}</h1>
+        <h1 className="text-3xl text-cream">Order {order.code}</h1>
         <StatusBadge status={order.status} />
       </div>
 

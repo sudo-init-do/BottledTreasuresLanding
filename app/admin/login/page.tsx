@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Sign in — Bottled Treasures", robo
 
 export default function LoginPage() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-ink px-5 py-16">
+    <main className="admin flex min-h-screen items-center justify-center px-5 py-16">
       <div className="w-full max-w-sm">
         <div className="text-center">
           <BrandMark className="mx-auto h-16 w-auto text-gold" />
